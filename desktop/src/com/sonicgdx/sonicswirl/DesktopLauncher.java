@@ -12,5 +12,6 @@ public class DesktopLauncher {
 		config.setTitle("Sonic Swirl");
 		new Lwjgl3Application(new SonicGDX(), config);
 
+
 	}
 }

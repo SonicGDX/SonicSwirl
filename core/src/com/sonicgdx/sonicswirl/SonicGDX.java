@@ -10,16 +10,22 @@ public class SonicGDX extends ApplicationAdapter {
 	Texture img;
 	
 	@Override
-	public void create () {
+	public void create () { // equivalent to start in unity
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 	}
 
 	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
+	public void render () { // equivalent to update in unity
+		ScreenUtils.clear(0, 0, 0, 1);
 		batch.begin();
-		batch.draw(img, 0, 0);
+		batch.draw(img, 250, 250, 1, 1, 50, 50);
+		//batch.draw(img, 0, 0, 1,1,1000,100);
+		/*for (int i=0; i< 5; i++){
+			//sprite.setRotation(i*1.5);
+			batch.draw(img, i*20, 200, 1,1,100,100);
+		}
+		*/
 		batch.end();
 	}
 	
