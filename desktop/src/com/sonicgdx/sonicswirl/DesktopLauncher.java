@@ -1,6 +1,6 @@
 package com.sonicgdx.sonicswirl;
 
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application; //Lwjgl is a library that exposes cross platform libraries like OpenGL
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.sonicgdx.sonicswirl.SonicGDX;
 
@@ -11,5 +11,6 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setTitle("Sonic Swirl");
 		new Lwjgl3Application(new SonicGDX(), config);
+
 	}
 }
