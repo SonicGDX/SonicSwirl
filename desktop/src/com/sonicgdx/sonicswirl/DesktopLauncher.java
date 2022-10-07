@@ -8,6 +8,8 @@ import com.sonicgdx.sonicswirl.SonicGDX;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		config.setWindowedMode(800, 480); // Default is 640 by 480 which has a 4:3 aspect ratio
+      	config.useVsync(true);
 		config.setForegroundFPS(60);
 		config.setTitle("Sonic Swirl");
 		new Lwjgl3Application(new SonicGDX(), config);
