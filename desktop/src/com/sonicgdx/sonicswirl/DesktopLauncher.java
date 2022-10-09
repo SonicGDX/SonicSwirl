@@ -1,6 +1,6 @@
 package com.sonicgdx.sonicswirl;
 
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application; //Lwjgl is a library that exposes cross platform libraries like OpenGL
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.sonicgdx.sonicswirl.SonicGDX;
 
@@ -8,8 +8,12 @@ import com.sonicgdx.sonicswirl.SonicGDX;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(60);
+		config.setWindowedMode(1280, 720); // Default is 640 by 480 which has a 4:3 aspect ratio
+      	config.useVsync(true);
+		config.setForegroundFPS(120);
 		config.setTitle("Sonic Swirl");
 		new Lwjgl3Application(new SonicGDX(), config);
+
+
 	}
 }
