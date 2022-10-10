@@ -18,7 +18,7 @@ public class SonicGDX extends ApplicationAdapter {
 	ShapeRenderer shapeRenderer;
 
 	int x = 1; //https://colourtann.github.io/HelloLibgdx/
-
+	int y = 10;
 	// Rectangle used in gdx.math is different to the rectangle in java.awt.Rectangle
 
 	// https://libgdx.com/wiki/start/a-simple-game
@@ -43,21 +43,18 @@ public class SonicGDX extends ApplicationAdapter {
 
 	@Override
 	public void render () { // equivalent to update in unity
+		ScreenUtils.clear(0, 0, 0, 1); // clears the screen and sets the background to a certain colour
+
+		y += 10;
+
 		if (x<=1280){
 			x+=1;
 			System.out.println(x);
 		}
 
-		ScreenUtils.clear(0, 0, 0, 1); // clears the screen and sets the background to a certain colour
 		batch.begin();
-		batch.draw(img, x, 250, 1, 1, 50, 50); // draw the square texture
-
+		batch.draw(img, x, 250 - y , 1, 1, 50, 50); // draw the square texture
 		//batch.draw(img,floor.x,floor.y); //draw the rectangle
-
-		// https://stackoverflow.com/a/43751578
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		shapeRenderer.rect(floor.x,floor.y,floor.width,floor.height);
-		shapeRenderer.end();
 
 		/*batch.draw(img, 0, 0, 1,1,1000,100);
 		for (int i=0; i< 5; i++){
@@ -66,6 +63,11 @@ public class SonicGDX extends ApplicationAdapter {
 		}
 		*/
 		batch.end();
+
+		// https://stackoverflow.com/a/43751578
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.rect(floor.x,floor.y,floor.width,floor.height);
+		shapeRenderer.end();
 	}
 	
 	@Override
