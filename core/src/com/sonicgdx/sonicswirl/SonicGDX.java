@@ -25,7 +25,7 @@ public class SonicGDX extends ApplicationAdapter {
 	@Override
 	public void create () { // equivalent to start in unity
 
-		camera = new OrthographicCamera();
+		camera = new OrthographicCamera(); //2D projection only
    		camera.setToOrtho(false, 1280, 720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
 
 		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
@@ -45,11 +45,17 @@ public class SonicGDX extends ApplicationAdapter {
 	public void render () { // equivalent to update in unity
 		ScreenUtils.clear(0, 0, 0, 1); // clears the screen and sets the background to a certain colour
 
-		//y += 10;
+		camera.update(); // recompute matrix for orthographical projection - this is necessary if
+		// it needs to move.
+
+		if (250-y >= 105)
+		{
+			y += 10;
+		}
 
 		if (x<=1280){
 			x+=1;
-			System.out.println(x);
+			//	System.out.println(x);
 		}
 
 		batch.begin();
@@ -65,7 +71,7 @@ public class SonicGDX extends ApplicationAdapter {
 		batch.end();
 
 		// https://stackoverflow.com/a/43751578
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		shapeRenderer.rect(floor.x,floor.y,floor.width,floor.height);
 		shapeRenderer.end();
 	}
