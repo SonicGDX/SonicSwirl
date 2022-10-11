@@ -36,9 +36,9 @@ public class SonicGDX extends ApplicationAdapter {
 		floor = new Rectangle();
 		shapeRenderer = new ShapeRenderer();
 		//floor.x = 800 / 2 - 640 / 2; //original
-		floor.x = 0;
-		floor.y = 0; //starts from bottom left
-		floor.width = 1280;
+		floor.x = 20;
+		floor.y = 20; //starts from bottom left
+		floor.width = 1240;
 		floor.height = 100;
 		// size of the rectangle isn't the same as the size of the texture so changing the width
 		// and height of the rectangle does not scale the texture.
@@ -51,7 +51,7 @@ public class SonicGDX extends ApplicationAdapter {
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if
 		// it needs to move.
 
-		if (250-y >= 105)
+		if (250-y >= 125)
 		{
 			y += 10;
 		}
