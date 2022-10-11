@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setWindowedMode(1280, 720); // Default is 640 by 480 which has a 4:3 aspect ratio
       	config.useVsync(true);
-		config.setForegroundFPS(120);
+		config.setForegroundFPS(60);
 		config.setTitle("Sonic Swirl");
 		new Lwjgl3Application(new SonicGDX(), config);
 
