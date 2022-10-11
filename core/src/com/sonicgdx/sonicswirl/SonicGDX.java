@@ -64,8 +64,8 @@ public class SonicGDX extends ApplicationAdapter {
 		//SHOW how camera affects view
 		// tell the SpriteBatch to render in the
 		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
-		// batch.setProjectionMatrix(camera.combined);
-		// shapeRenderer.setProjectionMatrix(camera.combined);
+		batch.setProjectionMatrix(camera.combined);
+		shapeRenderer.setProjectionMatrix(camera.combined);
 		// same for shapeRenderer
 
 		batch.begin();
