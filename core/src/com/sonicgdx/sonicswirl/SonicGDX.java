@@ -27,6 +27,9 @@ public class SonicGDX extends ApplicationAdapter {
 
 		camera = new OrthographicCamera(); // 3D camera which projects into 2D.
    		camera.setToOrtho(false, 1280, 720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
+		// So for example, one screen won't be in the bottom left corner in 1080p
+		// but would take up the entire view
+
 
 		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
 		img = new Texture("square-16.png");
@@ -58,10 +61,11 @@ public class SonicGDX extends ApplicationAdapter {
 			//	System.out.println(x);
 		}
 
+		//SHOW how camera affects view
 		// tell the SpriteBatch to render in the
 		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
-		batch.setProjectionMatrix(camera.combined);
-		shapeRenderer.setProjectionMatrix(camera.combined);
+		// batch.setProjectionMatrix(camera.combined);
+		// shapeRenderer.setProjectionMatrix(camera.combined);
 		// same for shapeRenderer
 
 		batch.begin();
@@ -79,6 +83,8 @@ public class SonicGDX extends ApplicationAdapter {
 		// https://stackoverflow.com/a/43751578
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		shapeRenderer.rect(floor.x,floor.y,floor.width,floor.height);
+		shapeRenderer.circle(200,500,20);
+		shapeRenderer.circle(800,400,20);
 		shapeRenderer.end();
 	}
 	
