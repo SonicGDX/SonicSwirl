@@ -47,7 +47,8 @@ public class SonicGDX extends ApplicationAdapter {
 	@Override
 	public void render () { // equivalent to update in unity
 
-		// shouldn't use shaperenderer for rendering - https://gamedev.stackexchange.com/a/133593
+		// shouldn't use ShapeRenderer for rendering - https://gamedev.stackexchange.com/a/133593
+		// can conflict with SpriteBatch - see https://libgdx.com/wiki/graphics/opengl-utils/rendering-shapes
 
 		ScreenUtils.clear(0, 0, 0, 1); // clears the screen and sets the background to a certain colour
 
