@@ -46,6 +46,9 @@ public class SonicGDX extends ApplicationAdapter {
 
 	@Override
 	public void render () { // equivalent to update in unity
+
+		// shouldn't use shaperenderer for rendering - https://gamedev.stackexchange.com/a/133593
+
 		ScreenUtils.clear(0, 0, 0, 1); // clears the screen and sets the background to a certain colour
 
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if
