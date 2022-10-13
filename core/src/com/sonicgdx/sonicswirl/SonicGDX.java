@@ -33,7 +33,7 @@ public class SonicGDX extends ApplicationAdapter {
 		// https://web.archive.org/web/20200427232345/https://www.badlogicgames.com/wordpress/?p=1550
 
 		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
-		img = new Texture("square-1.png");
+		img = new Texture("1px.png");
 
 	}
 
@@ -61,9 +61,9 @@ public class SonicGDX extends ApplicationAdapter {
 
 		batch.begin();
 
-		batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
-		batch.draw(img,20,200); //draw the rectangle
-		batch.draw(img,0,0,1240,100); //draw the rectangle
+		//batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
+		batch.draw(img,20,100,50,50); //draw the rectangle
+		//batch.draw(img,500,500,1240,100); //draw the rectangle
 
 		batch.end();
 	}
