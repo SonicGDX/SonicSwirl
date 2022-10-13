@@ -12,14 +12,10 @@ import com.badlogic.gdx.math.Rectangle;
 public class SonicGDX extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	Rectangle floor;
 	OrthographicCamera camera;
-
-	ShapeRenderer shapeRenderer;
 
 	int x = 1; //https://colourtann.github.io/HelloLibgdx/
 	int y = 10;
-	// Rectangle used in gdx.math is different to the rectangle in java.awt.Rectangle
 
 	// https://libgdx.com/wiki/start/a-simple-game
 	@Override
@@ -35,22 +31,11 @@ public class SonicGDX extends ApplicationAdapter {
 
 		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
 		img = new Texture("square-16.png");
-		floor = new Rectangle();
-		shapeRenderer = new ShapeRenderer();
-		//floor.x = 800 / 2 - 640 / 2; //original
-		floor.x = 20;
-		floor.y = 20; //starts from bottom left
-		floor.width = 1240;
-		floor.height = 100;
-		// size of the rectangle isn't the same as the size of the texture so changing the width
-		// and height of the rectangle does not scale the texture.
+
 	}
 
 	@Override
 	public void render () { // equivalent to update in unity
-
-		// shouldn't use ShapeRenderer for rendering - https://gamedev.stackexchange.com/a/133593
-		// can conflict with SpriteBatch - see https://libgdx.com/wiki/graphics/opengl-utils/rendering-shapes
 
 		ScreenUtils.clear(0, 0, 0, 1); // clears the screen and sets the background to a certain colour
 
@@ -67,20 +52,16 @@ public class SonicGDX extends ApplicationAdapter {
 			//	System.out.println(x);
 		}*/
 
-		//SHOW how camera affects view
 		// tell the SpriteBatch to render in the
 		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
 		batch.setProjectionMatrix(camera.combined);
-		shapeRenderer.setProjectionMatrix(camera.combined);
-		// same for shapeRenderer
-
 		batch.begin();
 		batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
-		batch.draw(img, x+18, 250 - y , 1, 1, 50, 50); // draw the square texture
 
 
-		batch.draw(img,floor.x,floor.y); //draw the rectangle
-		batch.draw(img,floor.x+16,floor.y);
+		batch.draw(img,20,200); //draw the rectangle
+
+		batch.draw(img,0,0,1240,100); //draw the rectangle
 
 		batch.end();
 	}
@@ -88,7 +69,6 @@ public class SonicGDX extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		shapeRenderer.dispose();
 		img.dispose();
 	}
 }
