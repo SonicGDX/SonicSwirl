@@ -15,7 +15,7 @@ public class SonicGDX extends ApplicationAdapter {
 	Texture img;
 	OrthographicCamera camera;
 
-	int x = 1; //https://colourtann.github.io/HelloLibgdx/
+	float x = 1; //https://colourtann.github.io/HelloLibgdx/
 	int y = 10;
 
 	// https://libgdx.com/wiki/start/a-simple-game
@@ -37,6 +37,7 @@ public class SonicGDX extends ApplicationAdapter {
 		img = new Texture("1x1-ffffffff.png");
 		sprite1 = new Sprite(img,50,50);
 		sprite1.setPosition(100,100);
+
 	}
 
 	@Override
@@ -57,6 +58,13 @@ public class SonicGDX extends ApplicationAdapter {
 			//	System.out.println(x);
 		}*/
 
+		if (x<=120)
+		{
+			x+=0.1;
+			sprite1.setScale(x);
+		}
+
+
 		// tell the SpriteBatch to render in the
 		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
 		batch.setProjectionMatrix(camera.combined);
@@ -64,6 +72,7 @@ public class SonicGDX extends ApplicationAdapter {
 		batch.begin();
 
 		sprite1.draw(batch);
+
 		//batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
 		batch.draw(img,0,0,1240,100); //draw the rectangle
 
