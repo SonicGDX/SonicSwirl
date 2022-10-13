@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class SonicGDX extends ApplicationAdapter {
 	SpriteBatch batch;
+	Sprite sprite1;
 	Texture img;
 	OrthographicCamera camera;
 
@@ -34,7 +35,8 @@ public class SonicGDX extends ApplicationAdapter {
 
 		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
 		img = new Texture("1x1-ffffffff.png");
-
+		sprite1 = new Sprite(img,50,50);
+		sprite1.setPosition(100,100);
 	}
 
 	@Override
@@ -61,8 +63,8 @@ public class SonicGDX extends ApplicationAdapter {
 
 		batch.begin();
 
+		sprite1.draw(batch);
 		//batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
-		batch.draw(img,20,100,50,50); //draw the rectangle
 		batch.draw(img,0,0,1240,100); //draw the rectangle
 
 		batch.end();
