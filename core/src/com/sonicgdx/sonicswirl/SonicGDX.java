@@ -15,7 +15,7 @@ public class SonicGDX extends ApplicationAdapter {
 	Texture img;
 	OrthographicCamera camera;
 
-	float x = 1; //https://colourtann.github.io/HelloLibgdx/
+	int x = 1; //https://colourtann.github.io/HelloLibgdx/
 	int y = 10;
 
 	// https://libgdx.com/wiki/start/a-simple-game
@@ -53,15 +53,9 @@ public class SonicGDX extends ApplicationAdapter {
 			y += 10;
 		}*/
 
-		/*if (x<=1280){
+		if (x<=1280){
 			x+=1;
-			//	System.out.println(x);
-		}*/
-
-		if (x<=120)
-		{
-			x+=0.1;
-			sprite1.setScale(x);
+			sprite1.setPosition(x,100);
 		}
 
 
@@ -72,6 +66,8 @@ public class SonicGDX extends ApplicationAdapter {
 		batch.begin();
 
 		sprite1.draw(batch);
+
+		System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
 
 		//batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
 		batch.draw(img,0,0,1240,100); //draw the rectangle
