@@ -31,6 +31,8 @@ public class SonicGDX extends ApplicationAdapter {
 		// but would take up the entire view
 
 
+		// https://web.archive.org/web/20200427232345/https://www.badlogicgames.com/wordpress/?p=1550
+
 		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
 		img = new Texture("square-16.png");
 		floor = new Rectangle();
@@ -55,15 +57,15 @@ public class SonicGDX extends ApplicationAdapter {
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if
 		// it needs to move.
 
-		if (250-y >= 125)
+		/*if (250-y >= 125)
 		{
 			y += 10;
-		}
+		}*/
 
-		if (x<=1280){
+		/*if (x<=1280){
 			x+=1;
 			//	System.out.println(x);
-		}
+		}*/
 
 		//SHOW how camera affects view
 		// tell the SpriteBatch to render in the
@@ -73,23 +75,14 @@ public class SonicGDX extends ApplicationAdapter {
 		// same for shapeRenderer
 
 		batch.begin();
-		batch.draw(img, x, 250 - y , 1, 1, 50, 50); // draw the square texture
-		//batch.draw(img,floor.x,floor.y); //draw the rectangle
+		batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
+		batch.draw(img, x+18, 250 - y , 1, 1, 50, 50); // draw the square texture
 
-		/*batch.draw(img, 0, 0, 1,1,1000,100);
-		for (int i=0; i< 5; i++){
-			//sprite.setRotation(i*1.5);
-			batch.draw(img, i*20, 200, 1,1,100,100);
-		}
-		*/
+
+		batch.draw(img,floor.x,floor.y); //draw the rectangle
+		batch.draw(img,floor.x+16,floor.y);
+
 		batch.end();
-
-		// https://stackoverflow.com/a/43751578
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-		shapeRenderer.rect(floor.x,floor.y,floor.width,floor.height);
-		shapeRenderer.circle(200,500,20);
-		shapeRenderer.circle(800,400,20);
-		shapeRenderer.end();
 	}
 	
 	@Override
