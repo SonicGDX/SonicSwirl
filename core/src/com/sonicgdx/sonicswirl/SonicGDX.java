@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.math.Rectangle;
-
+//import com.badlogic.gdx.math.Rectangle;
+//import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+//import com.badlogic.gdx.Game; -- replaces ApplicationAdapter
 public class SonicGDX extends ApplicationAdapter {
 	SpriteBatch batch;
 	Sprite sprite1;
