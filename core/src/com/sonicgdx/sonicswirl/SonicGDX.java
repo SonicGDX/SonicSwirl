@@ -60,7 +60,7 @@ public class SonicGDX extends Game {
 			sprite1.setPosition(x,100);
 		}
 
-		System.out.println("Speed = " + speed + " & x = " + x);
+		if (x<1280) System.out.println("Speed = " + speed + " & x = " + x);
 
 		// tell the SpriteBatch to render in the
 		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
