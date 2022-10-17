@@ -36,8 +36,8 @@ public class SonicGDX extends Game {
 
 		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
 		img = new Texture("1x1-ffffffff.png");
-		sprite1 = new Sprite(img,50,50);
-		sprite1.setPosition(100,100);
+		sprite1 = new Sprite(img,25,25);
+		sprite1.setPosition(25,100);
 
 	}
 
@@ -51,14 +51,16 @@ public class SonicGDX extends Game {
 
 		//if (250-y >= 125) y += 10;
 
-		if (speed <= 6) speed += 0.02;
-		//speed += 0.046875;
+		//if (speed <= 6) speed += 0.046875;
+		speed = (speed+0.046875 <= 6) ? (speed+= 0.046875):(speed=6);
 
 		if (x<=1280){
 			x+=speed;
 			if (x>1280) x = 1280;
 			sprite1.setPosition(x,100);
 		}
+
+		System.out.println("Speed = " + speed + " & x = " + x);
 
 		// tell the SpriteBatch to render in the
 		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
@@ -68,7 +70,7 @@ public class SonicGDX extends Game {
 
 		sprite1.draw(batch);
 
-		System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
+		//System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
 
 		//batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
 		batch.draw(img,0,0,1240,100); //draw the rectangle
