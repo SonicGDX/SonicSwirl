@@ -52,7 +52,7 @@ public class SonicGDX extends Game {
 		//if (250-y >= 125) y += 10;
 
 		//if (speed <= 6) speed += 0.046875;
-		speed = (speed+0.046875 <= 6) ? (speed+= 0.046875):(speed=6);
+		speed = (speed + 0.046875F <= 6) ? (speed + 0.046875F) : 6;
 
 		if (x<=1280){
 			x+=speed;
