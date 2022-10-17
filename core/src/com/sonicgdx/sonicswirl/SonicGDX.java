@@ -15,6 +15,8 @@ public class SonicGDX extends Game {
 	Texture img;
 	OrthographicCamera camera;
 
+	float speed;
+
 	int x = 1; //https://colourtann.github.io/HelloLibgdx/
 	int y = 10;
 
@@ -48,16 +50,21 @@ public class SonicGDX extends Game {
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if
 		// it needs to move.
 
+		// capital F can be used to cast from double to float (e.g. 50.55F)
+
 		/*if (250-y >= 125)
 		{
 			y += 10;
 		}*/
 
-		if (x<=1280){
-			x+=1;
-			sprite1.setPosition(x,100);
+		if (speed <= 6){
+			speed += 0.046875;
 		}
 
+		if (x<=1280){
+			x+=speed;
+			sprite1.setPosition(x,100);
+		}
 
 		// tell the SpriteBatch to render in the
 		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
