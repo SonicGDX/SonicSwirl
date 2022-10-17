@@ -14,7 +14,7 @@ public class SonicGDX extends Game {
 	Sprite sprite1;
 	Texture img;
 	OrthographicCamera camera;
-
+	// capital F can be used to cast from double to float (e.g. 50.55F)
 	float speed = 0;
 
 	int x = 100; //https://colourtann.github.io/HelloLibgdx/
@@ -49,8 +49,6 @@ public class SonicGDX extends Game {
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if
 		// it needs to move.
 
-		// capital F can be used to cast from double to float (e.g. 50.55F)
-
 		//if (250-y >= 125) y += 10;
 
 		if (speed <= 6) speed += 0.02;
@@ -58,6 +56,7 @@ public class SonicGDX extends Game {
 
 		if (x<=1280){
 			x+=speed;
+			if (x>1280) x = 1280;
 			sprite1.setPosition(x,100);
 		}
 
