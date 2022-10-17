@@ -17,7 +17,7 @@ public class SonicGDX extends Game {
 	// capital F can be used to cast from double to float (e.g. 50.55F)
 	float speed = 0;
 
-	int x = 100; //https://colourtann.github.io/HelloLibgdx/
+	float x = 100; //https://colourtann.github.io/HelloLibgdx/
 	int y = 10;
 
 	// https://libgdx.com/wiki/start/a-simple-game
@@ -60,7 +60,7 @@ public class SonicGDX extends Game {
 			sprite1.setPosition(x,100);
 		}
 
-		if (x<1280) System.out.println("Speed = " + speed + " & x = " + x);
+		if (x<1280) System.out.println("Speed = " + speed + " & x = " + x + " & position = " + sprite1.getX());
 
 		// tell the SpriteBatch to render in the
 		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
