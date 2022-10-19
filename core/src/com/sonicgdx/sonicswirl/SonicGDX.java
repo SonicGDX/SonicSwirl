@@ -76,9 +76,11 @@ public class SonicGDX extends Game {
 				sprite1.setPosition(x,100);
 			}
 
+
 			if (x<1280) System.out.println("Speed = " + speed + " & x = " + x);
 
 		}
+		else speed = 0;
 
 		leftFootSensor = sprite1.getX();
 		rightFootSensor = sprite1.getX() + (25-1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
