@@ -66,12 +66,13 @@ public class SonicGDX extends Game {
 		//if (250-y >= 125) y += 10;
 
 		if (Gdx.input.isKeyPressed(Input.Keys.D)){
-			//if (speed <= 6) speed += 0.046875;
+			//ternary operator
 			speed = (speed + 0.046875F <= 6) ? (speed + 0.046875F) : 6;
+			//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 
 			if (x<=1280){
 				x+=speed;
-				if (x>1280) x = 1280;
+				if (x>1280) x = 20;
 
 				sprite1.setPosition(x,100);
 			}
