@@ -19,15 +19,12 @@ public class SonicGDX extends Game {
 	Texture img2;
 	OrthographicCamera camera;
 	// capital F can be used to cast from double to float (e.g. 50.55F)
-	float speed = 0;
-
-	float x = 25; //https://colourtann.github.io/HelloLibgdx/
-	float y = 100;
+	float speedX = 0, speedY = 0, groundSpeed = 0;
+	float x = 25, y = 100;; //https://colourtann.github.io/HelloLibgdx/
 
 
 	//https://info.sonicretro.org/SPG:Solid_Tiles#Sensors
-	float leftFootSensor;
-	float rightFootSensor;
+	float leftFootSensor, rightFootSensor;
 
 	static final float accel = 0.046875F, decel = 0.5F;
 
@@ -65,27 +62,23 @@ public class SonicGDX extends Game {
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
 
 		//if (250-y >= 150) y += 10;
-
-		if (!Gdx.input.isKeyPressed(Input.Keys.D)){
+		if (Gdx.input.isKeyPressed(Input.Keys.D)){
 			//ternary operator
-			speed = (speed + accel <= 6) ? (speed + accel) : 6;
+			groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
 			//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 
 			if (x<=1280){
-				x+=speed;
+				x+=groundSpeed;
 				if (x>1280) x = 20;
-
-				sprite1.setPosition(x,y);
 			}
-
-
-			if (x<1280) System.out.println("Speed = " + speed + " & x = " + x);
 
 		}
 		else {
-			speed = (speed - decel >= 0) ? (speed - decel) : 0;
-			x+= speed;
+			groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
+			x+=groundSpeed;
 		}
+		sprite1.setPosition(x,y);
+		if (x<1280) System.out.println("Ground Speed = " + groundSpeed + " & x = " + x);
 
 		leftFootSensor = sprite1.getX();
 		rightFootSensor = sprite1.getX() + (25-1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
