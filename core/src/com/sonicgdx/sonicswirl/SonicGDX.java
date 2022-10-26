@@ -29,6 +29,8 @@ public class SonicGDX extends Game {
 	float leftFootSensor;
 	float rightFootSensor;
 
+	static final float accel = 0.046875F, decel = 0.5F;
+
 
 	// https://libgdx.com/wiki/start/a-simple-game
 
@@ -60,28 +62,30 @@ public class SonicGDX extends Game {
 
 		ScreenUtils.clear(0, 0, 1, 1); // clears the screen and sets the background to a certain colour
 
-		camera.update(); // recompute matrix for orthographical projection - this is necessary if
-		// it needs to move.
+		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
 
-		//if (250-y >= 125) y += 10;
+		//if (250-y >= 150) y += 10;
 
-		if (Gdx.input.isKeyPressed(Input.Keys.D)){
+		if (!Gdx.input.isKeyPressed(Input.Keys.D)){
 			//ternary operator
-			speed = (speed + 0.046875F <= 6) ? (speed + 0.046875F) : 6;
+			speed = (speed + accel <= 6) ? (speed + accel) : 6;
 			//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 
 			if (x<=1280){
 				x+=speed;
 				if (x>1280) x = 20;
 
-				sprite1.setPosition(x,100);
+				sprite1.setPosition(x,y);
 			}
 
 
 			if (x<1280) System.out.println("Speed = " + speed + " & x = " + x);
 
 		}
-		else speed = 0;
+		else {
+			speed = (speed - decel >= 0) ? (speed - decel) : 0;
+			x+= speed;
+		}
 
 		leftFootSensor = sprite1.getX();
 		rightFootSensor = sprite1.getX() + (25-1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
