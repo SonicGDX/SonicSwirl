@@ -101,9 +101,9 @@ public class SonicGDX extends Game {
 
 
 		for (int i = 1; i < 10; i++){
-			for (int block = 0; block < heightArray.length; block++) {
-				for (int h = 0; h < block; h++) {
-					batch.draw(img, block + 100*i, 100 + h*i);
+			for (int block = 0; block < heightArray.length; block+=i) {
+				for (int h = 0; h < block; h+=i) {
+					batch.draw(img, block*i + 100*i, 100*i + h*i);
 				}
 			}
 		}
