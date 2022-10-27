@@ -62,26 +62,25 @@ public class SonicGDX extends Game {
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
 
 		//if (250-y >= 150) y += 10;
-		if (Gdx.input.isKeyPressed(Input.Keys.D)){
+		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 			//ternary operator
 			groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
 			//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 
-			if (x<=1280){
-				x+=groundSpeed;
-				if (x>1280) x = 20;
+			if (x <= 1280) {
+				x += groundSpeed;
+				if (x > 1280) x = 20;
 			}
 
-		}
-		else {
+		} else {
 			groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
-			x+=groundSpeed;
+			x += groundSpeed;
 		}
-		sprite1.setPosition(x,y);
-		if (x<1280) System.out.println("Ground Speed = " + groundSpeed + " & x = " + x);
+		sprite1.setPosition(x, y);
+		if (x < 1280) System.out.println("Ground Speed = " + groundSpeed + " & x = " + x);
 
 		leftFootSensor = sprite1.getX();
-		rightFootSensor = sprite1.getX() + (25-1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+		rightFootSensor = sprite1.getX() + (25 - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
 
 
 		// tell the SpriteBatch to render in the
@@ -101,14 +100,13 @@ public class SonicGDX extends Game {
 		//batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
 
 
-		for (int block = 0; block < heightArray.length; block++)
-		{
-			for (int h=0; h < block; h++)
-			{
-				batch.draw(img, block + 100, 100+h);
+		for (int i = 1; i < 10; i++){
+			for (int block = 0; block < heightArray.length; block++) {
+				for (int h = 0; h < block; h++) {
+					batch.draw(img, block + 100*i, 100 + h*i);
+				}
 			}
 		}
-
 
 		batch.end();
 	}
