@@ -48,7 +48,7 @@ public class SonicGDX extends Game {
 		img = new Texture("1x1-ffffffff.png");
 		img2 = new Texture("1x1-000000ff.png");
 
-		sprite1 = new Sprite(img,25,25);
+		sprite1 = new Sprite(img2,25,25);
 		sprite1.setPosition(x,y);
 
 
@@ -57,7 +57,7 @@ public class SonicGDX extends Game {
 	@Override
 	public void render () { // equivalent to update in unity
 
-		ScreenUtils.clear(0, 0, 1, 1); // clears the screen and sets the background to a certain colour
+		ScreenUtils.clear(1, 0.2F, 0, 1); // clears the screen and sets the background to a certain colour
 
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
 
@@ -95,10 +95,10 @@ public class SonicGDX extends Game {
 		//System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
 
 		//batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
-		batch.draw(img,0,0,1240,100); //draw the floor
+		batch.draw(img2,0,0,1240,100); //draw the floor
 
-		batch.draw(img2,leftFootSensor,y); // draw left foot sensor - DEBUG
-		batch.draw(img2,rightFootSensor,y); // draw right foot sensor - DEBUG
+		batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
+		batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
 
 		batch.end();
 	}
