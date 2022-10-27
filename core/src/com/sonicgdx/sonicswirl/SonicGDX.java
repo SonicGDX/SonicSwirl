@@ -28,6 +28,7 @@ public class SonicGDX extends Game {
 
 	static final float accel = 0.046875F, decel = 0.5F;
 
+	int[] heightArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 
 	// https://libgdx.com/wiki/start/a-simple-game
 
@@ -50,7 +51,6 @@ public class SonicGDX extends Game {
 
 		sprite1 = new Sprite(img2,25,25);
 		sprite1.setPosition(x,y);
-
 
 	}
 
@@ -90,15 +90,25 @@ public class SonicGDX extends Game {
 
 		batch.begin();
 
-		sprite1.draw(batch);
+		//sprite1.draw(batch);
 
 		//System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
 
 		//batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
-		batch.draw(img2,0,0,1240,100); //draw the floor
+		//batch.draw(img2,0,0,1240,100); //draw the floor
 
-		batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
-		batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
+		//batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
+		//batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
+
+
+		for (int block = 0; block < heightArray.length; block++)
+		{
+			for (int h=0; h < block; h++)
+			{
+				batch.draw(img, block + 100, 100+h);
+			}
+		}
+
 
 		batch.end();
 	}
