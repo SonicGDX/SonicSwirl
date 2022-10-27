@@ -30,6 +30,8 @@ public class SonicGDX extends Game {
 
 	int[] heightArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 
+	int[] heightArray2 = {16,16,16,16,16,16,16,16,16,16,16,16,16,161,6};
+
 	// https://libgdx.com/wiki/start/a-simple-game
 
 	@Override
@@ -100,11 +102,9 @@ public class SonicGDX extends Game {
 		//batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
 
 
-		for (int i = 1; i < 10; i++){
-			for (int block = 0; block < heightArray.length; block+=i) {
-				for (int h = 0; h < block; h+=i) {
-					batch.draw(img, block*i + 100*i, 100*i + h*i);
-				}
+		for (int block = 0; block < heightArray2.length; block++) {
+			for (int h = 0; h < heightArray2[block]; h++) {
+					batch.draw(img, block + 100, 100 + h);
 			}
 		}
 
