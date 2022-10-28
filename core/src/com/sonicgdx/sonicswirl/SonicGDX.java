@@ -10,12 +10,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import java.awt.*;
+
 //import com.badlogic.gdx.math.Rectangle;
-//import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 //import com.badlogic.gdx.Game; -- replaces ApplicationAdapter
 public class SonicGDX extends Game {
-	SpriteBatch batch; Sprite sprite1; Texture img, img2;
+	SpriteBatch batch; Sprite sprite1; Texture img, img2; ShapeRenderer dr;
 	OrthographicCamera camera;
 	// capital F can be used to cast from double to float (e.g. 50.55F)
 	float speedX = 0, speedY = 0, groundSpeed = 0;
@@ -54,6 +57,8 @@ public class SonicGDX extends Game {
 		img = new Texture("1x1-ffffffff.png");
 		img2 = new Texture("1x1-000000ff.png");
 
+		dr = new ShapeRenderer();
+
 		sprite1 = new Sprite(img2,25,50);
 		sprite1.setPosition(x,y);
 
@@ -76,6 +81,17 @@ public class SonicGDX extends Game {
 		//OLD ScreenUtils.clear(1, 0.2F, 0, 1);
 		ScreenUtils.clear(Color.GRAY); // clears the screen and sets the background to a certain colour
 
+		dr.begin(ShapeRenderer.ShapeType.Filled);
+		for (int i=0;i<=8;i++)
+		{
+			for (int j=0;j<=8;j++)
+			{
+				Color colour = new Color(0.1F*i,0.1F*j,0.1F*i*j,1);
+				dr.rect(200+16*i,200+16*j,16F,16F,colour,colour,colour,colour);
+			}
+		}
+		dr.end();
+
 
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
 
@@ -85,7 +101,7 @@ public class SonicGDX extends Game {
 		}*/
 
 		//if (250-y >= 150) y += 10;
-		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+/*		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 			//ternary operator
 			groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
 			//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
@@ -119,12 +135,13 @@ public class SonicGDX extends Game {
 			batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
 			batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
 			//System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
-		batch.end();
+		batch.end();*/
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
 		img.dispose();
+		dr.dispose();
 	}
 }
