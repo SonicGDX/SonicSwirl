@@ -28,9 +28,12 @@ public class SonicGDX extends Game {
 
 	static final float accel = 0.046875F, decel = 0.5F;
 
-	int[] heightArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 
-	int[] heightArray2 = {16,16,16,16,16,16,16,16,16,16,16,16,16,161,6};
+	//collision
+	boolean isGrounded = false;
+
+	int[] heightArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+	int[] heightArray2 = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,};
 
 	// https://libgdx.com/wiki/start/a-simple-game
 
@@ -51,7 +54,7 @@ public class SonicGDX extends Game {
 		img = new Texture("1x1-ffffffff.png");
 		img2 = new Texture("1x1-000000ff.png");
 
-		sprite1 = new Sprite(img2,25,25);
+		sprite1 = new Sprite(img2,25,50);
 		sprite1.setPosition(x,y);
 
 	}
@@ -62,6 +65,11 @@ public class SonicGDX extends Game {
 		ScreenUtils.clear(1, 0.2F, 0, 1); // clears the screen and sets the background to a certain colour
 
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
+
+		if (!isGrounded)
+		{
+			y -= 9.8;
+		}
 
 		//if (250-y >= 150) y += 10;
 		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -91,11 +99,15 @@ public class SonicGDX extends Game {
 
 		batch.begin();
 
-		for (int block = 0; block < heightArray2.length; block++) {
-			for (int h = 0; h < heightArray2[block]; h++) {
-				batch.draw(img, block + 100, 100 + h);
+
+
+			// Individual tile
+			for (int block = 0; block < heightArray2.length; block++) {
+				// Individual block
+				for (int h = 0; h < heightArray2[block]; h++) {
+					batch.draw(img, block + 100, 100 + h);
+				}
 			}
-		}
 
 		sprite1.draw(batch);
 
