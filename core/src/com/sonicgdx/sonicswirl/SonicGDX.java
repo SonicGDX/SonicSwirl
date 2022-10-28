@@ -82,14 +82,17 @@ public class SonicGDX extends Game {
 		ScreenUtils.clear(Color.GRAY); // clears the screen and sets the background to a certain colour
 
 		dr.begin(ShapeRenderer.ShapeType.Filled);
-		for (int i=0;i<=8;i++)
+		for (int i=0;i<8;i++)
 		{
-			for (int j=0;j<=8;j++)
+			System.out.println(i);
+			for (int j=0;j<8;j++)
 			{
 				Color colour = new Color(0.1F*i,0.1F*j,0.1F*i*j,1);
 				dr.rect(200+16*i,200+16*j,16F,16F,colour,colour,colour,colour);
 			}
 		}
+		dr.rect(200,200,128,10);
+		dr.rect(200,200,10,128);
 		dr.end();
 
 
