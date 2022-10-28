@@ -91,22 +91,22 @@ public class SonicGDX extends Game {
 
 		batch.begin();
 
-		//sprite1.draw(batch);
+		for (int block = 0; block < heightArray2.length; block++) {
+			for (int h = 0; h < heightArray2[block]; h++) {
+				batch.draw(img, block + 100, 100 + h);
+			}
+		}
+
+		sprite1.draw(batch);
 
 		//System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
 
-		//batch.draw(img, x, 250 - y , 1, 1); // draw the square texture
-		//batch.draw(img2,0,0,1240,100); //draw the floor
+		batch.draw(img2,0,0,1240,100); //draw the floor
 
-		//batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
-		//batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
+		batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
+		batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
 
 
-		for (int block = 0; block < heightArray2.length; block++) {
-			for (int h = 0; h < heightArray2[block]; h++) {
-					batch.draw(img, block + 100, 100 + h);
-			}
-		}
 
 		batch.end();
 	}
