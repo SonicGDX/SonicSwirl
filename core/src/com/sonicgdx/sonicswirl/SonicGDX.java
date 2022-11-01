@@ -69,6 +69,8 @@ public class SonicGDX extends Game {
 		//OLD ScreenUtils.clear(1, 0.2F, 0, 1);
 		ScreenUtils.clear(Color.GRAY); // clears the screen and sets the background to a certain colour
 
+		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
+
 		dr.begin(ShapeRenderer.ShapeType.Filled);
 		for (int i=0;i<8;i++)
 		{
@@ -82,8 +84,6 @@ public class SonicGDX extends Game {
 		dr.end();
 
 
-		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
-
 		/*if (!isGrounded)
 		{
 			y -= 9.8;
@@ -95,9 +95,16 @@ public class SonicGDX extends Game {
 			groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
 			//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 
+			camera.translate(groundSpeed,0);
+
 			if (x <= 1280) {
 				x += groundSpeed;
-				if (x > 1280) x = 20;
+				if (x > 1280)
+				{
+					x = 20;
+					camera.position.x = x;
+
+				}
 			}
 
 		} else {
