@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 // input handling:
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -35,6 +35,8 @@ public class SonicGDX extends Game {
 	boolean isGrounded = false;
 
 	int[] heightArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+
+	int[][] chunk = {{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16}};
 
 	// https://libgdx.com/wiki/start/a-simple-game
 
@@ -72,7 +74,7 @@ public class SonicGDX extends Game {
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
 
 		dr.begin(ShapeRenderer.ShapeType.Filled);
-		for (int i=0;i<8;i++)
+/*		for (int i=0;i<8;i++)
 		{
 			System.out.println(i);
 			for (int j=0;j<8;j++)
@@ -80,7 +82,8 @@ public class SonicGDX extends Game {
 				Color colour = new Color(0.1F*i,0.1F*j,0.1F*i*j,1);
 				dr.rect(200+16*i,200+16*j,16F,16F,colour,colour,colour,colour);
 			}
-		}
+		}*/
+
 		dr.end();
 
 
@@ -121,19 +124,26 @@ public class SonicGDX extends Game {
 		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-			for (int i = 0; i < 8;i++)
-				for (int j = 0; j < 8; j++) {
-					// Individual tile
-					for (int block = 0; block < heightArray.length; block++) {
-						// Individual block
-						for (int height = 0; height < heightArray[block]; height++) batch.draw(img, block+(i)*16, height+(j)*16);
-					}
-				}
 
-			sprite1.draw(batch);
-			batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
-			batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
-			//System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
+
+		for (int i=0;i<5;i++)
+		{
+			for (int j =0; j<5;j++)
+			{
+				drawChunk(i,j);
+			}
+		}
+		drawChunk(1,1);
+
+
+
+
+		sprite1.draw(batch);
+		batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
+		batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
+
+		batch.draw(img2,0,0,128,15);
+		//System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
 		batch.end();
 	}
 	
@@ -143,4 +153,18 @@ public class SonicGDX extends Game {
 		img.dispose();
 		dr.dispose();
 	}
+
+	public void drawChunk(int chunkX, int chunkY)
+	{
+		for (int i = 0; i < 8;i++)
+			for (int j = 0; j < 8; j++) {
+				// Individual tile
+				for (int block = 0; block < heightArray.length; block++) {
+					// Individual block
+					for (int height = 0; height < heightArray[block]; height++) batch.draw(img, block+(i)*16, height+(j)*16);
+
+				}
+			}
+	}
+
 }
