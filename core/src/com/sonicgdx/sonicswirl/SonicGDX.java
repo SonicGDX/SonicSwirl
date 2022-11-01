@@ -121,8 +121,8 @@ public class SonicGDX extends Game {
 		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-			for (int i = 0; i < 80;i++)
-				for (int j = 0; j < 45; j++) {
+			for (int i = 0; i < 8;i++)
+				for (int j = 0; j < 8; j++) {
 					// Individual tile
 					for (int block = 0; block < heightArray.length; block++) {
 						// Individual block
