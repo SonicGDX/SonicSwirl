@@ -41,7 +41,7 @@ https://libgdx.com/wiki/start/simple-game-extended#the-main-menu \
 Running in browser \
 https://libgdx.com/wiki/start/import-and-running#html \ 
 
-However I kept the HTML submodule as this could make it more convenient to play the game deployed on  a website such as itch.io or even github pages with one database to store user records. gradlew html:dist 
+However, I kept the HTML submodule as this could make it more convenient to play the game deployed on a website such as itch.io or even github pages with one database to store user records. gradlew html:dist 
  
 https://www.mgsx.net/html5-libgdx-tutorial \ 
 https://libgdx.com/wiki/html5-backend-and-gwt-specifics \
