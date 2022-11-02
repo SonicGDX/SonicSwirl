@@ -98,16 +98,9 @@ public class SonicGDX extends Game {
 			groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
 			//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 
-			camera.translate(groundSpeed,0);
-
 			if (x <= 1280) {
 				x += groundSpeed;
-				if (x > 1280)
-				{
-					x = 20;
-					camera.position.x = x;
-
-				}
+				if (x > 1280) x = 20;
 			}
 
 		} else {
@@ -115,6 +108,7 @@ public class SonicGDX extends Game {
 			x += groundSpeed;
 		}
 		sprite1.setPosition(x, y);
+		camera.position.set(x,y,camera.position.z);
 		//if (x < 1280) System.out.println("Ground Speed = " + groundSpeed + " & x = " + x);
 
 		leftFootSensor = sprite1.getX();
