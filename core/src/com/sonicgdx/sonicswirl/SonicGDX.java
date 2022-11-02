@@ -68,11 +68,11 @@ public class SonicGDX extends Game {
 	@Override
 	public void render () { // equivalent to update in unity
 
-		//OLD ScreenUtils.clear(1, 0.2F, 0, 1);
 		ScreenUtils.clear(Color.GRAY); // clears the screen and sets the background to a certain colour
 
 		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
 
+		dr.setProjectionMatrix(camera.combined);
 		dr.begin(ShapeRenderer.ShapeType.Filled);
 /*		for (int i=0;i<8;i++)
 		{
@@ -108,8 +108,6 @@ public class SonicGDX extends Game {
 			x += groundSpeed;
 		}
 		sprite1.setPosition(x, y);
-		camera.position.set(x,y,camera.position.z);
-		//if (x < 1280) System.out.println("Ground Speed = " + groundSpeed + " & x = " + x);
 
 		leftFootSensor = sprite1.getX();
 		rightFootSensor = sprite1.getX() + (sprite1.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
@@ -119,7 +117,6 @@ public class SonicGDX extends Game {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
-
 		for (int i=0;i<5;i++)
 		{
 			for (int j =0; j<5;j++)
@@ -127,16 +124,17 @@ public class SonicGDX extends Game {
 				drawChunk(i,j);
 			}
 		}
-		drawChunk(1,1);
-
-
-
 
 		sprite1.draw(batch);
 		batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
 		batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
 
 		batch.draw(img2,0,0,128,15);
+
+		batch.draw(img,600,200);
+
+		camera.position.set(sprite1.getX(),sprite1.getY(),camera.position.z);
+
 		//System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
 		batch.end();
 	}
@@ -156,7 +154,6 @@ public class SonicGDX extends Game {
 				for (int block = 0; block < heightArray.length; block++) {
 					// Individual block
 					for (int height = 0; height < heightArray[block]; height++) batch.draw(img, block+(i)*16, height+(j)*16);
-
 				}
 			}
 	}
