@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 //import java.awt.*;
@@ -24,6 +26,7 @@ public class SonicGDX extends Game {
 	float speedX = 0, speedY = 0, groundSpeed = 0;
 	float x = 600, y = 200; //https://colourtann.github.io/HelloLibgdx/
 
+	Vector2 cameraOffset = Vector2.Zero;
 
 	//https://info.sonicretro.org/SPG:Solid_Tiles#Sensors
 	float leftFootSensor, rightFootSensor;
@@ -62,6 +65,8 @@ public class SonicGDX extends Game {
 		sprite1 = new Sprite(img2,25,50);
 		sprite1.setPosition(x,y);
 
+		cameraOffset.x = camera.position.x - sprite1.getX();
+		cameraOffset.y = camera.position.y - sprite1.getY();
 
 	}
 
@@ -133,7 +138,7 @@ public class SonicGDX extends Game {
 
 		batch.draw(img,600,200);
 
-		camera.position.set(sprite1.getX(),sprite1.getY(),camera.position.z);
+		camera.position.set(sprite1.getX() + cameraOffset.x,sprite1.getY() + cameraOffset.y,camera.position.z);
 
 		//System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
 		batch.end();
