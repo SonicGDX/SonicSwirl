@@ -32,9 +32,6 @@ public class SonicGDX extends Game {
 
 	static final float accel = 0.046875F, decel = 0.5F;
 
-	//collision
-	boolean isGrounded = false;
-
 	int[] heightArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 
 	int[][] chunk = {{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16}};
@@ -87,12 +84,6 @@ public class SonicGDX extends Game {
 
 		dr.end();
 
-
-		/*if (!isGrounded)
-		{
-			y -= 9.8;
-		}*/
-
 		//if (250-y >= 150) y += 10;
 		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 			//ternary operator
@@ -143,16 +134,13 @@ public class SonicGDX extends Game {
 		dr.dispose();
 	}
 
-	public void drawChunk(int chunkX, int chunkY)
-	{
-		for (int i = 0; i < 8;i++)
-			for (int j = 0; j < 8; j++) {
-				// Individual tile
-				for (int block = 0; block < heightArray.length; block++) {
-					// Individual block
-					for (int height = 0; height < heightArray[block]; height++) batch.draw(img, block+(i)*16, height+(j)*16);
-				}
-			}
+	public void drawChunk(int chunkX, int chunkY) {
+
+		for (int block = 0; block < heightArray.length; block++) {
+			// Individual block
+			for (int height = 0; height < heightArray[block]; height++) batch.draw(img, block + (chunkX) * 16, height + (chunkY) * 16);
+
+		}
 	}
 
 }
