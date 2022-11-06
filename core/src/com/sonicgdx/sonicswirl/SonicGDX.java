@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.Arrays;
+
 //import java.awt.*;
 
 //import com.badlogic.gdx.math.Rectangle;
@@ -24,7 +26,6 @@ public class SonicGDX extends Game {
 	// capital F can be used to cast from double to float (e.g. 50.55F)
 	float speedX = 0, speedY = 0, groundSpeed = 0;
 	float x = 600, y = 200; //https://colourtann.github.io/HelloLibgdx/
-
 	Vector2 cameraOffset = Vector2.Zero;
 
 	//https://info.sonicretro.org/SPG:Solid_Tiles#Sensors
@@ -34,8 +35,11 @@ public class SonicGDX extends Game {
 
 	int[] heightArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 
-	int[][] chunk = {{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16}};
+	int[][] Tile = {{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16},{16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16}};
 
+	int[] chunk = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
+
+	int[][] chunk2 = {chunk,chunk,chunk,chunk,chunk,chunk};
 	// https://libgdx.com/wiki/start/a-simple-game
 
 	@Override
@@ -60,6 +64,7 @@ public class SonicGDX extends Game {
 
 		cameraOffset.x = camera.position.x - sprite1.getX();
 		cameraOffset.y = camera.position.y - sprite1.getY();
+
 
 	}
 
