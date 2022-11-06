@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 //import java.awt.*;
@@ -33,7 +32,6 @@ public class SonicGDX extends Game {
 
 	static final float accel = 0.046875F, decel = 0.5F;
 
-
 	//collision
 	boolean isGrounded = false;
 
@@ -53,14 +51,12 @@ public class SonicGDX extends Game {
 		// So for example, one screen won't be in the bottom left corner in 1080p
 		// but would take up the entire view
 
-
 		// https://web.archive.org/web/20200427232345/https://www.badlogicgames.com/wordpress/?p=1550
 
-		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
-		img = new Texture("1x1-ffffffff.png");
-		img2 = new Texture("1x1-000000ff.png");
 
 		dr = new ShapeRenderer();
+		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
+		img = new Texture("1x1-ffffffff.png"); img2 = new Texture("1x1-000000ff.png");
 
 		sprite1 = new Sprite(img2,25,50);
 		sprite1.setPosition(x,y);
@@ -133,10 +129,6 @@ public class SonicGDX extends Game {
 		sprite1.draw(batch);
 		batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
 		batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
-
-		batch.draw(img2,0,0,128,15);
-
-		batch.draw(img,600,200);
 
 		camera.position.set(sprite1.getX() + cameraOffset.x,sprite1.getY() + cameraOffset.y,camera.position.z);
 
