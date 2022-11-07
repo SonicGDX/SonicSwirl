@@ -77,7 +77,7 @@ public class SonicGDX extends Game {
 
 		dr.setProjectionMatrix(camera.combined);
 		dr.begin(ShapeRenderer.ShapeType.Filled);
-/*		for (int i=0;i<8;i++)
+	/*	for (int i=0;i<8;i++)
 		{
 			System.out.println(i);
 			for (int j=0;j<8;j++)
@@ -104,13 +104,12 @@ public class SonicGDX extends Game {
 			groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
 			x += groundSpeed;
 		}
-		sprite1.setPosition(x, y);
+		sprite1.setPosition(x, y); camera.position.set(sprite1.getX() + cameraOffset.x,sprite1.getY() + cameraOffset.y,camera.position.z);
 
 		leftFootSensor = sprite1.getX();
 		rightFootSensor = sprite1.getX() + (sprite1.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
 
-		// tell the SpriteBatch to render in the
-		// coordinate system specified by the camera. - https://libgdx.com/wiki/start/a-simple-game
+		// tell the SpriteBatch to render in the coordinate system specified by the camera - https://libgdx.com/wiki/start/a-simple-game
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
@@ -123,12 +122,13 @@ public class SonicGDX extends Game {
 		}
 
 		sprite1.draw(batch);
-		batch.draw(img,leftFootSensor,y); // draw left foot sensor - DEBUG
-		batch.draw(img,rightFootSensor,y); // draw right foot sensor - DEBUG
 
-		camera.position.set(sprite1.getX() + cameraOffset.x,sprite1.getY() + cameraOffset.y,camera.position.z);
+		// DEBUG
+		batch.draw(img,leftFootSensor,y); batch.draw(img,rightFootSensor,y);
 
-		//System.out.println(sprite1.getBoundingRectangle()); // use for collision detection - to set, it is sprite.SetBounds()
+
+
+
 		batch.end();
 	}
 	
