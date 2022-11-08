@@ -32,15 +32,22 @@ public class SonicGDX extends Game {
 
 	static final float accel = 0.046875F, decel = 0.5F;
 
-	// solid tiles
+	// solid blocks
 	int[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
 	int[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	int[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
-	int[][][] tile = {{staircase,empty,empty,empty,empty,empty,empty,empty},{block,staircase,empty,empty,empty,empty,empty,empty},{block,block,staircase,empty,empty,empty,empty,empty},{block,block,block,staircase,empty,empty,empty,empty},{block,block,block,block,staircase,empty,empty,empty},{block,block,block,block,block,staircase,empty,empty},{block,block,block,block,block,block,staircase,empty},{block,block,block,block,block,block,block,staircase}};
+	int[][][] steepChunk = {{staircase,empty,empty,empty,empty,empty,empty,empty},{block,staircase,empty,empty,empty,empty,empty,empty},{block,block,staircase,empty,empty,empty,empty,empty},{block,block,block,staircase,empty,empty,empty,empty},{block,block,block,block,staircase,empty,empty,empty},{block,block,block,block,block,staircase,empty,empty},{block,block,block,block,block,block,staircase,empty},{block,block,block,block,block,block,block,staircase}};
+
+	int[][][] blockChunk = {{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block}};
+
+	int[][][] emptyChunk = {{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty}};
 
 
-	// 128x128 blocks - one dimension for x, one dimension for y and the data is a height array
+	int[][][][][] steepMap = {{steepChunk,emptyChunk,emptyChunk,emptyChunk},{blockChunk,steepChunk,emptyChunk,emptyChunk},{blockChunk,blockChunk,steepChunk,emptyChunk},{blockChunk,blockChunk,blockChunk,steepChunk}};
+
+
+	// 128x128 chunk - one dimension for x, one dimension for y and the data is a height array
 	// one height array makes up a 16x16 block
 
 
@@ -107,9 +114,9 @@ public class SonicGDX extends Game {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
-		for (int i=0;i<8;i++)
+		for (int i=0;i<4;i++)
 		{
-			for (int j =0; j<8;j++)
+			for (int j =0; j<4;j++)
 			{
 				drawChunk(i,j);
 			}
@@ -120,8 +127,6 @@ public class SonicGDX extends Game {
 
 		// DEBUG
 		batch.draw(img,leftFootSensor,y); batch.draw(img,rightFootSensor,y);
-
-
 
 
 		batch.end();
@@ -142,7 +147,7 @@ public class SonicGDX extends Game {
 			{
 				for (int grid = 0; grid < 16; grid++)
 				{
-					batch.draw(img, blockX*16+grid,blockY*16,1, tile[blockX][blockY][grid]);
+					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, steepMap[chunkX][chunkY][blockX][blockY][grid]);
 				}
 			}
 		}
