@@ -1,7 +1,6 @@
 package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.Game;
-// input handling:
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -34,9 +33,9 @@ public class SonicGDX extends Game {
 	static final float accel = 0.046875F, decel = 0.5F;
 
 	// solid tiles
-	int[] staircase = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
+	int[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
 	int[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-	int[] block = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+	int[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
 	int[][][] tile = {{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block}};
 
@@ -82,16 +81,6 @@ public class SonicGDX extends Game {
 
 		dr.setProjectionMatrix(camera.combined);
 		dr.begin(ShapeRenderer.ShapeType.Filled);
-	/*	for (int i=0;i<8;i++)
-		{
-			System.out.println(i);
-			for (int j=0;j<8;j++)
-			{
-				Color colour = new Color(0.1F*i,0.1F*j,0.1F*i*j,1);
-				dr.rect(200+16*i,200+16*j,16F,16F,colour,colour,colour,colour);
-			}
-		}*/
-
 		dr.end();
 
 		//if (250-y >= 150) y += 10;
@@ -147,11 +136,11 @@ public class SonicGDX extends Game {
 
 	public void drawChunk(int chunkX, int chunkY) {
 
-		for (int blockX = 0; blockX < 7; blockX++)
+		for (int blockX = 0; blockX < 8; blockX++)
 		{
-			for (int blockY = 0; blockY < 7; blockY++)
+			for (int blockY = 0; blockY < 8; blockY++)
 			{
-				for (int grid = 0; grid < 15; grid++)
+				for (int grid = 0; grid < 16; grid++)
 				{
 					batch.draw(img, blockX*16+grid,blockY*16,1, tile[blockX][blockY][grid]);
 				}
