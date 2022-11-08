@@ -32,14 +32,17 @@ public class SonicGDX extends Game {
 	float leftFootSensor, rightFootSensor;
 
 	static final float accel = 0.046875F, decel = 0.5F;
-	int[] block = {2,15,14,16,16,4,6,16,16,16,5,16,16,16,16,16};
 
-	int[][][] tile = {{block,block,block,block,block,block}};
+	// solid tiles
+	int[] staircase = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
+	int[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	int[] block = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+
+	int[][][] tile = {{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block}};
 
 
-
-
-	// 16x16 blocks - one dimension for x, one dimension for y and the data is a height array..
+	// 128x128 blocks - one dimension for x, one dimension for y and the data is a height array
+	// one height array makes up a 16x16 block
 
 
 	@Override
@@ -47,7 +50,7 @@ public class SonicGDX extends Game {
 
 		// implement class with reference to https://gamedev.stackexchange.com/a/133593
 
-		System.out.println(tile[0][0][1]);
+		//System.out.println(tile[1][3][15]);
 
 		camera = new OrthographicCamera(); // 3D camera which projects into 2D.
    		camera.setToOrtho(false, 1280, 720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
@@ -123,6 +126,7 @@ public class SonicGDX extends Game {
 			}
 		}
 
+
 		sprite1.draw(batch);
 
 		// DEBUG
@@ -143,10 +147,15 @@ public class SonicGDX extends Game {
 
 	public void drawChunk(int chunkX, int chunkY) {
 
-		for (int cell = 0; cell < block.length; cell++) {
-			// Individual block
-			for (int height = 0; height < block[cell]; height++) batch.draw(img, cell + (chunkX) * 16, height + (chunkY) * 16);
-
+		for (int blockX = 1; blockX < 8; blockX++)
+		{
+			for (int blockY = 1; blockY < 8; blockY++)
+			{
+				for (int grid = 1; grid < 16; grid++)
+				{
+					batch.draw(img, blockX*16+grid,blockY*16,1, tile[blockX][blockY][grid]);
+				}
+			}
 		}
 	}
 
