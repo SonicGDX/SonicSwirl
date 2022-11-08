@@ -37,7 +37,7 @@ public class SonicGDX extends Game {
 	int[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	int[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
-	int[][][] tile = {{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block}};
+	int[][][] tile = {{staircase,empty,empty,empty,empty,empty,empty,empty},{block,staircase,empty,empty,empty,empty,empty,empty},{block,block,staircase,empty,empty,empty,empty,empty},{block,block,block,staircase,empty,empty,empty,empty},{block,block,block,block,staircase,empty,empty,empty},{block,block,block,block,block,staircase,empty,empty},{block,block,block,block,block,block,staircase,empty},{block,block,block,block,block,block,block,staircase}};
 
 
 	// 128x128 blocks - one dimension for x, one dimension for y and the data is a height array
