@@ -43,13 +43,7 @@ jobs:
         distribution: 'temurin'  
         cache: 'gradle'
     - name: Build Java & run task
-      run: |
-        ./gradlew build
-        ./gradlew desktop:dist
-    - name: Cleanup Gradle Cache
-      run: |
-        rm -f ~/.gradle/caches/modules-2/modules-2.lock
-        rm -f ~/.gradle/caches/modules-2/gc.properties
+      run: ./gradlew html:dist
     - name: Setup Pages
       uses: actions/configure-pages@v2
     - name: Upload artifact
