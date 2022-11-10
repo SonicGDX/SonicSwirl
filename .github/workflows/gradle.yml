@@ -6,11 +6,11 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
 
-# SOURCES: https://github.com/SonicGDX/SonicSwirl/new/master?filename=.github%2Fworkflows%2Fstatic.yml&workflow_template=pages%2Fstatic
+# SOURCES:
 # https://www.mgsx.net/html5-libgdx-tutorial
-# static.yml template
 # https://libgdx.com/wiki/deployment/deploying-your-application
 # https://github.com/libgdx/libgdx/blob/0cd013f6efdc34404dcc7522ffe7c5ff48e35f1d/.github/workflows/test-pullrequest.yml
+# https://github.com/ad-m/github-push-action
 
 name: Java CI with Gradle
 
@@ -62,6 +62,6 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages
         force_with_lease: true
-        directory: ./html/build/dist
+        directory: /home/runner/work/SonicSwirl/SonicSwirl/html/build/dist/
       
       
