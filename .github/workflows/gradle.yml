@@ -36,6 +36,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: recursive
+        fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
     - name: Set up JDK 8
       uses: actions/setup-java@v3
       with:
@@ -46,10 +47,17 @@ jobs:
       run: ./gradlew html:dist
     - name: Setup Pages
       uses: actions/configure-pages@v2
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
+      
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
       with:
-        path: '/home/runner/work/SonicSwirl/SonicSwirl/html/build/dist'
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v1
+        hugo-version: 'latest' 
+    - name: Build
+      run: |
+        cd html/build/dist
+        hugo --minify
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
