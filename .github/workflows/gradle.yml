@@ -10,9 +10,12 @@
 # https://www.mgsx.net/html5-libgdx-tutorial
 # https://libgdx.com/wiki/deployment/deploying-your-application
 # https://github.com/libgdx/libgdx/blob/0cd013f6efdc34404dcc7522ffe7c5ff48e35f1d/.github/workflows/test-pullrequest.yml
-# static.yml
+# Deploying static HTML - static.yml
+# Removing reload button - https://www.reddit.com/r/libgdx/comments/97uzyr/comment/e4b7h09/?utm_source=share&utm_medium=web2x&context=3
+# sed command - https://linuxhint.com/sed-command-to-delete-a-line/
 
-name: Java CI with Gradle
+
+name: Build HTML5 GitHub Pages
 
 on:
   push:
@@ -49,6 +52,9 @@ jobs:
       - name: Build Java & run task
         run: ./gradlew html:dist
   
+      - name: Remove SuperDev remnants
+        # Remove the reload button in the top left - the 11th line in index.html
+        run: sed '11d' ./html/build.dist/index.html
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
