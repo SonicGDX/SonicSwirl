@@ -5,13 +5,12 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-
 # SOURCES:
 # https://www.mgsx.net/html5-libgdx-tutorial
 # https://libgdx.com/wiki/deployment/deploying-your-application
 # https://github.com/libgdx/libgdx/blob/0cd013f6efdc34404dcc7522ffe7c5ff48e35f1d/.github/workflows/test-pullrequest.yml
 # Deploying static HTML - static.yml
-# Removing reload button - https://www.reddit.com/r/libgdx/comments/97uzyr/comment/e4b7h09/?utm_source=share&utm_medium=web2x&context=3
+# Removing reload button - https://www.reddit.com/r/libgdx/comments/97uzyr/comment/e4b7h09
 # sed command - https://linuxhint.com/sed-command-to-delete-a-line/
 
 
@@ -54,7 +53,7 @@ jobs:
   
       - name: Remove SuperDev remnants
         # Remove the reload button in the top left - the 11th line in index.html
-        run: sed '11d' ./html/build.dist/index.html
+        run: sed '11d' ./html/build/dist/index.html
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
