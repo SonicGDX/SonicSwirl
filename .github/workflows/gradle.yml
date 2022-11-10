@@ -29,8 +29,6 @@ permissions:
 
 jobs:
   build:
-
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -39,7 +37,7 @@ jobs:
 
     steps:
       - name: Checkout
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
         with:
           submodules: recursive
       - name: Set up JDK 8
@@ -50,7 +48,7 @@ jobs:
           cache: 'gradle'
       - name: Build Java & run task
         run: ./gradlew html:dist
-
+  
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
