@@ -40,17 +40,9 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '8'
-        distribution: 'temurin'
-    - name: Cache Gradle packages
-      uses: actions/cache@v2
-      with:
-        path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
-    - name: Build & test Java code
+        distribution: 'temurin'  
+        cache: 'gradle'
+    - name: Build Java & run task
       run: |
         ./gradlew build
         ./gradlew desktop:dist
@@ -63,7 +55,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
-        path: './html/build/dist'
+        path: '/home/runner/work/SonicSwirl/SonicSwirl/html/build/dist'
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
