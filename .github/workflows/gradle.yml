@@ -53,13 +53,15 @@ jobs:
   
       - name: Remove SuperDev remnants
         # Remove the reload button in the top left - the 11th line in index.html
-        run: sed '11d' ./html/build/dist/index.html
+        run: |
+          sed -i '11d' html/build/dist/index.html
+          rm -rf html/build/dist/WEB-INF/deploy/html/symbolMaps
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: './html/build/dist'
+          path: 'html/build/dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
