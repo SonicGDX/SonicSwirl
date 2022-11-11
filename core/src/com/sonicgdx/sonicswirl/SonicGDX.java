@@ -152,7 +152,7 @@ public class SonicGDX extends Game {
 				for (int grid = 0; grid < 16; grid++)
 				{
 					//batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, steepMap[chunkX][chunkY][blockX][blockY][grid]);
-					Color newColour = new Color(1/(grid+0.001F),1/(blockY+0.001F),1/(blockX+0.001F),1);
+					Color newColour = new Color(1/(grid+1),1/(blockY+1),1/(blockX+1),1);
 					dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1,steepMap[chunkX][chunkY][blockX][blockY][grid],newColour,newColour, newColour, newColour);
 				}
 			}
