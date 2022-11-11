@@ -3,11 +3,8 @@ package com.sonicgdx.sonicswirl;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -94,6 +91,14 @@ public class SonicGDX extends Game {
 
 		dr.setProjectionMatrix(camera.combined);
 		dr.begin(ShapeRenderer.ShapeType.Filled);
+		for (int i=0;i<4;i++)
+		{
+			for (int j =0; j<4;j++)
+			{
+				drawChunk(i,j);
+			}
+		}
+
 		dr.end();
 
 		//if (250-y >= 150) y += 10;
@@ -120,13 +125,6 @@ public class SonicGDX extends Game {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
-		for (int i=0;i<4;i++)
-		{
-			for (int j =0; j<4;j++)
-			{
-				drawChunk(i,j);
-			}
-		}
 
 
 		sprite1.draw(batch);
@@ -153,7 +151,9 @@ public class SonicGDX extends Game {
 			{
 				for (int grid = 0; grid < 16; grid++)
 				{
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, steepMap[chunkX][chunkY][blockX][blockY][grid]);
+					//batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, steepMap[chunkX][chunkY][blockX][blockY][grid]);
+					Color newColour = new Color(1/(grid+0.001F),1/(blockY+0.001F),1/(blockX+0.001F),1);
+					dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1,steepMap[chunkX][chunkY][blockX][blockY][grid],newColour,newColour, newColour, newColour);
 				}
 			}
 		}
