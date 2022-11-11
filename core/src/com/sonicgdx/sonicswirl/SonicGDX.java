@@ -3,6 +3,7 @@ package com.sonicgdx.sonicswirl;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -31,6 +32,9 @@ public class SonicGDX extends Game {
 	float leftFootSensor, rightFootSensor;
 
 	static final float accel = 0.046875F, decel = 0.5F;
+
+
+	FPSLogger frameLog;
 
 	// solid blocks
 	int[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
@@ -76,11 +80,13 @@ public class SonicGDX extends Game {
 		cameraOffset.x = camera.position.x - sprite1.getX();
 		cameraOffset.y = camera.position.y - sprite1.getY();
 
-
+		frameLog = new FPSLogger();
 	}
 
 	@Override
 	public void render () { // equivalent to update in unity
+
+		frameLog.log();
 
 		ScreenUtils.clear(Color.GRAY); // clears the screen and sets the background to a certain colour
 
