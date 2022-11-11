@@ -36,8 +36,8 @@
   }
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // Used for superdev html5 passthrough
-  "forwardPorts": [8080]
+  // Could be used for superdev html5 passthrough but this is better done manually inside VSCode
+  //"forwardPorts": [8080]
 
   // Use 'postCreateCommand' to run commands after the container is created.
   // "postCreateCommand": "java -version",
