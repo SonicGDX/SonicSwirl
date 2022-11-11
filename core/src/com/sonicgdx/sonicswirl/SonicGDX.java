@@ -10,8 +10,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
+import jdk.internal.util.random.RandomSupport;
 
 import java.util.Arrays;
+import java.util.Random;
 
 //import java.awt.*;
 
@@ -152,7 +154,8 @@ public class SonicGDX extends Game {
 				for (int grid = 0; grid < 16; grid++)
 				{
 					//batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, steepMap[chunkX][chunkY][blockX][blockY][grid]);
-					Color newColour = new Color(chunkX/4F,chunkY/4F,grid/16F,1);
+					Color newColour = new Color((float)Math.random(),(float)Math.random(),(float)Math.random(),(float)Math.random());
+
 					dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1,steepMap[chunkX][chunkY][blockX][blockY][grid],newColour,newColour, newColour, newColour);
 				}
 			}
