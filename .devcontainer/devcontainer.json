@@ -33,7 +33,6 @@
         "vscjava.vscode-java-pack"
       ]
     }
-  }
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // Could be used for superdev html5 passthrough but this is better done manually inside VSCode
