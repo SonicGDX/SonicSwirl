@@ -8,6 +8,15 @@ https://developer.mozilla.org/en-US/docs/Games/Techniques/Tilemaps \
 https://www.youtube.com/watch?v=N6xqCwblyiw \
 https://www.w3schools.com/java/java_arrays_multi.asp \
 
+## GitHub Actions Workflow
+https://www.mgsx.net/html5-libgdx-tutorial \
+https://libgdx.com/wiki/deployment/deploying-your-application \
+https://github.com/libgdx/libgdx/blob/0cd013f6efdc34404dcc7522ffe7c5ff48e35f1d/.github/workflows/test-pullrequest.yml \
+Deploying static HTML - static.yml \
+Removing reload button - https://www.reddit.com/r/libgdx/comments/97uzyr/comment/e4b7h09 \
+sed command - https://linuxhint.com/sed-command-to-delete-a-line \
+
+
 ## Collision:
 
 https://gamedev.stackexchange.com/questions/29691/2d-tile-based-collision-detection \
