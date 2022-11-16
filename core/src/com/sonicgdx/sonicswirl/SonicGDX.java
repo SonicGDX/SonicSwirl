@@ -37,18 +37,18 @@ public class SonicGDX extends Game {
 	FPSLogger frameLog;
 
 	// solid blocks
-	int[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
-	int[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-	int[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+	byte[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
+	byte[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	byte[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
-	int[][][] steepChunk = {{staircase,empty,empty,empty,empty,empty,empty,empty},{block,staircase,empty,empty,empty,empty,empty,empty},{block,block,staircase,empty,empty,empty,empty,empty},{block,block,block,staircase,empty,empty,empty,empty},{block,block,block,block,staircase,empty,empty,empty},{block,block,block,block,block,staircase,empty,empty},{block,block,block,block,block,block,staircase,empty},{block,block,block,block,block,block,block,staircase}};
+	byte[][][] steepChunk = {{staircase,empty,empty,empty,empty,empty,empty,empty},{block,staircase,empty,empty,empty,empty,empty,empty},{block,block,staircase,empty,empty,empty,empty,empty},{block,block,block,staircase,empty,empty,empty,empty},{block,block,block,block,staircase,empty,empty,empty},{block,block,block,block,block,staircase,empty,empty},{block,block,block,block,block,block,staircase,empty},{block,block,block,block,block,block,block,staircase}};
 
-	int[][][] blockChunk = {{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block}};
+	byte[][][] blockChunk = {{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block}};
 
-	int[][][] emptyChunk = {{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty}};
+	byte[][][] emptyChunk = {{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty}};
 
 
-	int[][][][][] steepMap = {{steepChunk,emptyChunk,emptyChunk,emptyChunk},{blockChunk,steepChunk,emptyChunk,emptyChunk},{blockChunk,blockChunk,steepChunk,emptyChunk},{blockChunk,blockChunk,blockChunk,steepChunk}};
+	byte[][][][][] steepMap = {{steepChunk,emptyChunk,emptyChunk,emptyChunk},{blockChunk,steepChunk,emptyChunk,emptyChunk},{blockChunk,blockChunk,steepChunk,emptyChunk},{blockChunk,blockChunk,blockChunk,steepChunk}};
 
 
 	// 128x128 chunk - one dimension for x, one dimension for y and the data is a height array
