@@ -7,23 +7,23 @@ public class TileMap {
 
 
     // solid blocks
-    byte[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
-    byte[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    byte[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    private byte[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
+    private byte[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private byte[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
-    byte[][][] steepChunk = {
+    private byte[][][] steepChunk = {
             {staircase,empty,empty,empty,empty,empty,empty,empty},{block,staircase,empty,empty,empty,empty,empty,empty},
             {block,block,staircase,empty,empty,empty,empty,empty},{block,block,block,staircase,empty,empty,empty,empty},
             {block,block,block,block,staircase,empty,empty,empty},{block,block,block,block,block,staircase,empty,empty},
             {block,block,block,block,block,block,staircase,empty},{block,block,block,block,block,block,block,staircase}};
 
-    byte[][][] blockChunk = {
+    private byte[][][] blockChunk = {
             {block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},
             {block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},
             {block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},
             {block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block}};
 
-    byte[][][] emptyChunk = {
+    private byte[][][] emptyChunk = {
             {empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},
             {empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},
             {empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},
