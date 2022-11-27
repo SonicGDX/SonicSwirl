@@ -33,26 +33,9 @@ public class SonicGDX extends Game {
 
 	static final float accel = 0.046875F, decel = 0.5F;
 
+	TileMap tm;
 
 	FPSLogger frameLog;
-
-	// solid blocks
-	byte[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
-	byte[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-	byte[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-
-	byte[][][] steepChunk = {{staircase,empty,empty,empty,empty,empty,empty,empty},{block,staircase,empty,empty,empty,empty,empty,empty},{block,block,staircase,empty,empty,empty,empty,empty},{block,block,block,staircase,empty,empty,empty,empty},{block,block,block,block,staircase,empty,empty,empty},{block,block,block,block,block,staircase,empty,empty},{block,block,block,block,block,block,staircase,empty},{block,block,block,block,block,block,block,staircase}};
-
-	byte[][][] blockChunk = {{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block}};
-
-	byte[][][] emptyChunk = {{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty}};
-
-
-	byte[][][][][] steepMap = {{steepChunk,emptyChunk,emptyChunk,emptyChunk},{blockChunk,steepChunk,emptyChunk,emptyChunk},{blockChunk,blockChunk,steepChunk,emptyChunk},{blockChunk,blockChunk,blockChunk,steepChunk}};
-
-
-	// 128x128 chunk - one dimension for x, one dimension for y and the data is a height array
-	// one height array makes up a 16x16 block
 
 
 	@Override
@@ -69,6 +52,8 @@ public class SonicGDX extends Game {
 
 		// https://web.archive.org/web/20200427232345/https://www.badlogicgames.com/wordpress/?p=1550
 
+
+		tm = new TileMap();
 
 		dr = new ShapeRenderer();
 		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
@@ -152,7 +137,7 @@ public class SonicGDX extends Game {
 			{
 				for (int grid = 0; grid < 16; grid++)
 				{
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, steepMap[chunkX][chunkY][blockX][blockY][grid]);
+					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.steepMap[chunkX][chunkY][blockX][blockY][grid]);
 				}
 			}
 		}
