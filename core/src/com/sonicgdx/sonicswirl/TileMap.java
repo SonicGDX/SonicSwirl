@@ -32,6 +32,8 @@ public class TileMap {
 
     // Java classes aren't private by default, are they public?
 
+    // Is it good practice to have multiple batches or only one?
+
     byte[][][][][] steepMap =
             {
                     {steepChunk,emptyChunk,emptyChunk,emptyChunk},

@@ -31,6 +31,8 @@ public class SonicGDX extends Game {
 	//https://info.sonicretro.org/SPG:Solid_Tiles#Sensors
 	float leftFootSensor, rightFootSensor;
 
+	boolean debugMode = false;
+
 	static final float accel = 0.046875F, decel = 0.5F;
 
 	TileMap tm;
@@ -81,21 +83,44 @@ public class SonicGDX extends Game {
 		dr.begin(ShapeRenderer.ShapeType.Filled);
 		dr.end();
 
-		//if (250-y >= 150) y += 10;
-		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-			//ternary operator
-			groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
-			//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
+		// Would be better to implement an Input processor. This makes more sense as an interrupt rather
+		// than constant polling.
 
-			if (x <= 1280) {
-				x += groundSpeed;
-				if (x > 1280) x = 20;
-			}
-
-		} else {
-			groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
-			x += groundSpeed;
+		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
+		{
+			debugMode = !debugMode;
+			System.out.println(debugMode);
 		}
+
+		if (debugMode == false) {
+			//if (250-y >= 150) y += 10;
+			if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+				//ternary operator
+				groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
+				//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
+
+				if (x <= 1280) {
+					x += groundSpeed;
+					if (x > 1280) x = 20;
+				}
+
+			} else {
+				groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
+				x += groundSpeed;
+			}
+		}
+		else {
+			speedX = 0; speedY = 0; groundSpeed = 0;
+
+			if (Gdx.input.isKeyPressed(Input.Keys.D)) speedX += 5;
+			if (Gdx.input.isKeyPressed(Input.Keys.A)) speedX -= 5;
+			if (Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 5;
+			if (Gdx.input.isKeyPressed(Input.Keys.S)) speedY -= 5;
+
+			x += speedX;
+			y += speedY;
+		}
+
 		sprite1.setPosition(x, y); camera.position.set(sprite1.getX() + cameraOffset.x,sprite1.getY() + cameraOffset.y,camera.position.z);
 
 		leftFootSensor = sprite1.getX();
