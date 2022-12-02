@@ -1,10 +1,9 @@
 package com.sonicgdx.sonicswirl;
 
-import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Game; // Replaces ApplicationAdapter
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,13 +12,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
-
-import java.util.Arrays;
-
+//import com.badlogic.gdx.maps.tiled.TiledMap;
+//import java.util.Arrays;
 //import java.awt.*;
-
 //import com.badlogic.gdx.math.Rectangle;
-//import com.badlogic.gdx.Game; -- replaces ApplicationAdapter
+
 public class SonicGDX extends Game {
 	SpriteBatch batch; ShapeRenderer dr; Sprite player; Texture img, img2;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0, groundSpeed = 0, x = 600, y = 200; // Player starts at (600,200);
@@ -64,8 +61,6 @@ public class SonicGDX extends Game {
 
 		ScreenUtils.clear(Color.GRAY); // clears the screen and sets the background to a certain colour
 
-		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
-
 		dr.setProjectionMatrix(camera.combined);
 		dr.begin(ShapeRenderer.ShapeType.Filled);
 		dr.end();
@@ -85,7 +80,7 @@ public class SonicGDX extends Game {
 
 				if (x <= 1280) {
 					x += groundSpeed;
-					if (x > 1280) x = 20;
+					if (x > 1200) x = 20;
 				}
 
 			} else {
@@ -96,16 +91,16 @@ public class SonicGDX extends Game {
 		else {
 			speedX = 0; speedY = 0; groundSpeed = 0;
 
-			if (Gdx.input.isKeyPressed(Input.Keys.D)) speedX += 5;
-			if (Gdx.input.isKeyPressed(Input.Keys.A)) speedX -= 5;
-			if (Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 5;
-			if (Gdx.input.isKeyPressed(Input.Keys.S)) speedY -= 5;
+			if (Gdx.input.isKeyPressed(Input.Keys.D)) speedX += 7;
+			if (Gdx.input.isKeyPressed(Input.Keys.A)) speedX -= 7;
+			if (Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 7;
+			if (Gdx.input.isKeyPressed(Input.Keys.S)) speedY -= 7;
 
 			x += speedX;
 			y += speedY;
 		}
 
-		player.setPosition(x, y); camera.position.set(player.getX() + cameraOffset.x,player.getY() + cameraOffset.y,camera.position.z);
+		player.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
 
 		leftFootSensor = player.getX();
 		rightFootSensor = player.getX() + (player.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
