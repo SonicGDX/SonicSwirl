@@ -45,7 +45,7 @@ public class SonicGDX extends Game {
 		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
 		img = new Texture("1x1-ffffffff.png"); img2 = new Texture("1x1-000000ff.png");
 
-		player = new Sprite(img2,25,50);
+		player = new Sprite(img2,20,40);
 		player.setPosition(x,y);
 
 		cameraOffset.x = camera.position.x - player.getX();
@@ -132,16 +132,18 @@ public class SonicGDX extends Game {
 
 	public void drawChunk(int chunkX, int chunkY) {
 
-		for (int blockX = 0; blockX < 8; blockX++)
+		for (int blockX = 0; blockX < 2; blockX++)
 		{
-			for (int blockY = 0; blockY < 8; blockY++)
+			for (int blockY = 0; blockY < 1; blockY++)
 			{
 				for (int grid = 0; grid < 16; grid++)
 				{
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.steepMap2[chunkX][chunkY][blockX][blockY].height[grid]);
+					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.bMap[chunkX][chunkY][blockX][blockY].height[grid]);
 				}
 			}
 		}
 	}
+
+
 
 }
