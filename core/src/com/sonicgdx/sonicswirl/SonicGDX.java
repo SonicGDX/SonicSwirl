@@ -21,27 +21,17 @@ import java.util.Arrays;
 //import com.badlogic.gdx.math.Rectangle;
 //import com.badlogic.gdx.Game; -- replaces ApplicationAdapter
 public class SonicGDX extends Game {
-	SpriteBatch batch; Sprite sprite1; Texture img, img2; ShapeRenderer dr;
-	OrthographicCamera camera;
-	// capital F can be used to cast from double to float (e.g. 50.55F)
-	float speedX = 0, speedY = 0, groundSpeed = 0;
-	float x = 600, y = 200; //https://colourtann.github.io/HelloLibgdx/
-	Vector2 cameraOffset = Vector2.Zero;
-
-	//https://info.sonicretro.org/SPG:Solid_Tiles#Sensors
-	float leftFootSensor, rightFootSensor;
-
-	boolean debugMode = false;
-
-	static final float accel = 0.046875F, decel = 0.5F;
+	SpriteBatch batch; ShapeRenderer dr; Sprite player; Texture img, img2;
+	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0, groundSpeed = 0, x = 600, y = 200; // Player starts at (600,200);
+	OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero;
+	boolean debugMode = false; float leftFootSensor, rightFootSensor;
 
 	TileMap tm;
 
 	FPSLogger frameLog;
 
-
 	@Override
-	public void create () { // equivalent to start in unity
+	public void create () {
 
 		// implement class with reference to https://gamedev.stackexchange.com/a/133593
 
@@ -52,20 +42,17 @@ public class SonicGDX extends Game {
 		// So for example, one screen won't be in the bottom left corner in 1080p
 		// but would take up the entire view
 
-		// https://web.archive.org/web/20200427232345/https://www.badlogicgames.com/wordpress/?p=1550
-
-
 		tm = new TileMap();
 
 		dr = new ShapeRenderer();
 		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
 		img = new Texture("1x1-ffffffff.png"); img2 = new Texture("1x1-000000ff.png");
 
-		sprite1 = new Sprite(img2,25,50);
-		sprite1.setPosition(x,y);
+		player = new Sprite(img2,25,50);
+		player.setPosition(x,y);
 
-		cameraOffset.x = camera.position.x - sprite1.getX();
-		cameraOffset.y = camera.position.y - sprite1.getY();
+		cameraOffset.x = camera.position.x - player.getX();
+		cameraOffset.y = camera.position.y - player.getY();
 
 		frameLog = new FPSLogger();
 	}
@@ -73,7 +60,7 @@ public class SonicGDX extends Game {
 	@Override
 	public void render () { // equivalent to update in unity
 
-		frameLog.log();
+		//frameLog.log();
 
 		ScreenUtils.clear(Color.GRAY); // clears the screen and sets the background to a certain colour
 
@@ -83,19 +70,16 @@ public class SonicGDX extends Game {
 		dr.begin(ShapeRenderer.ShapeType.Filled);
 		dr.end();
 
-		// Would be better to implement an Input processor. This makes more sense as an interrupt rather
+		// Would be better to implement an InputProcessor. This makes more sense as an interrupt rather
 		// than constant polling.
-
 		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
 		{
 			debugMode = !debugMode;
 			System.out.println(debugMode);
 		}
-
 		if (debugMode == false) {
 			//if (250-y >= 150) y += 10;
 			if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-				//ternary operator
 				groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
 				//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 
@@ -121,12 +105,12 @@ public class SonicGDX extends Game {
 			y += speedY;
 		}
 
-		sprite1.setPosition(x, y); camera.position.set(sprite1.getX() + cameraOffset.x,sprite1.getY() + cameraOffset.y,camera.position.z);
+		player.setPosition(x, y); camera.position.set(player.getX() + cameraOffset.x,player.getY() + cameraOffset.y,camera.position.z);
 
-		leftFootSensor = sprite1.getX();
-		rightFootSensor = sprite1.getX() + (sprite1.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+		leftFootSensor = player.getX();
+		rightFootSensor = player.getX() + (player.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
 
-		// tell the SpriteBatch to render in the coordinate system specified by the camera - https://libgdx.com/wiki/start/a-simple-game
+		// tell the SpriteBatch to render in the coordinate system specified by the camera
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
@@ -138,11 +122,10 @@ public class SonicGDX extends Game {
 			}
 		}
 
-		sprite1.draw(batch);
+		player.draw(batch);
 
 		// DEBUG
 		batch.draw(img,leftFootSensor,y); batch.draw(img,rightFootSensor,y);
-
 
 		batch.end();
 	}

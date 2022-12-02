@@ -30,8 +30,9 @@ https://stackoverflow.com/questions/41946007/efficient-and-well-explained-implem
 
 ## Camera:
 camera.translate - https://gamefromscratch.com/libgdx-tutorial-11-tiled-maps-part-1-simple-orthogonal-maps and https://gamefromscratch.com/libgdx-tutorial-7-camera-basics \
-camera.position - https://libgdx.com/wiki/graphics/2d/orthographic-camera
+camera.position - https://libgdx.com/wiki/graphics/2d/orthographic-camera \
 https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites \
+https://web.archive.org/web/20200427232345/https://www.badlogicgames.com/wordpress/?p=1550 \
 
 ## Neon Paradise Zone:
 
@@ -65,6 +66,10 @@ https://libgdx.com/wiki/articles/dependency-management-with-gradle#box2d-gradle 
 https://libgdx.com/wiki/input/polling \
 https://github.com/SFML/SFML/issues/1832#issuecomment-1100573813 \
 https://jvm-gaming.org/t/libgdx-subpixel-smooth-spite-movement/59881/3 \
+
+## Co-ordinates
+https://colourtann.github.io/HelloLibgdx \
+https://libgdx.com/wiki/start/a-simple-game \
 
 ## Gradle
 Fix “[ALSOFT] (EE) Failed to set real-time priority for thread: Operation not permitted” error on running - https://stackoverflow.com/questions/18987228/how-do-i-change-the-intellij-idea-default-jdk \
