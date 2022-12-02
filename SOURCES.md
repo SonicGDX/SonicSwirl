@@ -8,6 +8,7 @@ https://developer.mozilla.org/en-US/docs/Games/Techniques/Tilemaps \
 https://www.youtube.com/watch?v=N6xqCwblyiw \
 https://www.w3schools.com/java/java_arrays_multi.asp \
 https://www.youtube.com/watch?v=KsLChm2MIQY \
+https://gamedev.stackexchange.com/questions/43341/more-efficient-data-structure-for-large-layered-tile-map \
 
 ## GitHub Actions Workflow
 https://www.mgsx.net/html5-libgdx-tutorial \

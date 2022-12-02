@@ -52,6 +52,7 @@ public class SonicGDX extends Game {
 		cameraOffset.y = camera.position.y - player.getY();
 
 		frameLog = new FPSLogger();
+
 	}
 
 	@Override
