@@ -30,9 +30,23 @@ public class TileMap {
             {empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty}};
 
 
-    // Java classes aren't private by default, are they public?
+    // Java classes aren't private by default, are they public? -- package private by default, accessible within whole package instead of just one class
 
     // Is it good practice to have multiple batches or only one?
+
+
+    Tile emptyTile = new Tile();
+    Tile blockTile = new Tile(block,block,0,true,false);
+
+    Tile[][] chunk = {
+            {blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile},
+            {blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile},
+            {blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile},
+            {blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile},
+            {blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile},
+            {blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile},
+            {blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile},
+            {blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile,blockTile}};
 
     byte[][][][][] steepMap =
             {
@@ -40,6 +54,14 @@ public class TileMap {
                     {blockChunk,steepChunk,emptyChunk,emptyChunk},
                     {blockChunk,blockChunk,steepChunk,emptyChunk},
                     {blockChunk,blockChunk,blockChunk,steepChunk}
+            };
+
+    Tile[][][][] steepMap2 =
+            {
+                    {chunk,chunk,chunk,chunk},
+                    {chunk,chunk,chunk,chunk},
+                    {chunk,chunk,chunk,chunk},
+                    {chunk,chunk,chunk,chunk}
             };
 
 

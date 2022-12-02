@@ -138,7 +138,7 @@ public class SonicGDX extends Game {
 			{
 				for (int grid = 0; grid < 16; grid++)
 				{
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.steepMap[chunkX][chunkY][blockX][blockY][grid]);
+					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.steepMap2[chunkX][chunkY][blockX][blockY].height[grid]);
 				}
 			}
 		}
