@@ -72,16 +72,13 @@ public class SonicGDX extends Game {
 			debugMode = !debugMode;
 			System.out.println(debugMode);
 		}
-		if (debugMode == false) {
+		if (!debugMode) {
 			//if (250-y >= 150) y += 10;
 			if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 				groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
 				//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 
-				if (x <= 1280) {
-					x += groundSpeed;
-					if (x > 1200) x = 20;
-				}
+				x = (x <= 1280) ? (x + groundSpeed) : 20;
 
 			} else {
 				groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
