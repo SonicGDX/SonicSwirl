@@ -107,9 +107,9 @@ public class SonicGDX extends Game {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
-		for (int i=0;i<4;i++)
+		for (int i=0;i<16;i++)
 		{
-			for (int j =0; j<4;j++)
+			for (int j =0; j<16;j++)
 			{
 				drawChunk(i,j);
 			}
