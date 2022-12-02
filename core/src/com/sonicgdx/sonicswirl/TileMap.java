@@ -7,23 +7,23 @@ public class TileMap {
 
 
     // solid blocks
-    private byte[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
-    private byte[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    private byte[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    private final byte[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
+    private final byte[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private final byte[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
-    private byte[][][] steepChunk = {
+    private final byte[][][] steepChunk = {
             {staircase,empty,empty,empty,empty,empty,empty,empty},{block,staircase,empty,empty,empty,empty,empty,empty},
             {block,block,staircase,empty,empty,empty,empty,empty},{block,block,block,staircase,empty,empty,empty,empty},
             {block,block,block,block,staircase,empty,empty,empty},{block,block,block,block,block,staircase,empty,empty},
             {block,block,block,block,block,block,staircase,empty},{block,block,block,block,block,block,block,staircase}};
 
-    private byte[][][] blockChunk = {
+    private final byte[][][] blockChunk = {
             {block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},
             {block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},
             {block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},
             {block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block}};
 
-    private byte[][][] emptyChunk = {
+    private final byte[][][] emptyChunk = {
             {empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},
             {empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},
             {empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},
