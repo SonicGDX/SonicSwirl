@@ -132,13 +132,13 @@ public class SonicGDX extends Game {
 
 	public void drawChunk(int chunkX, int chunkY) {
 
-		for (int blockX = 0; blockX < 2; blockX++)
+		for (int blockX = 0; blockX < 8; blockX++)
 		{
-			for (int blockY = 0; blockY < 1; blockY++)
+			for (int blockY = 0; blockY < 8; blockY++)
 			{
 				for (int grid = 0; grid < 16; grid++)
 				{
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.bMap[chunkX][chunkY][blockX][blockY].height[grid]);
+					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.rsMap[chunkX][chunkY][blockX][blockY].height[grid]);
 				}
 			}
 		}
