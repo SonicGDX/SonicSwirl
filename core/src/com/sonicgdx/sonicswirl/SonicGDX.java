@@ -21,7 +21,7 @@ public class SonicGDX extends Game {
 	SpriteBatch batch; ShapeRenderer dr; Sprite player; Texture img, img2;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0, groundSpeed = 0, x = 600, y = 200; // Player starts at (600,200);
 	OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero;
-	boolean debugMode = false; float lSensorX, rSensorX, anchorY;
+	boolean debugMode = false; float lSensorX, rSensorX, middleY;
 
 	TileMap tm;
 
@@ -62,7 +62,6 @@ public class SonicGDX extends Game {
 
 		ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
-
 		// Would be better to implement an InputProcessor. This makes more sense as an interrupt rather
 		// than constant polling.
 		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
@@ -75,13 +74,8 @@ public class SonicGDX extends Game {
 			if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 				groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
 				//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
-
-				x = (x <= 1280) ? (x + groundSpeed) : 20;
-
-			} else {
-				groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
-				x += groundSpeed;
-			}
+			} else	groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
+			x += groundSpeed;
 		}
 		else {
 			speedX = 0; speedY = 0; groundSpeed = 0;
@@ -95,11 +89,18 @@ public class SonicGDX extends Game {
 			y += speedY;
 		}
 
-		player.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
+
+		x = (x <= 1280) ? x : 20;
+		x = (x >= 0) ? x : 0;
+
+		player.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
+
+		boolean nothing = checkTile(x,y);
+
 
 		lSensorX = x;
 		rSensorX = x + (player.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
-		anchorY = y + (player.getHeight() / 2);
+		middleY = y + (player.getHeight() / 2);
 
 
 
@@ -124,7 +125,7 @@ public class SonicGDX extends Game {
 		player.draw(batch);
 
 		// DEBUG
-		batch.draw(img,lSensorX,y); batch.draw(img,rSensorX,y); batch.draw(img,lSensorX,anchorY); batch.draw(img,rSensorX,anchorY);
+		batch.draw(img,lSensorX,y); batch.draw(img,rSensorX,y); batch.draw(img,lSensorX,middleY); batch.draw(img,rSensorX,middleY);
 
 
 		batch.end();
@@ -154,10 +155,23 @@ public class SonicGDX extends Game {
 					{
 						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
 					}
-
 				}
 			}
 		}
+	}
+
+	public boolean checkTile(float xPos, float yPos)
+	{
+		float tileX =  xPos / 16;
+		float chunk = tileX / 8;
+
+		float grid = tileX - (int) tileX;
+
+		float grid2 = xPos % 16;
+
+		System.out.println(grid * 16 + " " + grid2);
+
+		return true;
 	}
 
 
