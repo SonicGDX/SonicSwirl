@@ -21,7 +21,7 @@ public class SonicGDX extends Game {
 	SpriteBatch batch; ShapeRenderer dr; Sprite player; Texture img, img2;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0, groundSpeed = 0, x = 600, y = 200; // Player starts at (600,200);
 	OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero;
-	boolean debugMode = false; float leftFootSensor, rightFootSensor;
+	boolean debugMode = false; float lSensorX, rSensorX, anchorY;
 
 	TileMap tm;
 
@@ -97,8 +97,11 @@ public class SonicGDX extends Game {
 
 		player.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
 
-		leftFootSensor = player.getX();
-		rightFootSensor = player.getX() + (player.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+		lSensorX = x;
+		rSensorX = x + (player.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+		anchorY = y + (player.getHeight() / 2);
+
+
 
 		dr.setProjectionMatrix(camera.combined);
 		dr.begin(ShapeRenderer.ShapeType.Filled);
@@ -121,7 +124,7 @@ public class SonicGDX extends Game {
 		player.draw(batch);
 
 		// DEBUG
-		batch.draw(img,leftFootSensor,y); batch.draw(img,rightFootSensor,y);
+		batch.draw(img,lSensorX,y); batch.draw(img,rSensorX,y); batch.draw(img,lSensorX,anchorY); batch.draw(img,rSensorX,anchorY);
 
 
 		batch.end();
@@ -147,7 +150,11 @@ public class SonicGDX extends Game {
 					}
 
 					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
-					if ((int) x == (chunkX*128 + blockX*16+grid)) speedY = 0;
+					if ((int) x == (chunkX*128 + blockX*16+grid))
+					{
+						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
+					}
+
 				}
 			}
 		}
