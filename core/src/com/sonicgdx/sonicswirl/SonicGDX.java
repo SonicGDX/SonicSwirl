@@ -145,7 +145,7 @@ public class SonicGDX extends Game {
 					}
 
 					//batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
-					if ((chunkX*128 + blockX*16+grid) == x) dr.setColor(1,0,0,0);
+					if (x - (chunkX*128 + blockX*16+grid) < 1 && x - (chunkX*128 + blockX*16+grid) >= 0) {dr.setColor(1,0,0,0); System.out.println(grid);}
 					else dr.setColor(1,1,1,1);
 
 					dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
