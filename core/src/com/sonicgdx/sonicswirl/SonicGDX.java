@@ -62,16 +62,13 @@ public class SonicGDX extends Game {
 
 		ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
-		dr.setProjectionMatrix(camera.combined);
-		dr.begin(ShapeRenderer.ShapeType.Filled);
-		dr.end();
 
 		// Would be better to implement an InputProcessor. This makes more sense as an interrupt rather
 		// than constant polling.
 		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
 		{
 			debugMode = !debugMode;
-			System.out.println(debugMode);
+			//System.out.println(debugMode);
 		}
 		if (!debugMode) {
 			//if (250-y >= 150) y += 10;
@@ -103,10 +100,8 @@ public class SonicGDX extends Game {
 		leftFootSensor = player.getX();
 		rightFootSensor = player.getX() + (player.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
 
-		// tell the SpriteBatch to render in the coordinate system specified by the camera
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-
+		dr.setProjectionMatrix(camera.combined);
+		dr.begin(ShapeRenderer.ShapeType.Filled);
 		for (int i=0;i<8;i++)
 		{
 			for (int j =0; j<1;j++)
@@ -114,6 +109,13 @@ public class SonicGDX extends Game {
 				drawChunk(i,j);
 			}
 		}
+		dr.end();
+
+
+
+		// tell the SpriteBatch to render in the coordinate system specified by the camera
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
 
 		player.draw(batch);
 
@@ -141,7 +143,12 @@ public class SonicGDX extends Game {
 					if (tm.testMap[chunkX][chunkY][blockX][blockY].empty){
 						break;
 					}
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
+
+					//batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
+					if ((chunkX*128 + blockX*16+grid) == x) dr.setColor(1,0,0,0);
+					else dr.setColor(1,1,1,1);
+
+					dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
 				}
 			}
 		}
