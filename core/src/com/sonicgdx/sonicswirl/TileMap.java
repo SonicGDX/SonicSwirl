@@ -11,9 +11,10 @@ public class TileMap {
     private final byte[] tall1 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
     private final Tile empt = new Tile();
-    private final Tile ftile = new Tile(full,full,0,true,false);
-    private final Tile rvtile = new Tile(rvslope,rvslope,0,true,false);
-    private final Tile sTile = new Tile(slope,slope,0,true,false);
+    private final Tile ftile = new Tile(full,full,0,(byte) 0,false);
+    private final Tile stile = new Tile(slope,slope,0,(byte) 0,false);
+    private final Tile rvtile = new Tile(rvslope,rvslope,0,(byte) 0,false);
+
 
     private final Tile[][] fChunk = {
             {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
@@ -26,14 +27,26 @@ public class TileMap {
             {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile}};
 
     private final Tile[][] rvChunk = {
-            {rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile},
-            {rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile},
-            {rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile},
-            {rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile},
-            {rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile},
-            {rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile},
-            {rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile},
-            {rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile,rvtile}};
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,rvtile},
+            {ftile,ftile,ftile,ftile,ftile,ftile,rvtile,empt},
+            {ftile,ftile,ftile,ftile,ftile,rvtile,empt,empt},
+            {ftile,ftile,ftile,ftile,rvtile,empt,empt,empt},
+            {ftile,ftile,ftile,rvtile,empt,empt,empt,empt},
+            {ftile,ftile,rvtile,empt,empt,empt,empt,empt},
+            {ftile,rvtile,empt,empt,empt,empt,empt,empt},
+            {rvtile,empt,empt,empt,empt,empt,empt,empt}};
+
+    private final Tile[][] sChunk =
+            {
+                    {stile,empt,empt,empt,empt,empt,empt,empt},
+                    {ftile,stile,empt,empt,empt,empt,empt,empt},
+                    {ftile,ftile,stile,empt,empt,empt,empt,empt},
+                    {ftile,ftile,ftile,stile,empt,empt,empt,empt},
+                    {ftile,ftile,ftile,ftile,stile,empt,empt,empt},
+                    {ftile,ftile,ftile,ftile,ftile,stile,empt,empt},
+                    {ftile,ftile,ftile,ftile,ftile,ftile,stile,empt},
+                    {ftile,ftile,ftile,ftile,ftile,ftile,ftile,stile},
+            };
 
     private final Tile[][] eChunk = {
             {empt,empt,empt,empt,empt,empt,empt,empt},
@@ -62,20 +75,16 @@ public class TileMap {
                     {eChunk,eChunk,eChunk,eChunk},
                     {eChunk,eChunk,eChunk,eChunk}
             };
-
-    Tile[][][][] rvMap =
+    Tile[][][][] testMap =
             {
-                    {rvChunk,rvChunk,rvChunk,rvChunk},
-                    {rvChunk,rvChunk,rvChunk,rvChunk},
-                    {rvChunk,rvChunk,rvChunk,rvChunk},
-                    {rvChunk,rvChunk,rvChunk,rvChunk},
-                    {rvChunk,rvChunk,rvChunk,rvChunk},
-                    {rvChunk,rvChunk,rvChunk,rvChunk},
-                    {rvChunk,rvChunk,rvChunk,rvChunk},
-                    {rvChunk,rvChunk,rvChunk,rvChunk},
-                    {rvChunk,rvChunk,rvChunk,rvChunk},
-                    {rvChunk,rvChunk,rvChunk,rvChunk},
-                    {rvChunk,rvChunk,rvChunk,rvChunk}
+                    {sChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {rvChunk,eChunk,eChunk,eChunk}
 
             };
 

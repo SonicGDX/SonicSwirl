@@ -4,16 +4,20 @@ public class Tile {
 
     boolean isFlipped, isSolid, empty;
     byte[] height,width;
+    byte solidity;
+    // 0 = solid from top, 1 = solid from bottom, 2 = solid from left, 3 = solid from right, 4 = solid from all sides
     float angle;
-    Tile(byte[] heightArray, byte[] widthArray, float angle, boolean solid, boolean flipped){
+    Tile(byte[] heightArray, byte[] widthArray, float angle, byte solid, boolean flipped){
         this.empty = false;
         this.height = heightArray;
         this.width = widthArray;
         this.angle = angle;
         this.isFlipped = flipped;
-        this.isSolid = solid;
+        this.solidity = solid;
 
     }
+
+
 
     Tile()
     {

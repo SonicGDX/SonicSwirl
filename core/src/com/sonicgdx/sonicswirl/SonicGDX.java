@@ -60,7 +60,7 @@ public class SonicGDX extends Game {
 
 		//frameLog.log();
 
-		ScreenUtils.clear(Color.GRAY); // clears the screen and sets the background to a certain colour
+		ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
 		dr.setProjectionMatrix(camera.combined);
 		dr.begin(ShapeRenderer.ShapeType.Filled);
@@ -107,7 +107,7 @@ public class SonicGDX extends Game {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
-		for (int i=0;i<10;i++)
+		for (int i=0;i<8;i++)
 		{
 			for (int j =0; j<1;j++)
 			{
@@ -138,10 +138,10 @@ public class SonicGDX extends Game {
 			{
 				for (int grid = 0; grid < 16; grid++)
 				{
-					if (tm.rvMap[chunkX][chunkY][blockX][blockY].empty){
+					if (tm.testMap[chunkX][chunkY][blockX][blockY].empty){
 						break;
 					}
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.rvMap[chunkX][chunkY][blockX][blockY].height[grid]);
+					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
 				}
 			}
 		}
