@@ -158,7 +158,7 @@ public class SonicGDX extends Game {
 						break;
 					}
 
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
+					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.eMap[chunkX][chunkY][blockX][blockY].height[grid]);
 					if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
 						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
@@ -175,10 +175,13 @@ public class SonicGDX extends Game {
 
 		int xPosition = (int) xPos; int yPosition = (int) yPos;
 
-		int tileX =  xPosition % 8;
+		int tileX = xPosition % 128 / 16;
 		int chunkX = xPosition / 128;
 
-		int tileY = yPosition % 8;
+
+		//(chunkX * 128) + (tileX * 16) + grid = xPosition
+
+		int tileY = yPosition % 128 / 16;
 		int chunkY = yPosition / 128;
 
 
@@ -189,9 +192,10 @@ public class SonicGDX extends Game {
 		//System.out.println(yPos);
 
 
+		System.out.println(tm.eMap[chunkX][chunkY][tileX][tileY].height[grid]);
 
+		//System.out.println(chunkX + " " + chunkY + " " + tileX + " " + tileY);
 		// Classes are reference types so changing a value would affect of the tiles that are the same.
-		tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] = (byte) 0;
 
 		return true;
 	}

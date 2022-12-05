@@ -60,6 +60,18 @@ public class TileMap {
 
     };
 
+    private final Tile[][] borderedChunk = {
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
+            {ftile,empt,empt,empt,empt,empt,empt,ftile},
+            {ftile,empt,empt,empt,empt,empt,empt,ftile},
+            {ftile,empt,empt,empt,empt,empt,empt,ftile},
+            {ftile,empt,empt,empt,empt,empt,empt,ftile},
+            {ftile,empt,empt,empt,empt,empt,empt,ftile},
+            {ftile,empt,empt,empt,empt,empt,empt,ftile},
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile}
+
+    };
+
     Tile[][][][] bMap =
             {
                     {fChunk,fChunk,fChunk,fChunk},
@@ -70,10 +82,15 @@ public class TileMap {
 
     Tile[][][][] eMap =
             {
-                    {eChunk,eChunk,eChunk,eChunk},
-                    {eChunk,eChunk,eChunk,eChunk},
-                    {eChunk,eChunk,eChunk,eChunk},
-                    {eChunk,eChunk,eChunk,eChunk}
+                    {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
+                    {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
+                    {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
+                    {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
+                    {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
+                    {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
+                    {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
+                    {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk}
+
             };
     Tile[][][][] testMap =
             {
