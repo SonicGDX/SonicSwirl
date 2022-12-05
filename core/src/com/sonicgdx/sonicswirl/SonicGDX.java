@@ -189,7 +189,9 @@ public class SonicGDX extends Game {
 		//System.out.println(yPos);
 
 
-		tm.testMap[chunkX][chunkY][tileX][tileY].height = new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+		// Classes are reference types so changing a value would affect of the tiles that are the same.
+		tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] = (byte) 0;
 
 		return true;
 	}
