@@ -35,6 +35,8 @@ public class SonicGDX extends Game {
 		//System.out.println(tile[1][3][15]);
 
 		camera = new OrthographicCamera(); // 3D camera which projects into 2D.
+
+		// stretch viewport //TODO Potentially change viewport
    		camera.setToOrtho(false, 1280, 720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
 		// So for example, one screen won't be in the bottom left corner in 1080p
 		// but would take up the entire view
@@ -158,7 +160,7 @@ public class SonicGDX extends Game {
 						break;
 					}
 
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.eMap[chunkX][chunkY][blockX][blockY].height[grid]);
+					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
 					if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
 						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
@@ -172,14 +174,10 @@ public class SonicGDX extends Game {
 
 	public boolean checkTile(float xPos, float yPos)
 	{
-
 		int xPosition = (int) xPos; int yPosition = (int) yPos;
 
 		int tileX = xPosition % 128 / 16;
 		int chunkX = xPosition / 128;
-
-
-		//(chunkX * 128) + (tileX * 16) + grid = xPosition
 
 		int tileY = yPosition % 128 / 16;
 		int chunkY = yPosition / 128;
@@ -187,14 +185,8 @@ public class SonicGDX extends Game {
 
 		int grid = xPosition % 16;
 
-		//System.out.println(grid);
+		System.out.println(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]);
 
-		//System.out.println(yPos);
-
-
-		System.out.println(tm.eMap[chunkX][chunkY][tileX][tileY].height[grid]);
-
-		//System.out.println(chunkX + " " + chunkY + " " + tileX + " " + tileY);
 		// Classes are reference types so changing a value would affect of the tiles that are the same.
 
 		return true;
