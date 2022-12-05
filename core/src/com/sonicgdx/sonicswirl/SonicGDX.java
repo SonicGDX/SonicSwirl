@@ -30,7 +30,7 @@ public class SonicGDX extends Game {
 	@Override
 	public void create () {
 
-		// implement class with reference to https://gamedev.stackexchange.com/a/133593
+		//TODO implement class with reference to https://gamedev.stackexchange.com/a/133593
 
 		//System.out.println(tile[1][3][15]);
 
@@ -62,8 +62,8 @@ public class SonicGDX extends Game {
 
 		ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
-		// Would be better to implement an InputProcessor. This makes more sense as an interrupt rather
-		// than constant polling.
+		// TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather
+		//  than constant polling.
 		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
 		{
 			debugMode = !debugMode;
@@ -76,6 +76,9 @@ public class SonicGDX extends Game {
 				//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 			} else	groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
 			x += groundSpeed;
+
+			//TODO use ground angle and sin/cos with Gdx MathUtils
+
 		}
 		else {
 			speedX = 0; speedY = 0; groundSpeed = 0;
@@ -89,9 +92,14 @@ public class SonicGDX extends Game {
 			y += speedY;
 		}
 
-
+		// "Invisible walls" - prevents players from going beyond borders to simplify calculations.
 		x = (x <= 1280) ? x : 20;
 		x = (x >= 0) ? x : 0;
+		y = (y >= 0) ? y : 0;
+
+		//TODO define constants
+
+
 
 		player.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
@@ -154,6 +162,8 @@ public class SonicGDX extends Game {
 					if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
 						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
+
+						//TODO Add collision logic
 					}
 				}
 			}
@@ -162,14 +172,23 @@ public class SonicGDX extends Game {
 
 	public boolean checkTile(float xPos, float yPos)
 	{
-		float tileX =  xPos / 16;
-		float chunk = tileX / 8;
 
-		float grid = tileX - (int) tileX;
+		int xPosition = (int) xPos; int yPosition = (int) yPos;
 
-		float grid2 = xPos % 16;
+		int tileX =  xPosition % 8;
+		int chunkX = xPosition / 128;
 
-		System.out.println(grid * 16 + " " + grid2);
+		int tileY = yPosition % 8;
+		int chunkY = yPosition / 128;
+
+
+		int grid = xPosition % 16;
+
+
+		System.out.println(yPos);
+
+
+		System.out.println(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]);
 
 		return true;
 	}
