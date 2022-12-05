@@ -34,6 +34,8 @@ camera.translate - https://gamefromscratch.com/libgdx-tutorial-11-tiled-maps-par
 camera.position - https://libgdx.com/wiki/graphics/2d/orthographic-camera \
 https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites \
 https://web.archive.org/web/20200427232345/https://www.badlogicgames.com/wordpress/?p=1550 \
+viewports - https://libgdx.com/wiki/graphics/viewports \
+https://stackoverflow.com/questions/40059360/difference-between-viewport-and-camera-in-libgdx \
 
 ## Neon Paradise Zone:
 

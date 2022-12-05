@@ -22,10 +22,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class SonicGDX extends Game {
 	SpriteBatch batch; ShapeRenderer dr; Sprite player; Texture img, img2;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0, groundSpeed = 0, x = 600, y = 200; // Player starts at (600,200);
-	OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero;
+	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
 	boolean debugMode = false; float lSensorX, rSensorX, middleY;
 
-	Viewport viewport;
+	int vpHeight, vpWidth;
 
 	TileMap tm;
 
@@ -38,8 +38,10 @@ public class SonicGDX extends Game {
 
 		//System.out.println(tile[1][3][15]);
 
+		vpWidth = Gdx.app.getGraphics().getWidth(); vpHeight = Gdx.app.getGraphics().getHeight();;
+
 		camera = new OrthographicCamera(); // 3D camera which projects into 2D.
-		viewport = new FitViewport(1280,720,camera);
+		viewport = new FitViewport(vpWidth,vpHeight,camera);
 
 		// stretch viewport //TODO Update comments
    		camera.setToOrtho(false); // Even if the device has a scaled resolution, the in game view will still be 1280x720
