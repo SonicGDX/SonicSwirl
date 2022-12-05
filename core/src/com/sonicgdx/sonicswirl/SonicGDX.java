@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 //import com.badlogic.gdx.maps.tiled.TiledMap;
 //import java.util.Arrays;
 //import java.awt.*;
@@ -22,6 +24,8 @@ public class SonicGDX extends Game {
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0, groundSpeed = 0, x = 600, y = 200; // Player starts at (600,200);
 	OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero;
 	boolean debugMode = false; float lSensorX, rSensorX, middleY;
+
+	Viewport viewport;
 
 	TileMap tm;
 
@@ -35,9 +39,10 @@ public class SonicGDX extends Game {
 		//System.out.println(tile[1][3][15]);
 
 		camera = new OrthographicCamera(); // 3D camera which projects into 2D.
+		viewport = new FitViewport(1280,720,camera);
 
-		// stretch viewport //TODO Potentially change viewport
-   		camera.setToOrtho(false, 1280, 720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
+		// stretch viewport //TODO Update comments
+   		camera.setToOrtho(false); // Even if the device has a scaled resolution, the in game view will still be 1280x720
 		// So for example, one screen won't be in the bottom left corner in 1080p
 		// but would take up the entire view
 
@@ -192,5 +197,8 @@ public class SonicGDX extends Game {
 		return true;
 	}
 
+	public void resize(int width, int height) {
+		viewport.update(width, height);
+	}
 
 }
