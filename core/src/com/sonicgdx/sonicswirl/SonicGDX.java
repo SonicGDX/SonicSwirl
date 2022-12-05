@@ -184,11 +184,12 @@ public class SonicGDX extends Game {
 
 		int grid = xPosition % 16;
 
+		//System.out.println(grid);
 
-		System.out.println(yPos);
+		//System.out.println(yPos);
 
 
-		System.out.println(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]);
+		tm.testMap[chunkX][chunkY][tileX][tileY].height = new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 		return true;
 	}
