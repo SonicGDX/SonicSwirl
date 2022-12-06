@@ -1,6 +1,6 @@
 package com.sonicgdx.sonicswirl;
 
-import com.badlogic.gdx.Game; // Replaces ApplicationAdapter
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -19,8 +18,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 //import java.awt.*;
 //import com.badlogic.gdx.math.Rectangle;
 
-public class SonicGDX extends Game {
-	SpriteBatch batch; ShapeRenderer dr; Sprite player; Texture img, img2;
+public class SonicGDX implements Screen {
+
+	final init init;
+
+	ShapeRenderer dr; Sprite player; Texture img, img2;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0, groundSpeed = 0, x = 600, y = 200; // Player starts at (600,200);
 	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
 	boolean debugMode = false; float lSensorX, rSensorX, middleY;
@@ -31,8 +33,9 @@ public class SonicGDX extends Game {
 
 	FPSLogger frameLog;
 
-	@Override
-	public void create () {
+	public SonicGDX(final init init) {
+
+		this.init = init;
 
 		//TODO implement class with reference to https://gamedev.stackexchange.com/a/133593
 
@@ -51,7 +54,6 @@ public class SonicGDX extends Game {
 		tm = new TileMap();
 
 		dr = new ShapeRenderer();
-		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
 		img = new Texture("1x1-ffffffff.png"); img2 = new Texture("1x1-000000ff.png");
 
 		player = new Sprite(img2,20,40);
@@ -65,7 +67,7 @@ public class SonicGDX extends Game {
 	}
 
 	@Override
-	public void render () { // equivalent to update in unity
+	public void render(float delta) { // equivalent to update in unity
 
 		//frameLog.log();
 
@@ -128,8 +130,8 @@ public class SonicGDX extends Game {
 
 
 		// tell the SpriteBatch to render in the coordinate system specified by the camera
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
+		init.batch.setProjectionMatrix(camera.combined);
+		init.batch.begin();
 
 		for (int i=0;i<8;i++)
 		{
@@ -139,19 +141,20 @@ public class SonicGDX extends Game {
 			}
 		}
 
-		player.draw(batch);
+		player.draw(init.batch);
 
 		// DEBUG
-		batch.draw(img,lSensorX,y); batch.draw(img,rSensorX,y); batch.draw(img,lSensorX,middleY); batch.draw(img,rSensorX,middleY);
+		init.batch.draw(img,lSensorX,y); init.batch.draw(img,rSensorX,y); init.batch.draw(img,lSensorX,middleY); init.batch.draw(img,rSensorX,middleY);
 
 
-		batch.end();
+		init.batch.end();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
+		init.batch.dispose();
 		img.dispose();
+		img2.dispose();
 		dr.dispose();
 	}
 
@@ -167,7 +170,7 @@ public class SonicGDX extends Game {
 						break;
 					}
 
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
+					init.batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
 					if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
 						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
@@ -194,13 +197,43 @@ public class SonicGDX extends Game {
 
 		System.out.println(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]);
 
-		// Classes are reference types so changing a value would affect of the tiles that are the same.
+		if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] == (byte) 16)
+		{
+			//TODO recursive?
+			
+		}
+
+		// Classes are reference types so modifying a value would affect of the tiles that are the same.
 
 		return true;
 	}
 
 	public void resize(int width, int height) {
 		viewport.update(width, height);
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

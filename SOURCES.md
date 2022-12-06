@@ -51,7 +51,8 @@ Alex13Art - https://www.deviantart.com/alex13art/art/Aqua-Lake-Zone-Sprites-5144
 
 ## UI
 https://github.com/libgdx/libgdx-demo-superjumper/blob/master/core/src/com/badlogicgames/superjumper/GameScreen.java \
-https://libgdx.com/wiki/start/simple-game-extended#the-main-menu \
+**https://libgdx.com/wiki/start/simple-game-extended#the-main-menu** \
+https://www.gamedevelopment.blog/full-libgdx-game-tutorial-menu-control \
 
 ## HTML
 Running in browser \
