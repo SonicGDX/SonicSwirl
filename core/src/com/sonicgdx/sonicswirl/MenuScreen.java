@@ -9,13 +9,17 @@ public class MenuScreen implements Screen{
     
     final init init;
 
+    final int sWidth,sHeight;
+
     OrthographicCamera camera;
 
     public MenuScreen(final init init){
         this.init = init;
 
+        sWidth = Gdx.graphics.getWidth(); sHeight = Gdx.graphics.getHeight();
+
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        camera.setToOrtho(false,sWidth,sHeight);
     }
     
     @Override
@@ -25,10 +29,10 @@ public class MenuScreen implements Screen{
 
 		camera.update();
 		init.batch.setProjectionMatrix(camera.combined);
-
 		init.batch.begin();
-		init.font.draw(init.batch, "Menu PlaceHolder", 500, 200);
-		init.font.draw(init.batch, "Press to begin", 500, 100);
+
+		init.font.draw(init.batch, "Menu PlaceHolder", sWidth / 2F - 60, sHeight / 2F);
+		init.font.draw(init.batch, "Press to begin", sWidth / 2F - 60, sHeight / 2F - 100);
 		init.batch.end();
 
 		if (Gdx.input.isTouched()) {
