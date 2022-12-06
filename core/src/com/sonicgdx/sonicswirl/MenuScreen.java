@@ -2,15 +2,19 @@ package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
+import org.w3c.dom.Text;
 
 public class MenuScreen implements Screen{
     
     final init init;
 
     final int sWidth,sHeight;
-
     OrthographicCamera camera;
 
     public MenuScreen(final init init){
@@ -20,12 +24,19 @@ public class MenuScreen implements Screen{
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false,sWidth,sHeight);
+
+        //TODO replace placeholder assets and finish UI
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("button/uiskin.atlas"));
+        Skin buttonSkin = new Skin();
+        buttonSkin.addRegions(atlas);
+
+        //TextButton button = new TextButton("Begin", buttonSkin,buttonSkin);
     }
     
     @Override
     public void render(float delta)
     {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+        ScreenUtils.clear(0.1f, 0, 0.2f, 1);
 
 		camera.update();
 		init.batch.setProjectionMatrix(camera.combined);

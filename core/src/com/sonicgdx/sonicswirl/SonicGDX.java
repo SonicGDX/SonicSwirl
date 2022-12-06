@@ -103,14 +103,18 @@ public class SonicGDX implements Screen {
 			y += speedY;
 		}
 
-		// "Invisible walls" - prevents players from going beyond borders to simplify calculations.
-		x = (x <= 1280) ? x : 20;
-		x = (x >= 0) ? x : 0;
-		y = (y >= 0) ? y : 0;
+
 
 		//TODO define constants
 
 
+		//TODO check for jumps here
+
+
+		// "Invisible walls" - prevents players from going beyond borders to simplify calculations.
+		x = (x <= 1280) ? x : 20;
+		x = (x >= 0) ? x : 0;
+		y = (y >= 0) ? y : 0;
 
 		player.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
@@ -128,6 +132,7 @@ public class SonicGDX implements Screen {
 		dr.end();
 
 
+		//TODO Add collision logic
 
 		// tell the SpriteBatch to render in the coordinate system specified by the camera
 		init.batch.setProjectionMatrix(camera.combined);
@@ -174,8 +179,6 @@ public class SonicGDX implements Screen {
 					if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
 						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
-
-						//TODO Add collision logic
 					}
 				}
 			}
@@ -195,12 +198,13 @@ public class SonicGDX implements Screen {
 
 		int grid = xPosition % 16;
 
-		System.out.println(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]);
+		//System.out.println(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]);
 
 		if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] == (byte) 16)
 		{
-			//TODO recursive?
-			
+			//TODO recursive? Check nearby tiles
+
+			System.out.println("test");
 		}
 
 		// Classes are reference types so modifying a value would affect of the tiles that are the same.
@@ -214,25 +218,25 @@ public class SonicGDX implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		//TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
+		//TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
+		//TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
+		//TODO Auto-generated method stub
 		
 	}
 
