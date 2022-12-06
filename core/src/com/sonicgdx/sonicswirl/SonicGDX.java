@@ -23,7 +23,9 @@ public class SonicGDX implements Screen {
 	final init init;
 
 	ShapeRenderer dr; Sprite player; Texture img, img2;
-	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0, groundSpeed = 0, x = 600, y = 200; // Player starts at (600,200);
+	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
+			debugSpeed = 7, groundSpeed = 0, maxSpeed = 6,
+			x = 600, y = 200; // Player starts at (600,200);
 	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
 	boolean debugMode = false; float lSensorX, rSensorX, middleY;
 
@@ -34,6 +36,8 @@ public class SonicGDX implements Screen {
 	FPSLogger frameLog;
 
 	public SonicGDX(final init init) {
+
+		//Have to declare it outside so it is a global variable?
 
 		this.init = init;
 
@@ -83,7 +87,7 @@ public class SonicGDX implements Screen {
 		if (!debugMode) {
 			//if (250-y >= 150) y += 10;
 			if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-				groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
+				groundSpeed = (groundSpeed + accel <= maxSpeed) ? (groundSpeed + accel) : maxSpeed;
 				//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 			} else	groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
 			x += groundSpeed;
@@ -94,10 +98,10 @@ public class SonicGDX implements Screen {
 		else {
 			speedX = 0; speedY = 0; groundSpeed = 0;
 
-			if (Gdx.input.isKeyPressed(Input.Keys.D)) speedX += 7;
-			if (Gdx.input.isKeyPressed(Input.Keys.A)) speedX -= 7;
-			if (Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 7;
-			if (Gdx.input.isKeyPressed(Input.Keys.S)) speedY -= 7;
+			if (Gdx.input.isKeyPressed(Input.Keys.D)) speedX += debugSpeed;
+			if (Gdx.input.isKeyPressed(Input.Keys.A)) speedX -= debugSpeed;
+			if (Gdx.input.isKeyPressed(Input.Keys.W)) speedY += debugSpeed;
+			if (Gdx.input.isKeyPressed(Input.Keys.S)) speedY -= debugSpeed;
 
 			x += speedX;
 			y += speedY;
