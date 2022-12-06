@@ -204,7 +204,13 @@ public class SonicGDX implements Screen {
 		{
 			//TODO recursive? Check nearby tiles
 
-			System.out.println("test");
+			// TODO regression, check up by one extra tile.
+			if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] < 16)
+			{
+				System.out.println("regression");
+			}
+
+			//System.out.println("test");
 		}
 
 		// Classes are reference types so modifying a value would affect of the tiles that are the same.
