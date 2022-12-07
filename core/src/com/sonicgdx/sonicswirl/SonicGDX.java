@@ -43,7 +43,7 @@ public class SonicGDX implements Screen {
 
 		//TODO implement class with reference to https://gamedev.stackexchange.com/a/133593
 
-		//System.out.println(tile[1][3][15]);
+		//Gdx.app.log("debugMode",String.valueOf(tile[1][3][15]));
 
 		vpWidth = Gdx.app.getGraphics().getWidth(); vpHeight = Gdx.app.getGraphics().getHeight();
 
@@ -82,7 +82,7 @@ public class SonicGDX implements Screen {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
 		{
 			debugMode = !debugMode;
-			//System.out.println(debugMode);
+			//Gdx.app.log("debugMode",String.valueOf(debugMode));
 			//TODO acceleration in debug mode
 		}
 		if (!debugMode) {
@@ -210,19 +210,22 @@ public class SonicGDX implements Screen {
 
 		int grid = xPosition % 16;
 
-		//System.out.println(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]);
+		//Gdx.app.log("gridValue", String.valueOf(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]));
 
 		if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] == (byte) 16)
 		{
+
+
+
 			//TODO recursive? Check nearby tiles
 
 			//TODO regression, check up by one extra tile.
 			if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] < 16)
 			{
-				System.out.println("regression");
+				Gdx.app.log("collision","sensor regression");
 			}
 
-			//System.out.println("test");
+			//Gdx.app.log("collision","test");
 		}
 
 		// Classes are reference types so modifying a value would affect of the tiles that are the same.
