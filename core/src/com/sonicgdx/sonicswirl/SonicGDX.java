@@ -37,7 +37,7 @@ public class SonicGDX implements Screen {
 
 	public SonicGDX(final init init) {
 
-		//Have to declare it outside so it is a global variable?
+		//Have to declare it outside, so it is a global variable?
 
 		this.init = init;
 
@@ -45,7 +45,7 @@ public class SonicGDX implements Screen {
 
 		//System.out.println(tile[1][3][15]);
 
-		vpWidth = Gdx.app.getGraphics().getWidth(); vpHeight = Gdx.app.getGraphics().getHeight();;
+		vpWidth = Gdx.app.getGraphics().getWidth(); vpHeight = Gdx.app.getGraphics().getHeight();
 
 		camera = new OrthographicCamera(); // 3D camera which projects into 2D.
 		viewport = new FitViewport(vpWidth,vpHeight,camera);
@@ -83,16 +83,19 @@ public class SonicGDX implements Screen {
 		{
 			debugMode = !debugMode;
 			//System.out.println(debugMode);
+			//TODO acceleration in debug mode
 		}
 		if (!debugMode) {
 			//if (250-y >= 150) y += 10;
 			if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-				groundSpeed = (groundSpeed + accel <= maxSpeed) ? (groundSpeed + accel) : maxSpeed;
+				groundSpeed = Math.min(groundSpeed + accel, maxSpeed);
 				//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
-			} else	groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
+			} else	groundSpeed = Math.max(groundSpeed - decel, 0);;
+
+
 			x += groundSpeed;
 
-			//TODO use ground angle and sin/cos with Gdx MathUtils
+			//TODO ground angle and sin/cos with Gdx MathUtils
 
 		}
 		else {
@@ -115,10 +118,10 @@ public class SonicGDX implements Screen {
 		//TODO check for jumps here
 
 
-		// "Invisible walls" - prevents players from going beyond borders to simplify calculations.
-		x = (x <= 1280) ? x : 20;
-		x = (x >= 0) ? x : 0;
-		y = (y >= 0) ? y : 0;
+		// "Invisible walls" - prevent players from going beyond borders to simplify calculations.
+		x = Math.min(x,640);
+		x = Math.max(x,0);
+		y = Math.max(y,0);
 
 		player.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
@@ -138,7 +141,7 @@ public class SonicGDX implements Screen {
 
 		//TODO Add collision logic
 
-		// tell the SpriteBatch to render in the coordinate system specified by the camera
+		// tells the SpriteBatch to render in the coordinate system specified by the camera
 		init.batch.setProjectionMatrix(camera.combined);
 		init.batch.begin();
 
@@ -167,6 +170,8 @@ public class SonicGDX implements Screen {
 		dr.dispose();
 	}
 
+
+	//TODO multithreading except for GWT?
 	public void drawChunk(int chunkX, int chunkY) {
 
 		for (int blockX = 0; blockX < 8; blockX++)
