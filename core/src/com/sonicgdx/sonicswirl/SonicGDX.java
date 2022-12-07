@@ -71,7 +71,7 @@ public class SonicGDX implements Screen {
 	}
 
 	@Override
-	public void render(float delta) { // equivalent to update in unity
+	public void render(float delta) {
 
 		//frameLog.log();
 
@@ -119,7 +119,7 @@ public class SonicGDX implements Screen {
 
 
 		// "Invisible walls" - prevent players from going beyond borders to simplify calculations.
-		x = Math.min(x,640);
+		x = Math.min(x,1000);
 		x = Math.max(x,0);
 		y = Math.max(y,0);
 
@@ -201,6 +201,7 @@ public class SonicGDX implements Screen {
 	{
 		int xPosition = (int) xPos; int yPosition = (int) yPos;
 
+		//TODO max tile no limit
 		int tileX = xPosition % 128 / 16;
 		int chunkX = xPosition / 128;
 
