@@ -1,5 +1,8 @@
 package com.sonicgdx.sonicswirl;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class TileMap {
 
     // solid blocks
@@ -48,8 +51,11 @@ public class TileMap {
                     {ftile,ftile,ftile,ftile,ftile,ftile,ftile,stile},
             };
 
+
+
+
     private final Tile[][] eChunk = {
-            {empt,empt,empt,empt,empt,empt,empt,empt},
+            Collections.nCopies(8,empt).toArray(new Tile[0]),
             {empt,empt,empt,empt,empt,empt,empt,empt},
             {empt,empt,empt,empt,empt,empt,empt,empt},
             {empt,empt,empt,empt,empt,empt,empt,empt},
@@ -72,17 +78,14 @@ public class TileMap {
 
     };
 
-    Tile[][][][] bMap =
-            {
-                    {fChunk,fChunk,fChunk,fChunk},
-                    {fChunk,fChunk,fChunk,fChunk},
-                    {fChunk,fChunk,fChunk,fChunk},
-                    {fChunk,fChunk,fChunk,fChunk}
-            };
+    Tile[][][][] fMap =
+            Collections.nCopies(8,Collections.nCopies(8,fChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
 
     Tile[][][][] eMap =
-            {
-                    {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
+
+            Collections.nCopies(8,Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
+            /*{
+                    Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0]),
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
@@ -91,7 +94,7 @@ public class TileMap {
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk}
 
-            };
+            };*/
     Tile[][][][] testMap =
             {
                     {sChunk,eChunk,eChunk,eChunk},
