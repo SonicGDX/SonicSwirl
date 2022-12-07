@@ -17,6 +17,8 @@ public class MenuScreen implements Screen{
     final int sWidth,sHeight;
     OrthographicCamera camera;
 
+    Skin buttonSkin; TextureAtlas atlas; //TextButton button;
+
     public MenuScreen(final init init){
         this.init = init;
 
@@ -26,11 +28,11 @@ public class MenuScreen implements Screen{
         camera.setToOrtho(false,sWidth,sHeight);
 
         //TODO replace placeholder assets and finish UI
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("button/uiskin.atlas"));
-        Skin buttonSkin = new Skin();
+        atlas = new TextureAtlas(Gdx.files.internal("button/uiskin.atlas"));
+        buttonSkin = new Skin();
         buttonSkin.addRegions(atlas);
 
-        //TextButton button = new TextButton("Begin", buttonSkin,buttonSkin);
+        //button = new TextButton("Begin", buttonSkin,buttonSkin);
     }
     
     @Override
@@ -85,8 +87,8 @@ public class MenuScreen implements Screen{
 
     @Override
     public void dispose() {
-        // TODO Auto-generated method stub
-        
+        buttonSkin.dispose();
+        atlas.dispose();
     }
 
 
