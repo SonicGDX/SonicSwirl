@@ -19,16 +19,7 @@ public class TileMap {
     private final Tile rvtile = new Tile(rvslope,rvslope,0,(byte) 0,false);
 
 
-    private final Tile[][] fChunk = {
-            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
-            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
-            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
-            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
-            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
-            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
-            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
-            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile}};
-
+    private final Tile[][] fChunk = Collections.nCopies(8,Collections.nCopies(8,ftile).toArray(new Tile[0])).toArray(new Tile[0][0]);
     private final Tile[][] rvChunk = {
             {ftile,ftile,ftile,ftile,ftile,ftile,ftile,rvtile},
             {ftile,ftile,ftile,ftile,ftile,ftile,rvtile,empt},
@@ -54,17 +45,7 @@ public class TileMap {
 
 
 
-    private final Tile[][] eChunk = {
-            Collections.nCopies(8,empt).toArray(new Tile[0]),
-            {empt,empt,empt,empt,empt,empt,empt,empt},
-            {empt,empt,empt,empt,empt,empt,empt,empt},
-            {empt,empt,empt,empt,empt,empt,empt,empt},
-            {empt,empt,empt,empt,empt,empt,empt,empt},
-            {empt,empt,empt,empt,empt,empt,empt,empt},
-            {empt,empt,empt,empt,empt,empt,empt,empt},
-            {empt,empt,empt,empt,empt,empt,empt,empt}
-
-    };
+    private final Tile[][] eChunk = Collections.nCopies(8,Collections.nCopies(8,empt).toArray(new Tile[0])).toArray(new Tile[0][0]);
 
     private final Tile[][] borderedChunk = {
             {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
