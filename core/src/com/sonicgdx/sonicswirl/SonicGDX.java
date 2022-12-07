@@ -24,7 +24,7 @@ public class SonicGDX implements Screen {
 
 	ShapeRenderer dr; Sprite player; Texture img, img2;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
-			debugSpeed = 7, groundSpeed = 0, maxSpeed = 6,
+			debugSpeed = 0.5F, groundSpeed = 0, maxSpeed = 6,
 			x = 600, y = 200; // Player starts at (600,200);
 	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
 	boolean debugMode = false; float lSensorX, rSensorX, middleY;
@@ -77,8 +77,8 @@ public class SonicGDX implements Screen {
 
 		ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
-		// TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather
-		//  than constant polling.
+		//TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather
+		// than constant polling.
 		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
 		{
 			debugMode = !debugMode;
@@ -184,6 +184,9 @@ public class SonicGDX implements Screen {
 					{
 						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
 					}
+
+					//TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
+
 				}
 			}
 		}
@@ -208,7 +211,7 @@ public class SonicGDX implements Screen {
 		{
 			//TODO recursive? Check nearby tiles
 
-			// TODO regression, check up by one extra tile.
+			//TODO regression, check up by one extra tile.
 			if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] < 16)
 			{
 				System.out.println("regression");
@@ -221,6 +224,9 @@ public class SonicGDX implements Screen {
 
 		return true;
 	}
+
+
+
 
 	public void resize(int width, int height) {
 		viewport.update(width, height);

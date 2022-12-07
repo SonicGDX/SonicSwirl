@@ -6,6 +6,7 @@ import java.util.Collections;
 public class TileMap {
 
     // solid blocks
+    //TODO tile ID
     private final byte[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private final byte[] slope = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
     private final byte[] full = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
