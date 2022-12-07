@@ -29,8 +29,11 @@
       }
     },
       // Add the IDs of extensions you want installed when the container is created.
+      // TODO add more extensions
       "extensions": [
-        "vscjava.vscode-java-pack"
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-gradle",
+        "k--kato.intellij-idea-keybindings"
       ]
     }
 

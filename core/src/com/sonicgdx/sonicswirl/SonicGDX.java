@@ -1,144 +1,177 @@
 package com.sonicgdx.sonicswirl;
 
-import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
-
-import java.util.Arrays;
-
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+//import com.badlogic.gdx.maps.tiled.TiledMap;
+//import java.util.Arrays;
 //import java.awt.*;
-
 //import com.badlogic.gdx.math.Rectangle;
-//import com.badlogic.gdx.Game; -- replaces ApplicationAdapter
-public class SonicGDX extends Game {
-	SpriteBatch batch; Sprite sprite1; Texture img, img2; ShapeRenderer dr;
-	OrthographicCamera camera;
-	// capital F can be used to cast from double to float (e.g. 50.55F)
-	float speedX = 0, speedY = 0, groundSpeed = 0;
-	float x = 600, y = 200; //https://colourtann.github.io/HelloLibgdx/
-	Vector2 cameraOffset = Vector2.Zero;
 
-	//https://info.sonicretro.org/SPG:Solid_Tiles#Sensors
-	float leftFootSensor, rightFootSensor;
+public class SonicGDX implements Screen {
 
-	static final float accel = 0.046875F, decel = 0.5F;
+	final init init;
 
-	// solid blocks
-	int[] block = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
-	int[] empty = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-	int[] staircase = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+	ShapeRenderer dr; Sprite player; Texture img, img2;
+	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
+			debugSpeed = 0.5F, groundSpeed = 0, maxSpeed = 6,
+			x = 600, y = 200; // Player starts at (600,200);
+	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
+	boolean debugMode = false; float lSensorX, rSensorX, middleY;
 
-	int[][][] steepChunk = {{staircase,empty,empty,empty,empty,empty,empty,empty},{block,staircase,empty,empty,empty,empty,empty,empty},{block,block,staircase,empty,empty,empty,empty,empty},{block,block,block,staircase,empty,empty,empty,empty},{block,block,block,block,staircase,empty,empty,empty},{block,block,block,block,block,staircase,empty,empty},{block,block,block,block,block,block,staircase,empty},{block,block,block,block,block,block,block,staircase}};
+	int vpHeight, vpWidth;
 
-	int[][][] blockChunk = {{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block},{block,block,block,block,block,block,block,block}};
+	TileMap tm;
 
-	int[][][] emptyChunk = {{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty},{empty,empty,empty,empty,empty,empty,empty,empty}};
+	FPSLogger frameLog;
 
+	public SonicGDX(final init init) {
 
-	int[][][][][] steepMap = {{steepChunk,emptyChunk,emptyChunk,emptyChunk},{blockChunk,steepChunk,emptyChunk,emptyChunk},{blockChunk,blockChunk,steepChunk,emptyChunk},{blockChunk,blockChunk,blockChunk,steepChunk}};
+		//Have to declare it outside, so it is a global variable?
 
+		this.init = init;
 
-	// 128x128 chunk - one dimension for x, one dimension for y and the data is a height array
-	// one height array makes up a 16x16 block
+		//TODO implement class with reference to https://gamedev.stackexchange.com/a/133593
 
+		//Gdx.app.log("debugMode",String.valueOf(tile[1][3][15]));
 
-	@Override
-	public void create () { // equivalent to start in unity
-
-		// implement class with reference to https://gamedev.stackexchange.com/a/133593
-
-		//System.out.println(tile[1][3][15]);
+		vpWidth = Gdx.app.getGraphics().getWidth(); vpHeight = Gdx.app.getGraphics().getHeight();
 
 		camera = new OrthographicCamera(); // 3D camera which projects into 2D.
-   		camera.setToOrtho(false, 1280, 720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
+		viewport = new FitViewport(vpWidth,vpHeight,camera);
+
+		// stretch viewport //TODO Update comments
+   		camera.setToOrtho(false); // Even if the device has a scaled resolution, the in game view will still be 1280x720
 		// So for example, one screen won't be in the bottom left corner in 1080p
 		// but would take up the entire view
 
-		// https://web.archive.org/web/20200427232345/https://www.badlogicgames.com/wordpress/?p=1550
-
+		tm = new TileMap();
 
 		dr = new ShapeRenderer();
-		batch = new SpriteBatch(); //sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
 		img = new Texture("1x1-ffffffff.png"); img2 = new Texture("1x1-000000ff.png");
 
-		sprite1 = new Sprite(img2,25,50);
-		sprite1.setPosition(x,y);
+		player = new Sprite(img2,20,40);
+		player.setPosition(x,y);
 
-		cameraOffset.x = camera.position.x - sprite1.getX();
-		cameraOffset.y = camera.position.y - sprite1.getY();
+		cameraOffset.x = camera.position.x - player.getX();
+		cameraOffset.y = camera.position.y - player.getY();
 
+		frameLog = new FPSLogger();
 
 	}
 
 	@Override
-	public void render () { // equivalent to update in unity
+	public void render(float delta) { // equivalent to update in unity
 
-		ScreenUtils.clear(Color.GRAY); // clears the screen and sets the background to a certain colour
+		//frameLog.log();
 
-		camera.update(); // recompute matrix for orthographical projection - this is necessary if it needs to move.
+		ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
+
+		//TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather
+		// than constant polling.
+		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
+		{
+			debugMode = !debugMode;
+			//Gdx.app.log("debugMode",String.valueOf(debugMode));
+			//TODO acceleration in debug mode
+		}
+		if (!debugMode) {
+			//if (250-y >= 150) y += 10;
+			if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+				groundSpeed = Math.min(groundSpeed + accel, maxSpeed);
+				//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
+			} else	groundSpeed = Math.max(groundSpeed - decel, 0);;
+
+
+			x += groundSpeed;
+
+			//TODO ground angle and sin/cos with Gdx MathUtils
+
+		}
+		else {
+			speedX = 0; speedY = 0; groundSpeed = 0;
+
+			if (Gdx.input.isKeyPressed(Input.Keys.D)) speedX += debugSpeed;
+			if (Gdx.input.isKeyPressed(Input.Keys.A)) speedX -= debugSpeed;
+			if (Gdx.input.isKeyPressed(Input.Keys.W)) speedY += debugSpeed;
+			if (Gdx.input.isKeyPressed(Input.Keys.S)) speedY -= debugSpeed;
+
+			x += speedX;
+			y += speedY;
+		}
+
+
+
+		//TODO define constants
+
+
+		//TODO check for jumps here
+
+
+		// "Invisible walls" - prevent players from going beyond borders to simplify calculations.
+		x = Math.min(x,640);
+		x = Math.max(x,0);
+		y = Math.max(y,0);
+
+		player.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
+
+		boolean nothing = checkTile(x,y);
+
+
+		lSensorX = x;
+		rSensorX = x + (player.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+		middleY = y + (player.getHeight() / 2);
+
+
 
 		dr.setProjectionMatrix(camera.combined);
 		dr.begin(ShapeRenderer.ShapeType.Filled);
 		dr.end();
 
-		//if (250-y >= 150) y += 10;
-		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-			//ternary operator
-			groundSpeed = (groundSpeed + accel <= 6) ? (groundSpeed + accel) : 6;
-			//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
 
-			if (x <= 1280) {
-				x += groundSpeed;
-				if (x > 1280) x = 20;
-			}
+		//TODO Add collision logic
 
-		} else {
-			groundSpeed = (groundSpeed - decel >= 0) ? (groundSpeed - decel) : 0;
-			x += groundSpeed;
-		}
-		sprite1.setPosition(x, y); camera.position.set(sprite1.getX() + cameraOffset.x,sprite1.getY() + cameraOffset.y,camera.position.z);
+		// tells the SpriteBatch to render in the coordinate system specified by the camera
+		init.batch.setProjectionMatrix(camera.combined);
+		init.batch.begin();
 
-		leftFootSensor = sprite1.getX();
-		rightFootSensor = sprite1.getX() + (sprite1.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
-
-		// tell the SpriteBatch to render in the coordinate system specified by the camera - https://libgdx.com/wiki/start/a-simple-game
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-
-		for (int i=0;i<4;i++)
+		for (int i=0;i<8;i++)
 		{
-			for (int j =0; j<4;j++)
+			for (int j =0; j<1;j++)
 			{
 				drawChunk(i,j);
 			}
 		}
 
-
-		sprite1.draw(batch);
+		player.draw(init.batch);
 
 		// DEBUG
-		batch.draw(img,leftFootSensor,y); batch.draw(img,rightFootSensor,y);
+		init.batch.draw(img,lSensorX,y); init.batch.draw(img,rSensorX,y); init.batch.draw(img,lSensorX,middleY); init.batch.draw(img,rSensorX,middleY);
 
 
-		batch.end();
+		init.batch.end();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
+		init.batch.dispose();
 		img.dispose();
+		img2.dispose();
 		dr.dispose();
 	}
 
+
+	//TODO multithreading except for GWT?
 	public void drawChunk(int chunkX, int chunkY) {
 
 		for (int blockX = 0; blockX < 8; blockX++)
@@ -147,10 +180,88 @@ public class SonicGDX extends Game {
 			{
 				for (int grid = 0; grid < 16; grid++)
 				{
-					batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, steepMap[chunkX][chunkY][blockX][blockY][grid]);
+					if (tm.testMap[chunkX][chunkY][blockX][blockY].empty){
+						break;
+					}
+
+					init.batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
+					if ((int) x == (chunkX*128 + blockX*16+grid))
+					{
+						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
+					}
+
+					//TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
+
 				}
 			}
 		}
+	}
+
+	public boolean checkTile(float xPos, float yPos)
+	{
+		int xPosition = (int) xPos; int yPosition = (int) yPos;
+
+		int tileX = xPosition % 128 / 16;
+		int chunkX = xPosition / 128;
+
+		int tileY = yPosition % 128 / 16;
+		int chunkY = yPosition / 128;
+
+
+		int grid = xPosition % 16;
+
+		//Gdx.app.log("gridValue", String.valueOf(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]));
+
+		if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] == (byte) 16)
+		{
+
+
+
+			//TODO recursive? Check nearby tiles
+
+			//TODO regression, check up by one extra tile.
+			if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] < 16)
+			{
+				Gdx.app.log("collision","sensor regression");
+			}
+
+			//Gdx.app.log("collision","test");
+		}
+
+		// Classes are reference types so modifying a value would affect of the tiles that are the same.
+
+		return true;
+	}
+
+
+
+
+	public void resize(int width, int height) {
+		viewport.update(width, height);
+	}
+
+	@Override
+	public void show() {
+		//TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		//TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		//TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		//TODO Auto-generated method stub
+		
 	}
 
 }

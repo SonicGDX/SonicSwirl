@@ -1,6 +1,6 @@
 package com.sonicgdx.sonicswirl;
 
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application; //Lwjgl is a library that exposes cross platform libraries like OpenGL
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application; //Lwjgl is a library that exposes cross-platform libraries like OpenGL
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.sonicgdx.sonicswirl.SonicGDX;
 
@@ -13,7 +13,7 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60); // 60 is the minimum frame-rate almost all devices will be able to keep up with.
 		// Physics would have to be tuned for higher frame-rates as the render function is called every frame.
 		config.setTitle("Sonic Swirl");
-		new Lwjgl3Application(new SonicGDX(), config);
+		new Lwjgl3Application(new init(), config);
 
 
 	}
