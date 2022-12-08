@@ -29,6 +29,9 @@ public class SonicGDX implements Screen {
 	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
 	boolean debugMode = false; float lSensorX, rSensorX, middleY;
 
+
+	boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active.
+
 	int vpHeight, vpWidth;
 
 	TileMap tm;
@@ -43,7 +46,7 @@ public class SonicGDX implements Screen {
 
 		//TODO implement class with reference to https://gamedev.stackexchange.com/a/133593
 
-		//Gdx.app.log("debugMode",String.valueOf(tile[1][3][15]));
+		//Gdx.app.debug("debugMode",String.valueOf(tile[1][3][15]));
 
 		vpWidth = Gdx.app.getGraphics().getWidth(); vpHeight = Gdx.app.getGraphics().getHeight();
 
@@ -73,7 +76,7 @@ public class SonicGDX implements Screen {
 	@Override
 	public void render(float delta) {
 
-		//frameLog.log();
+		frameLog.log();
 
 		ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
@@ -215,18 +218,26 @@ public class SonicGDX implements Screen {
 
 		if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] == (byte) 16)
 		{
-
-
-
 			//TODO recursive? Check nearby tiles
 
 			//TODO regression, check up by one extra tile.
-			if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] < 16)
+
+			if (tileY < 8)
 			{
-				Gdx.app.log("collision","sensor regression");
+				tileY = tileY + 1;
+			}
+			else
+			{
+				//TODO
 			}
 
-			Gdx.app.log("collision","test");
+
+			if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] < 16)
+			{
+				Gdx.app.debug("collision","sensor regression");
+			}
+
+			//Gdx.app.debug("collision","test");
 		}
 
 		// Classes are reference types so modifying a value would affect of the tiles that are the same.
