@@ -2,7 +2,7 @@ package com.sonicgdx.sonicswirl;
 
 public class Tile {
 
-    boolean isFlipped, isSolid, empty;
+    boolean isFlipped, empty;
     byte[] height,width;
     byte solidity;
     // 0 = solid from top, 1 = solid from bottom, 2 = solid from left, 3 = solid from right, 4 = solid from all sides
