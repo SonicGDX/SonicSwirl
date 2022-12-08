@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class SonicGDX implements Screen {
 
-	final init init;
+	final Init Init;
 
 	ShapeRenderer dr; Sprite player; Texture img, img2;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
@@ -35,11 +35,11 @@ public class SonicGDX implements Screen {
 
 	FPSLogger frameLog;
 
-	public SonicGDX(final init init) {
+	public SonicGDX(final Init Init) {
 
 		//Have to declare it outside, so it is a global variable?
 
-		this.init = init;
+		this.Init = Init;
 
 		//TODO implement class with reference to https://gamedev.stackexchange.com/a/133593
 
@@ -142,8 +142,8 @@ public class SonicGDX implements Screen {
 		//TODO Add collision logic
 
 		// tells the SpriteBatch to render in the coordinate system specified by the camera
-		init.batch.setProjectionMatrix(camera.combined);
-		init.batch.begin();
+		Init.batch.setProjectionMatrix(camera.combined);
+		Init.batch.begin();
 
 		for (int i=0;i<8;i++)
 		{
@@ -153,18 +153,18 @@ public class SonicGDX implements Screen {
 			}
 		}
 
-		player.draw(init.batch);
+		player.draw(Init.batch);
 
 		// DEBUG
-		init.batch.draw(img,lSensorX,y); init.batch.draw(img,rSensorX,y); init.batch.draw(img,lSensorX,middleY); init.batch.draw(img,rSensorX,middleY);
+		Init.batch.draw(img,lSensorX,y); Init.batch.draw(img,rSensorX,y); Init.batch.draw(img,lSensorX,middleY); Init.batch.draw(img,rSensorX,middleY);
 
 
-		init.batch.end();
+		Init.batch.end();
 	}
 	
 	@Override
 	public void dispose () {
-		init.batch.dispose();
+		Init.batch.dispose();
 		img.dispose();
 		img2.dispose();
 		dr.dispose();
@@ -184,7 +184,7 @@ public class SonicGDX implements Screen {
 						break;
 					}
 
-					init.batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
+					Init.batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
 					if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
 						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);

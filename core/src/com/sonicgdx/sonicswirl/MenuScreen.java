@@ -12,15 +12,15 @@ import org.w3c.dom.Text;
 
 public class MenuScreen implements Screen{
     
-    final init init;
+    final Init Init;
 
     final int sWidth,sHeight;
     OrthographicCamera camera;
 
     Skin buttonSkin; TextureAtlas atlas; //TextButton button;
 
-    public MenuScreen(final init init){
-        this.init = init;
+    public MenuScreen(final Init Init){
+        this.Init = Init;
 
         sWidth = Gdx.graphics.getWidth(); sHeight = Gdx.graphics.getHeight();
 
@@ -41,15 +41,15 @@ public class MenuScreen implements Screen{
         ScreenUtils.clear(0.1f, 0, 0.2f, 1);
 
 		camera.update();
-		init.batch.setProjectionMatrix(camera.combined);
-		init.batch.begin();
+		Init.batch.setProjectionMatrix(camera.combined);
+		Init.batch.begin();
 
-		init.font.draw(init.batch, "Menu PlaceHolder", sWidth / 2F - 60, sHeight / 2F);
-		init.font.draw(init.batch, "Press to begin", sWidth / 2F - 60, sHeight / 2F - 100);
-		init.batch.end();
+		Init.font.draw(Init.batch, "Menu PlaceHolder", sWidth / 2F - 60, sHeight / 2F);
+		Init.font.draw(Init.batch, "Press to begin", sWidth / 2F - 60, sHeight / 2F - 100);
+		Init.batch.end();
 
 		if (Gdx.input.isTouched()) {
-			init.setScreen(new SonicGDX(init));
+			Init.setScreen(new SonicGDX(Init));
 			dispose();
 		}
 
