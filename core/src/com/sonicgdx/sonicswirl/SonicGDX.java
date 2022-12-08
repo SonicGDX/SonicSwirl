@@ -24,7 +24,7 @@ public class SonicGDX implements Screen {
 
 	ShapeRenderer dr; Sprite player; Texture img, img2;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
-			debugSpeed = 0.5F, groundSpeed = 0, maxSpeed = 6,
+			debugSpeed = 4F, groundSpeed = 0, maxSpeed = 6,
 			x = 600, y = 200; // Player starts at (600,200);
 	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
 	boolean debugMode = false; float lSensorX, rSensorX, middleY;
@@ -226,7 +226,7 @@ public class SonicGDX implements Screen {
 				Gdx.app.log("collision","sensor regression");
 			}
 
-			//Gdx.app.log("collision","test");
+			Gdx.app.log("collision","test");
 		}
 
 		// Classes are reference types so modifying a value would affect of the tiles that are the same.

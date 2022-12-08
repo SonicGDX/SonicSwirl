@@ -20,6 +20,7 @@ public class MenuScreen implements Screen{
     Skin buttonSkin; TextureAtlas atlas; //TextButton button;
 
     public MenuScreen(final Init Init){
+        Gdx.app.setLogLevel(3);
         this.Init = Init;
 
         sWidth = Gdx.graphics.getWidth(); sHeight = Gdx.graphics.getHeight();
