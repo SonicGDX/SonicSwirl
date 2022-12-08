@@ -10,6 +10,9 @@ name: Build HTML5 GitHub Pages
 on:
   push:
     branches: [ "master" ]
+  workflow_dispatch:
+  
+    
 # Allow one concurrent deployment
 concurrency:
   group: "pages"
