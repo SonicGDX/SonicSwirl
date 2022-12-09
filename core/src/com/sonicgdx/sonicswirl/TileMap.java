@@ -96,5 +96,15 @@ public class TileMap {
     // one height array makes up a 16x16 block
 
 
+    public byte[] getWidthArray(int chunkX, int chunkY, int tileX, int tileY)
+    {
+        return testMap[chunkX][chunkY][tileX][tileY].width;
+    }
+
+    public byte[] getHeightArray(int chunkX, int chunkY, int tileX, int tileY)
+    {
+        return testMap[chunkX][chunkY][tileX][tileY].height;
+    }
+
 
 }

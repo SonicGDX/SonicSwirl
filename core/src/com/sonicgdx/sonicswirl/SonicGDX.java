@@ -216,7 +216,7 @@ public class SonicGDX implements Screen {
 
 		//Gdx.app.log("gridValue", String.valueOf(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]));
 
-		if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] == (byte) 16)
+		if (tm.getHeightArray(chunkX,chunkY,tileX,tileY)[grid] == (byte) 16)
 		{
 			//TODO recursive? Check nearby tiles
 
@@ -229,10 +229,12 @@ public class SonicGDX implements Screen {
 			else
 			{
 				//TODO
+				chunkY +=1;
+				tileY = 0;
 			}
 
 
-			if (tm.testMap[chunkX][chunkY][tileX][tileY].height[grid] < 16)
+			if (tm.getHeightArray(chunkX,chunkY,tileX,tileY)[grid] < 16)
 			{
 				Gdx.app.debug("collision","sensor regression");
 			}
