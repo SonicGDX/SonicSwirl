@@ -236,14 +236,10 @@ public class SonicGDX implements Screen {
 				chunkY +=1;
 				tileY = 0;
 			}
-			else
-			{
-				Gdx.app.debug("chunkY",String.valueOf(tileY));
-			}
-
 
 			if (tm.getHeightArray(chunkX,chunkY,tileX,tileY)[grid] < 16)
 			{
+				Gdx.app.debug("grid",String.valueOf(grid));
 				Gdx.app.debug("collision","sensor regression");
 			}
 
