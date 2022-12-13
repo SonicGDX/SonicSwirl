@@ -69,14 +69,14 @@ public class SonicGDX implements Screen {
 		cameraOffset.x = camera.position.x - player.getX();
 		cameraOffset.y = camera.position.y - player.getY();
 
-		frameLog = new FPSLogger();
+		//frameLog = new FPSLogger();
 
 	}
 
 	@Override
 	public void render(float delta) {
 
-		frameLog.log();
+		//frameLog.log();
 
 		ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
@@ -222,11 +222,11 @@ public class SonicGDX implements Screen {
 
 			//TODO regression, check up by one extra tile.
 
-			if (tileY < 8)
+			if (tileY < 7)
 			{
 				tileY = tileY + 1;
 			}
-			else
+			else if (chunkY > 8)
 			{
 				//TODO
 				chunkY +=1;
