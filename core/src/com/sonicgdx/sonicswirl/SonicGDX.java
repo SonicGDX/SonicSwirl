@@ -24,7 +24,7 @@ public class SonicGDX implements Screen {
 
 	ShapeRenderer dr; Sprite player; Texture img, img2;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
-			debugSpeed = 4F, groundSpeed = 0, maxSpeed = 6,
+			debugSpeed = 1.5F, groundSpeed = 0, maxSpeed = 6,
 			x = 600, y = 200; // Player starts at (600,200);
 	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
 	boolean debugMode = false; float lSensorX, rSensorX, middleY;
@@ -214,6 +214,10 @@ public class SonicGDX implements Screen {
 
 		int grid = xPosition % 16;
 
+		if (tileY == 0) {
+			Gdx.app.log("TileY","= 0");
+		}
+
 		//Gdx.app.log("gridValue", String.valueOf(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]));
 
 		if (tm.getHeightArray(chunkX,chunkY,tileX,tileY)[grid] == (byte) 16)
@@ -226,11 +230,15 @@ public class SonicGDX implements Screen {
 			{
 				tileY = tileY + 1;
 			}
-			else if (chunkY > 8)
+			else if (tileY >= 7)
 			{
 				//TODO
 				chunkY +=1;
 				tileY = 0;
+			}
+			else
+			{
+				Gdx.app.debug("chunkY",String.valueOf(tileY));
 			}
 
 
