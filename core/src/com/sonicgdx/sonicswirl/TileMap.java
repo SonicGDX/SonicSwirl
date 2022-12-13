@@ -86,6 +86,12 @@ public class TileMap {
                     {fChunk,eChunk,eChunk,eChunk},
                     {fChunk,eChunk,eChunk,eChunk},
                     {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
                     {rvChunk,eChunk,eChunk,eChunk}
 
             };
