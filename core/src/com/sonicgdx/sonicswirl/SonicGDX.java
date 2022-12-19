@@ -93,7 +93,7 @@ public class SonicGDX implements Screen {
 			if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 				groundSpeed = Math.min(groundSpeed + accel, maxSpeed);
 				//Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
-			} else	groundSpeed = Math.max(groundSpeed - decel, 0);;
+			} else	groundSpeed = Math.max(groundSpeed - decel, 0);
 
 
 			x += groundSpeed;
@@ -230,7 +230,7 @@ public class SonicGDX implements Screen {
 			{
 				tileY = tileY + 1;
 			}
-			else if (tileY >= 7)
+			else
 			{
 				//TODO
 				chunkY +=1;

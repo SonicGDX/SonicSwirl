@@ -9,6 +9,8 @@ public class Init extends Game {
     public SpriteBatch batch;
 	public BitmapFont font;
 
+	public SonicGDX gameScreen;
+
 	public void create() {
 		batch = new SpriteBatch(); // sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-defInition-of-sprite-batching
         // Can be easily shared between screens
@@ -23,7 +25,7 @@ public class Init extends Game {
 	public void dispose() {
 		batch.dispose();
 		font.dispose();
-        //SonicGDX.dispose();
+        gameScreen.dispose();
 	}
 
 }

@@ -34,6 +34,8 @@ public class MenuScreen implements Screen{
         buttonSkin = new Skin();
         buttonSkin.addRegions(atlas);
 
+        Init.gameScreen = new SonicGDX(Init);
+
         //button = new TextButton("Begin", buttonSkin,buttonSkin);
     }
     
@@ -51,7 +53,7 @@ public class MenuScreen implements Screen{
 		Init.batch.end();
 
 		if (Gdx.input.isTouched()) {
-			Init.setScreen(new SonicGDX(Init));
+			Init.setScreen(Init.gameScreen);
 			dispose();
 		}
 
