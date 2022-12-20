@@ -56,7 +56,7 @@ public class SonicGDX implements Screen {
 
 		tm = new TileMap();
 		dr = new ShapeRenderer();
-		img = new Texture(Gdx.files.internal("tile.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
+		img = new Texture(Gdx.files.internal("1x1-ffffffff.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
 		player = new Player(playerImg,20,40);
 
 		player.sprite.setPosition(x,y);
@@ -129,7 +129,15 @@ public class SonicGDX implements Screen {
 
 
 		dr.setProjectionMatrix(camera.combined);
-		dr.begin(ShapeRenderer.ShapeType.Filled);
+		dr.begin(ShapeRenderer.ShapeType.Line);
+		for (int i=0;i<8;i++)
+		{
+			for (int j =0; j<1;j++)
+			{
+				drawChunkDR(i,j);
+			}
+		}
+		dr.rect(100,100,10,10);
 		dr.end();
 		//TODO Add collision logic
 
@@ -137,13 +145,7 @@ public class SonicGDX implements Screen {
 		Init.batch.setProjectionMatrix(camera.combined);
 		Init.batch.begin();
 
-		for (int i=0;i<8;i++)
-		{
-			for (int j =0; j<1;j++)
-			{
-				drawChunk(i,j);
-			}
-		}
+
 
 		player.sprite.draw(Init.batch);
 
@@ -163,7 +165,7 @@ public class SonicGDX implements Screen {
 
 
 	//TODO multithreading except for GWT?
-	public void drawChunk(int chunkX, int chunkY) {
+	public void drawChunkBatch(int chunkX, int chunkY) {
 
 		for (int blockX = 0; blockX < 8; blockX++)
 		{
@@ -176,6 +178,30 @@ public class SonicGDX implements Screen {
 					}
 
 					Init.batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
+					if ((int) x == (chunkX*128 + blockX*16+grid))
+					{
+						if (tm.map[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
+					}
+
+					//TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
+
+				}
+			}
+		}
+	}
+	public void drawChunkDR(int chunkX, int chunkY) {
+
+		for (int blockX = 0; blockX < 8; blockX++)
+		{
+			for (int blockY = 0; blockY < 8; blockY++)
+			{
+				for (int grid = 0; grid < 16; grid++)
+				{
+					if (tm.map[chunkX][chunkY][blockX][blockY].empty){
+						break;
+					}
+
+					dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1,tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
 					if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
 						if (tm.map[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
