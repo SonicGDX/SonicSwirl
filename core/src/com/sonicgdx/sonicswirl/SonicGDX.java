@@ -202,7 +202,8 @@ public class SonicGDX implements Screen {
 					if (tm.map[chunkX][chunkY][blockX][blockY].empty){
 						break;
 					}
-					dr.setColor(new Color(0.125F * blockY,0.0625F * blockY,grid,0));
+					if (grid==0) dr.setColor(new Color(0));
+					else dr.setColor(new Color(0.125F * blockX,0.125F * blockY,grid,0));
 
 					dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1,tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
 					if ((int) x == (chunkX*128 + blockX*16+grid))
