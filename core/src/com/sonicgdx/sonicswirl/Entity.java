@@ -3,6 +3,7 @@ package com.sonicgdx.sonicswirl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Entity {
     int xPos, yPos;
@@ -37,7 +38,7 @@ public class Entity {
 
         if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 16)
         {
-            Gdx.app.log("Regression",String.valueOf(regression(chunkX,chunkY,tileX,tileY,grid,tm,0)));
+            Gdx.app.log("Regression",String.valueOf(regression(chunkX,chunkY,tileX,tileY,grid,tm)));
 
         }
 
@@ -46,7 +47,7 @@ public class Entity {
         return true;
     }
 
-    public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm, int recursionCount) //TODO improve naming and add comment explanation
+    public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm) //TODO improve naming and add comment explanation
     {
 
         //TODO recursive? Check nearby tiles
@@ -71,15 +72,13 @@ public class Entity {
 
         //CHECK height depending on conditions TODO outline conditions in comment
         if (height == 0) {
-            return recursionCount;
+            return 0;
         }
-        else if (height < 16)
-        {
-            return Math.min(2,recursionCount+1);
+        else if (height < 16) {
+            return 1;
         }
-        else{
-            recursionCount = Math.min(2,recursionCount+1);
-            return regression(chunkX, chunkY, tileX, tileY, grid, tm, recursionCount);
+        else {
+            return MathUtils.clamp(1 + regression(chunkX, chunkY, tileX, tileY, grid, tm),0,2);
         }
 
 
