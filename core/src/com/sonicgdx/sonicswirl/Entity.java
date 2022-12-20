@@ -37,7 +37,7 @@ public class Entity {
 
         if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 16)
         {
-            Gdx.app.log("Regression",String.valueOf(regression(chunkX,chunkY,tileX,tileY,grid,tm)));
+            Gdx.app.log("Regression",String.valueOf(regression(chunkX,chunkY,tileX,tileY,grid,tm,0)));
 
         }
 
@@ -46,44 +46,39 @@ public class Entity {
         return true;
     }
 
-    public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm)
+    public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm, int recursionCount) //TODO improve naming and add comment explanation
     {
 
         //TODO recursive? Check nearby tiles
 
         //TODO regression, check up by one extra tile.
 
-        int tempCY = chunkY; int tempTY = tileY; int height;
+        byte height;
 
-        for (int i=0;i<=2;i++) {
-
-            if (tileY < 7)
-            {
-                tempTY= tileY + 1;
-            }
-            else
-            {
-
-                tempCY = chunkY +=1;
-                tempTY = tileY = 0;
-            }
-
-            height = tm.getHeight(chunkX,tempCY,tileX,tempTY,grid);
-
-            if (height == 0)
-            {
-                // If the height of the tile above is empty, regression does not occur since it is likely that the original tile is the surface.
-                return i;
-            }
-            else if (height < 16)
-            {
-                chunkY = tempCY; tileY = tempTY;
-
-                Gdx.app.debug("grid",String.valueOf(grid));
-                Gdx.app.debug("collision","sensor regression");
-            }
+        if (tileY < 7)
+        {
+            tileY = tileY + 1;
         }
-        return 2;
+        else
+        {
+            chunkY +=1;
+            tileY = 0;
+        }
+
+        height = tm.getHeight(chunkX,chunkY,tileX,tileY,grid);
+
+        if (height == 0) {
+            return recursionCount;
+        }
+        else if (height < 16)
+        {
+            return 1 + recursionCount;
+        }
+        else{
+            recursionCount = Math.min(2,recursionCount+1);
+            return regression (chunkX, chunkY, tileX, tileY, grid, tm, recursionCount);
+        }
+
 
     }
 
