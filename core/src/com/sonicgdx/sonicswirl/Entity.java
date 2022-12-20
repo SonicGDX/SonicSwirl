@@ -75,11 +75,11 @@ public class Entity {
         }
         else if (height < 16)
         {
-            return 1 + recursionCount;
+            return Math.min(2,recursionCount+1);
         }
         else{
             recursionCount = Math.min(2,recursionCount+1);
-            return regression (chunkX, chunkY, tileX, tileY, grid, tm, recursionCount);
+            return regression(chunkX, chunkY, tileX, tileY, grid, tm, recursionCount);
         }
 
 
