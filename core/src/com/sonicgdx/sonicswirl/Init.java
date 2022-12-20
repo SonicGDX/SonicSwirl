@@ -5,15 +5,19 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
-public class init extends Game {
+public class Init extends Game {
     public SpriteBatch batch;
 	public BitmapFont font;
+	public SonicGDX gameScreen;
+
+	private MenuScreen menuScreen;
 
 	public void create() {
-		batch = new SpriteBatch(); // sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-definition-of-sprite-batching
+		menuScreen = new MenuScreen(this);
+		batch = new SpriteBatch(); // sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-defInition-of-sprite-batching
         // Can be easily shared between screens
 		font = new BitmapFont(); // Default font = Arial
-		this.setScreen(new MenuScreen(this));
+		this.setScreen(menuScreen);
 	}
 
 	public void render() {
@@ -23,7 +27,8 @@ public class init extends Game {
 	public void dispose() {
 		batch.dispose();
 		font.dispose();
-        //SonicGDX.dispose();
+        gameScreen.dispose();
+		menuScreen.dispose();
 	}
 
 }
