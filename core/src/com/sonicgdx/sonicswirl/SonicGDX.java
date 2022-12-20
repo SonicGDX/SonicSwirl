@@ -128,6 +128,10 @@ public class SonicGDX implements Screen {
 
 
 
+
+
+		//TODO Add collision logic
+
 		dr.setProjectionMatrix(camera.combined);
 		dr.begin(ShapeRenderer.ShapeType.Line);
 		for (int i=0;i<8;i++)
@@ -137,9 +141,7 @@ public class SonicGDX implements Screen {
 				drawChunkDR(i,j);
 			}
 		}
-		dr.rect(100,100,10,10);
 		dr.end();
-		//TODO Add collision logic
 
 		// tells the SpriteBatch to render in the coordinate system specified by the camera
 		Init.batch.setProjectionMatrix(camera.combined);
@@ -200,6 +202,8 @@ public class SonicGDX implements Screen {
 					if (tm.map[chunkX][chunkY][blockX][blockY].empty){
 						break;
 					}
+					if (grid == 0) dr.setColor(new Color(0));
+					else dr.setColor(new Color(0.125F * blockY,0,grid,0));
 
 					dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1,tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
 					if ((int) x == (chunkX*128 + blockX*16+grid))
