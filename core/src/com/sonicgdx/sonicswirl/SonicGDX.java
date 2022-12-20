@@ -200,19 +200,33 @@ public class SonicGDX implements Screen {
 
 		int grid = xPosition % 16;
 
-		if (tileY == 0) {
-			Gdx.app.log("TileY","= 0");
-		}
+		//if (tileY == 0) {
+		//	Gdx.app.log("TileY","= 0");
+		//}
 
 		//Gdx.app.log("gridValue", String.valueOf(tm.map[chunkX][chunkY][tileX][tileY].height[grid]));
 
 		if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 16)
 		{
-			//TODO recursive? Check nearby tiles
+			Gdx.app.log("Regression",String.valueOf(regression(chunkX,chunkY,tileX,tileY,grid)));
 
-			//TODO regression, check up by one extra tile.
+		}
 
-			int tempCY = chunkY; int tempTY = tileY;
+		// Classes are reference types so modifying a value would affect all the tiles that are the same.
+
+		return true;
+	}
+
+	public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid)
+	{
+
+		//TODO recursive? Check nearby tiles
+
+		//TODO regression, check up by one extra tile.
+
+		int tempCY = chunkY; int tempTY = tileY; int height;
+
+		for (int i=0;i<=2;i++) {
 
 			if (tileY < 7)
 			{
@@ -225,24 +239,24 @@ public class SonicGDX implements Screen {
 				tempTY = tileY = 0;
 			}
 
-			if (tm.getHeight(chunkX,tempCY,tileX,tempTY,grid) < 16 && tm.getHeight(chunkX,chunkY,tileX,tileY,grid) > 0)
+			height = tm.getHeight(chunkX,tempCY,tileX,tempTY,grid);
+
+			if (height == 0)
 			{
 				// If the height of the tile above is empty, regression does not occur since it is likely that the original tile is the surface.
-
+				return i;
+			}
+			else if (height < 16)
+			{
 				chunkY = tempCY; tileY = tempTY;
 
 				Gdx.app.debug("grid",String.valueOf(grid));
 				Gdx.app.debug("collision","sensor regression");
 			}
-
 		}
+		return 2;
 
-		// Classes are reference types so modifying a value would affect all the tiles that are the same.
-
-		return true;
 	}
-
-
 
 	@Override
 	public void resize(int width, int height) {
