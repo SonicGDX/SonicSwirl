@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
 import org.w3c.dom.Text;
 
-public class MenuScreen implements Screen{
+public class MenuScreen implements Screen {
     
     final Init Init;
 
@@ -29,7 +29,7 @@ public class MenuScreen implements Screen{
         camera = new OrthographicCamera();
         camera.setToOrtho(false,sWidth,sHeight);
 
-        //TODO replace placeholder assets and finish UI
+        //TODO replace placeholder assets and finish UI, maybe with VisUI
         atlas = new TextureAtlas(Gdx.files.internal("button/uiskin.atlas"));
         buttonSkin = new Skin();
         buttonSkin.addRegions(atlas);

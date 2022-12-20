@@ -15,9 +15,9 @@ public class TileMap {
     private final byte[] tall1 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
     private final Tile empt = new Tile();
-    private final Tile ftile = new Tile(full,full,0,(byte) 0,false);
-    private final Tile stile = new Tile(slope,slope,0,(byte) 0,false);
-    private final Tile rvtile = new Tile(rvslope,rvslope,0,(byte) 0,false);
+    private final Tile ftile = new Tile(full,full,0,(byte) 4,false);
+    private final Tile stile = new Tile(slope,slope,45,(byte) 1,false);
+    private final Tile rvtile = new Tile(rvslope,rvslope,135,(byte) 1,false);
 
 
     private final Tile[][] fChunk = Collections.nCopies(8,Collections.nCopies(8,ftile).toArray(new Tile[0])).toArray(new Tile[0][0]);
@@ -60,10 +60,10 @@ public class TileMap {
 
     };
 
-    Tile[][][][] fMap =
+    private Tile[][][][] fMap =
             Collections.nCopies(8,Collections.nCopies(8,fChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
 
-    Tile[][][][] eMap =
+    private Tile[][][][] eMap =
 
             Collections.nCopies(8,Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
             /*{
@@ -77,7 +77,7 @@ public class TileMap {
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk}
 
             };*/
-    Tile[][][][] testMap =
+    private Tile[][][][] testMap =
             {
                     {sChunk,eChunk,eChunk,eChunk},
                     {fChunk,eChunk,eChunk,eChunk},
@@ -97,6 +97,7 @@ public class TileMap {
             };
 
 
+    Tile[][][][] map = testMap;
 
     // 128x128 chunk - one dimension for x, one dimension for y and the data is a height array
     // one height array makes up a 16x16 block
@@ -104,12 +105,47 @@ public class TileMap {
 
     public byte[] getWidthArray(int chunkX, int chunkY, int tileX, int tileY)
     {
-        return testMap[chunkX][chunkY][tileX][tileY].width;
+        return map[chunkX][chunkY][tileX][tileY].width;
+    }
+
+    public byte getWidth(int chunkX, int chunkY, int tileX, int tileY, int block)
+    {
+        return map[chunkX][chunkY][tileX][tileY].width[block];
     }
 
     public byte[] getHeightArray(int chunkX, int chunkY, int tileX, int tileY)
     {
-        return testMap[chunkX][chunkY][tileX][tileY].height;
+        return map[chunkX][chunkY][tileX][tileY].height;
+    }
+
+    public byte getHeight(int chunkX, int chunkY, int tileX, int tileY, int block)
+    {
+        return map[chunkX][chunkY][tileX][tileY].height[block];
+    }
+
+    public byte getHeightAbove(int chunkX, int chunkY, int tileX, int tileY, int block)
+    {
+        if (tileY < 7)
+        {
+            tileY = tileY + 1;
+        }
+        else
+        {
+            chunkY +=1;
+            tileY = 0;
+        }
+        return map[chunkX][chunkY][tileX][tileY].height[block];
+    }
+
+    public byte getHeightBelow(int chunkX, int chunkY, int tileX, int tileY, int block)
+    {
+        //TODO
+        return map[chunkX][chunkY][tileX][tileY].height[block];
+    }
+
+    public Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
+    {
+        return map[chunkX][chunkY][tileX][tileY];
     }
 
 

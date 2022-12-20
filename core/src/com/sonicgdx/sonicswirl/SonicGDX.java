@@ -20,23 +20,15 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class SonicGDX implements Screen {
 
-	final Init Init;
-
-	ShapeRenderer dr; Sprite player; Texture img, img2;
+	final Init Init; TileMap tm;
+	ShapeRenderer dr; Sprite player; Texture img, img2; FPSLogger frameLog;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
 			debugSpeed = 1.5F, groundSpeed = 0, maxSpeed = 6,
 			x = 600, y = 200; // Player starts at (600,200);
 	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
 	boolean debugMode = false; float lSensorX, rSensorX, middleY;
-
-
-	boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active.
-
+	boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
 	int vpHeight, vpWidth;
-
-	TileMap tm;
-
-	FPSLogger frameLog;
 
 	public SonicGDX(final Init Init) {
 
@@ -49,6 +41,7 @@ public class SonicGDX implements Screen {
 		//Gdx.app.debug("debugMode",String.valueOf(tile[1][3][15]));
 
 		vpWidth = Gdx.app.getGraphics().getWidth(); vpHeight = Gdx.app.getGraphics().getHeight();
+		//TODO possibly reduce viewport resolution to reduce pixels being missing at lower resolutions
 
 		camera = new OrthographicCamera(); // 3D camera which projects into 2D.
 		viewport = new FitViewport(vpWidth,vpHeight,camera);
@@ -113,13 +106,9 @@ public class SonicGDX implements Screen {
 			y += speedY;
 		}
 
-
-
 		//TODO define constants
 
-
 		//TODO check for jumps here
-
 
 		// "Invisible walls" - prevent players from going beyond borders to simplify calculations.
 		x = Math.min(x,1000);
@@ -140,8 +129,6 @@ public class SonicGDX implements Screen {
 		dr.setProjectionMatrix(camera.combined);
 		dr.begin(ShapeRenderer.ShapeType.Filled);
 		dr.end();
-
-
 		//TODO Add collision logic
 
 		// tells the SpriteBatch to render in the coordinate system specified by the camera
@@ -182,14 +169,14 @@ public class SonicGDX implements Screen {
 			{
 				for (int grid = 0; grid < 16; grid++)
 				{
-					if (tm.testMap[chunkX][chunkY][blockX][blockY].empty){
+					if (tm.map[chunkX][chunkY][blockX][blockY].empty){
 						break;
 					}
 
-					Init.batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.testMap[chunkX][chunkY][blockX][blockY].height[grid]);
+					Init.batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
 					if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
-						if (tm.testMap[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
+						if (tm.map[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
 					}
 
 					//TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
@@ -217,35 +204,40 @@ public class SonicGDX implements Screen {
 			Gdx.app.log("TileY","= 0");
 		}
 
-		//Gdx.app.log("gridValue", String.valueOf(tm.testMap[chunkX][chunkY][tileX][tileY].height[grid]));
+		//Gdx.app.log("gridValue", String.valueOf(tm.map[chunkX][chunkY][tileX][tileY].height[grid]));
 
-		if (tm.getHeightArray(chunkX,chunkY,tileX,tileY)[grid] == (byte) 16)
+		if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 16)
 		{
 			//TODO recursive? Check nearby tiles
 
 			//TODO regression, check up by one extra tile.
 
+			int tempCY = chunkY; int tempTY = tileY;
+
 			if (tileY < 7)
 			{
-				tileY = tileY + 1;
+				tempTY= tileY + 1;
 			}
 			else
 			{
-				//TODO
-				chunkY +=1;
-				tileY = 0;
+
+				tempCY = chunkY +=1;
+				tempTY = tileY = 0;
 			}
 
-			if (tm.getHeightArray(chunkX,chunkY,tileX,tileY)[grid] < 16)
+			if (tm.getHeight(chunkX,tempCY,tileX,tempTY,grid) < 16 && tm.getHeight(chunkX,chunkY,tileX,tileY,grid) > 0)
 			{
+				// If the height of the tile above is empty, regression does not occur since it is likely that the original tile is the surface.
+
+				chunkY = tempCY; tileY = tempTY;
+
 				Gdx.app.debug("grid",String.valueOf(grid));
 				Gdx.app.debug("collision","sensor regression");
 			}
 
-			//Gdx.app.debug("collision","test");
 		}
 
-		// Classes are reference types so modifying a value would affect of the tiles that are the same.
+		// Classes are reference types so modifying a value would affect all the tiles that are the same.
 
 		return true;
 	}
