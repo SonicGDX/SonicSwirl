@@ -55,6 +55,7 @@ public class Entity {
 
         byte height;
 
+        //INCREMENT Tile
         if (tileY < 7)
         {
             tileY = tileY + 1;
@@ -65,8 +66,10 @@ public class Entity {
             tileY = 0;
         }
 
+
         height = tm.getHeight(chunkX,chunkY,tileX,tileY,grid);
 
+        //CHECK height depending on conditions TODO outline conditions in comment
         if (height == 0) {
             return recursionCount;
         }
