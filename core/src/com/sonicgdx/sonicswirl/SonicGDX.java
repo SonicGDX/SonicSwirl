@@ -13,6 +13,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import static com.sonicgdx.sonicswirl.Player.playerSprite;
 //import com.badlogic.gdx.maps.tiled.TiledMap;
 //import java.util.Arrays;
 //import java.awt.*;
@@ -21,14 +23,16 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class SonicGDX implements Screen {
 
 	final Init Init; TileMap tm;
-	ShapeRenderer dr; Sprite player; Texture img, img2; FPSLogger frameLog;
+	ShapeRenderer dr; Texture img; FPSLogger frameLog;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
 			debugSpeed = 1.5F, groundSpeed = 0, maxSpeed = 6,
 			x = 600, y = 200; // Player starts at (600,200);
 	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
-	boolean debugMode = false; float lSensorX, rSensorX, middleY;
+	boolean debugMode = false;
 	boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
 	int vpHeight, vpWidth;
+
+	Player player;
 
 	public SonicGDX(final Init Init) {
 
@@ -54,13 +58,14 @@ public class SonicGDX implements Screen {
 		tm = new TileMap();
 
 		dr = new ShapeRenderer();
-		img = new Texture("1x1-ffffffff.png"); img2 = new Texture("1x1-000000ff.png");
+		img = new Texture("1x1-ffffffff.png");
 
-		player = new Sprite(img2,20,40);
-		player.setPosition(x,y);
+		player = new Player();
 
-		cameraOffset.x = camera.position.x - player.getX();
-		cameraOffset.y = camera.position.y - player.getY();
+		playerSprite.setPosition(x,y);
+
+		cameraOffset.x = camera.position.x - playerSprite.getX();
+		cameraOffset.y = camera.position.y - playerSprite.getY();
 
 		//frameLog = new FPSLogger();
 
@@ -115,14 +120,14 @@ public class SonicGDX implements Screen {
 		x = Math.max(x,0);
 		y = Math.max(y,0);
 
-		player.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
+		playerSprite.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
 		boolean nothing = checkTile(x,y);
 
 
-		lSensorX = x;
-		rSensorX = x + (player.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
-		middleY = y + (player.getHeight() / 2);
+		player.lSensorX = x;
+		player.rSensorX = x + (playerSprite.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+		player.middleY = y + (playerSprite.getHeight() / 2);
 
 
 
@@ -143,10 +148,10 @@ public class SonicGDX implements Screen {
 			}
 		}
 
-		player.draw(Init.batch);
+		playerSprite.draw(Init.batch);
 
 		// DEBUG
-		Init.batch.draw(img,lSensorX,y); Init.batch.draw(img,rSensorX,y); Init.batch.draw(img,lSensorX,middleY); Init.batch.draw(img,rSensorX,middleY);
+		Init.batch.draw(img,player.lSensorX,y); Init.batch.draw(img,player.rSensorX,y); Init.batch.draw(img,player.lSensorX,player.middleY); Init.batch.draw(img,player.rSensorX,player.middleY);
 
 
 		Init.batch.end();
@@ -155,7 +160,7 @@ public class SonicGDX implements Screen {
 	@Override
 	public void dispose () {
 		img.dispose();
-		img2.dispose();
+		player.img.dispose();
 		dr.dispose();
 	}
 
