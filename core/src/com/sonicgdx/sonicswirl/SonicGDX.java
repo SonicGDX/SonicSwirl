@@ -157,7 +157,7 @@ public class SonicGDX implements Screen {
 	@Override
 	public void dispose () {
 		img.dispose();
-		player.img.dispose();
+		playerImg.dispose();
 		dr.dispose();
 	}
 
