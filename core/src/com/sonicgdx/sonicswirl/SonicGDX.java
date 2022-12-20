@@ -178,12 +178,12 @@ public class SonicGDX implements Screen {
 					if (tm.map[chunkX][chunkY][blockX][blockY].empty){
 						break;
 					}
-
 					Init.batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
-					if ((int) x == (chunkX*128 + blockX*16+grid))
+
+					/*if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
-						if (tm.map[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
-					}
+						if (tm.map[chunkX][chunkY][blockX][blockY].solidity == 0);
+					}*/
 
 					//TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
 
@@ -204,12 +204,12 @@ public class SonicGDX implements Screen {
 					}
 					if (grid==0) dr.setColor(new Color(0));
 					else dr.setColor(new Color(0.125F * blockY,0,grid,0));
-
 					dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1,tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
-					if ((int) x == (chunkX*128 + blockX*16+grid))
+
+					/*if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
-						if (tm.map[chunkX][chunkY][blockX][blockY].solidity == (byte) 0);
-					}
+						if (tm.map[chunkX][chunkY][blockX][blockY].solidity == 0);
+					}*/
 
 					//TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
 
