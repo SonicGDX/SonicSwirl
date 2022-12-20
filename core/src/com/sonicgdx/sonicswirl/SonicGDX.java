@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -26,6 +25,7 @@ public class SonicGDX implements Screen {
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
 			debugSpeed = 1.5F, groundSpeed = 0, maxSpeed = 6,
 			x = 600, y = 200; // Player starts at (600,200);
+	//TODO change usage of local variables x and y
 	OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
 	boolean debugMode = false;
 	boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
@@ -55,10 +55,8 @@ public class SonicGDX implements Screen {
 		// but would take up the entire view
 
 		tm = new TileMap();
-
 		dr = new ShapeRenderer();
-		img = new Texture("1x1-ffffffff.png"); playerImg = new Texture("1x1-000000ff.png");
-
+		img = new Texture(Gdx.files.internal("1x1-ffffffff.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
 		player = new Player(playerImg,20,40);
 
 		player.sprite.setPosition(x,y);
@@ -121,7 +119,7 @@ public class SonicGDX implements Screen {
 
 		player.sprite.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
-		boolean nothing = checkTile(x,y);
+		boolean nothing = player.checkTile(x,y,tm);
 
 
 		player.lSensorX = x;
@@ -188,78 +186,6 @@ public class SonicGDX implements Screen {
 				}
 			}
 		}
-	}
-
-	public boolean checkTile(float xPos, float yPos)
-	{
-		int xPosition = (int) xPos; int yPosition = (int) yPos;
-
-		//TODO max tile no limit
-		int tileX = xPosition % 128 / 16;
-		int chunkX = xPosition / 128;
-
-		int tileY = yPosition % 128 / 16;
-		int chunkY = yPosition / 128;
-
-
-		int grid = xPosition % 16;
-
-		//if (tileY == 0) {
-		//	Gdx.app.log("TileY","= 0");
-		//}
-
-		//Gdx.app.log("gridValue", String.valueOf(tm.map[chunkX][chunkY][tileX][tileY].height[grid]));
-
-		if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 16)
-		{
-			Gdx.app.log("Regression",String.valueOf(regression(chunkX,chunkY,tileX,tileY,grid)));
-
-		}
-
-		// Classes are reference types so modifying a value would affect all the tiles that are the same.
-
-		return true;
-	}
-
-	public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid)
-	{
-
-		//TODO recursive? Check nearby tiles
-
-		//TODO regression, check up by one extra tile.
-
-		int tempCY = chunkY; int tempTY = tileY; int height;
-
-		for (int i=0;i<=2;i++) {
-
-			if (tileY < 7)
-			{
-				tempTY= tileY + 1;
-			}
-			else
-			{
-
-				tempCY = chunkY +=1;
-				tempTY = tileY = 0;
-			}
-
-			height = tm.getHeight(chunkX,tempCY,tileX,tempTY,grid);
-
-			if (height == 0)
-			{
-				// If the height of the tile above is empty, regression does not occur since it is likely that the original tile is the surface.
-				return i;
-			}
-			else if (height < 16)
-			{
-				chunkY = tempCY; tileY = tempTY;
-
-				Gdx.app.debug("grid",String.valueOf(grid));
-				Gdx.app.debug("collision","sensor regression");
-			}
-		}
-		return 2;
-
 	}
 
 	@Override
