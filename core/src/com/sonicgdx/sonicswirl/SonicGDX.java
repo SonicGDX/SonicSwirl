@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import static com.sonicgdx.sonicswirl.Player.playerSprite;
 //import com.badlogic.gdx.maps.tiled.TiledMap;
 //import java.util.Arrays;
 //import java.awt.*;
@@ -23,7 +22,7 @@ import static com.sonicgdx.sonicswirl.Player.playerSprite;
 public class SonicGDX implements Screen {
 
 	final Init Init; TileMap tm;
-	ShapeRenderer dr; Texture img; FPSLogger frameLog;
+	ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
 	static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
 			debugSpeed = 1.5F, groundSpeed = 0, maxSpeed = 6,
 			x = 600, y = 200; // Player starts at (600,200);
@@ -58,14 +57,14 @@ public class SonicGDX implements Screen {
 		tm = new TileMap();
 
 		dr = new ShapeRenderer();
-		img = new Texture("1x1-ffffffff.png");
+		img = new Texture("1x1-ffffffff.png"); playerImg = new Texture("1x1-000000ff.png");
 
-		player = new Player();
+		player = new Player(playerImg,20,40);
 
-		playerSprite.setPosition(x,y);
+		player.sprite.setPosition(x,y);
 
-		cameraOffset.x = camera.position.x - playerSprite.getX();
-		cameraOffset.y = camera.position.y - playerSprite.getY();
+		cameraOffset.x = camera.position.x - player.sprite.getX();
+		cameraOffset.y = camera.position.y - player.sprite.getY();
 
 		//frameLog = new FPSLogger();
 
@@ -120,14 +119,14 @@ public class SonicGDX implements Screen {
 		x = Math.max(x,0);
 		y = Math.max(y,0);
 
-		playerSprite.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
+		player.sprite.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
 		boolean nothing = checkTile(x,y);
 
 
 		player.lSensorX = x;
-		player.rSensorX = x + (playerSprite.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
-		player.middleY = y + (playerSprite.getHeight() / 2);
+		player.rSensorX = x + (player.sprite.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+		player.middleY = y + (player.sprite.getHeight() / 2);
 
 
 
@@ -148,7 +147,7 @@ public class SonicGDX implements Screen {
 			}
 		}
 
-		playerSprite.draw(Init.batch);
+		player.sprite.draw(Init.batch);
 
 		// DEBUG
 		Init.batch.draw(img,player.lSensorX,y); Init.batch.draw(img,player.rSensorX,y); Init.batch.draw(img,player.lSensorX,player.middleY); Init.batch.draw(img,player.rSensorX,player.middleY);
