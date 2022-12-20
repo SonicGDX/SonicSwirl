@@ -56,7 +56,7 @@ public class SonicGDX implements Screen {
 
 		tm = new TileMap();
 		dr = new ShapeRenderer();
-		img = new Texture(Gdx.files.internal("1x1-ffffffff.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
+		img = new Texture(Gdx.files.internal("tile.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
 		player = new Player(playerImg,20,40);
 
 		player.sprite.setPosition(x,y);
