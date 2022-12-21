@@ -189,7 +189,7 @@ public class SonicGDX implements Screen {
 			for (int blockY = 0; blockY < 8; blockY++)
 			{
 				if (tm.map[chunkX][chunkY][blockX][blockY].empty){
-					break;
+					continue;
 				}
 				for (int grid = 0; grid < 16; grid++)
 				{
