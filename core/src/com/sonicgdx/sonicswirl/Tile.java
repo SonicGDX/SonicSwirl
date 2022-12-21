@@ -22,8 +22,8 @@ public class Tile {
     Tile()
     {
         this.empty = true;
-        this.height = new byte[16];
-        this.width = new byte[16];
+        this.height = null;
+        this.width = null;
         this.angle = 0;
     }
 

@@ -27,8 +27,9 @@ public class Entity {
         int tileY = yPosition % 128 / 16;
         int chunkY = yPosition / 128;
 
-
         int grid = xPosition % 16;
+
+        int tempTileY, tempChunkY;
 
         //if (tileY == 0) {
         //	Gdx.app.log("TileY","= 0");
@@ -38,7 +39,21 @@ public class Entity {
 
         if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 16)
         {
-            Gdx.app.log("Regression",String.valueOf(regression(chunkX,chunkY,tileX,tileY,grid,tm)));
+            if (tileY < 7)
+            {
+                tempChunkY = chunkY;
+                tempTileY = tileY + 1;
+            }
+            else
+            {
+                tempChunkY = chunkY + 1;
+                tempTileY = 0;
+            }
+
+            if (tm.getHeight(chunkX,tempChunkY,tileX,tempTileY,grid) == 0)
+            {
+
+            }
 
         }
 
@@ -47,7 +62,7 @@ public class Entity {
         return true;
     }
 
-    public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm) //TODO improve naming and add comment explanation
+    /*public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm) //TODO improve naming and add comment explanation
     {
 
         //TODO recursive? Check nearby tiles
@@ -82,7 +97,7 @@ public class Entity {
         }
 
 
-    }
+    }*/
 
 
 }

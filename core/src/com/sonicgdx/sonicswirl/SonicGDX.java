@@ -127,9 +127,6 @@ public class SonicGDX implements Screen {
 		player.middleY = y + (player.sprite.getHeight() / 2);
 
 
-
-
-
 		//TODO Add collision logic
 
 		dr.setProjectionMatrix(camera.combined);
@@ -146,15 +143,9 @@ public class SonicGDX implements Screen {
 		// tells the SpriteBatch to render in the coordinate system specified by the camera
 		Init.batch.setProjectionMatrix(camera.combined);
 		Init.batch.begin();
-
-
-
 		player.sprite.draw(Init.batch);
-
 		// DEBUG
 		Init.batch.draw(img,player.lSensorX,y); Init.batch.draw(img,player.rSensorX,y); Init.batch.draw(img,player.lSensorX,player.middleY); Init.batch.draw(img,player.rSensorX,player.middleY);
-
-
 		Init.batch.end();
 	}
 	
@@ -197,11 +188,12 @@ public class SonicGDX implements Screen {
 		{
 			for (int blockY = 0; blockY < 8; blockY++)
 			{
+				if (tm.map[chunkX][chunkY][blockX][blockY].empty){
+					break;
+				}
 				for (int grid = 0; grid < 16; grid++)
 				{
-					if (tm.map[chunkX][chunkY][blockX][blockY].empty){
-						break;
-					}
+
 					if (grid==0) dr.setColor(new Color(0));
 					else dr.setColor(new Color(0.125F * blockY,0,grid,0));
 					dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1,tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
