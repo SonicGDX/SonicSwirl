@@ -22,7 +22,7 @@ public class SonicGDX implements Screen {
 
     final Init Init; TileMap tm;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
-    final float accel = 2.81362F; float speedX = 0, speedY = 0,
+    final float accel = 168F; float speedX = 0, speedY = 0,
             groundSpeed = 0,
             x = 600, y = 200; // Player starts at (600,200);
     final int debugSpeed = 90, decel = 30, maxSpeed = 360;
