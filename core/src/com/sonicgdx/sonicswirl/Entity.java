@@ -39,6 +39,7 @@ public class Entity {
 
         if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 16)
         {
+            // sensor regression, checks one tile above with downwards facing sensors in an attempt to find surface if the height of the array is full
             if (tileY < 7)
             {
                 tempChunkY = chunkY;
@@ -50,12 +51,30 @@ public class Entity {
                 tempTileY = 0;
             }
 
-            if (tm.getHeight(chunkX,tempChunkY,tileX,tempTileY,grid) == 0)
+            if (tm.getHeight(chunkX,tempChunkY,tileX,tempTileY,grid) > 0)
             {
-
+                chunkY = tempChunkY;
+                tileY = tempTileY;
+                Gdx.app.debug("regression","true");
             }
-
+            Gdx.app.debug("regression","false");
         }
+
+        if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 0)
+        {
+            // sensor extension, checks one tile below with downwards facing sensors in an attempt to find surface
+            if (tileY == 0)
+            {
+                chunkY--;
+                tileY = 7;
+            }
+            else
+            {
+                tileY--;
+            }
+            Gdx.app.debug("extension","true");
+        }
+
 
         // Classes are reference types so modifying a value would affect all the tiles that are the same.
 
