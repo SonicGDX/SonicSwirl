@@ -57,10 +57,10 @@ public class Entity {
                 tileY = tempTileY;
                 Gdx.app.debug("regression","true");
             }
-            Gdx.app.debug("regression","false");
+            else Gdx.app.debug("regression","false");
         }
 
-        if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 0)
+        else if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 0)
         {
             // sensor extension, checks one tile below with downwards facing sensors in an attempt to find surface
             if (tileY == 0)
