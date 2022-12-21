@@ -25,7 +25,7 @@ public class SonicGDX implements Screen {
     final float accel = 168F; float speedX = 0, speedY = 0,
             groundSpeed = 0,
             x = 600, y = 200; // Player starts at (600,200);
-    final int debugSpeed = 90, decel = 30, maxSpeed = 360;
+    final int debugSpeed = 90, decel = 1800, maxSpeed = 360;
     // A deltaTime of 0.016666 was approximated to obtain the adjusted values TODO use more accurate values
     // Original: accel = 0.046875F, decel = 0.5F, debugSpeed = 1.5F, maxSpeed = 6;
 
