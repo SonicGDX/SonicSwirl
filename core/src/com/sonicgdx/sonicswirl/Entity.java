@@ -16,7 +16,7 @@ public class Entity {
     }
 
 
-    public boolean checkTile(float xPos, float yPos, TileMap tm)
+    public boolean checkTile(float xPos, float yPos, TileMap tm) //TODO improve naming and add comment explanation
     {
         int xPosition = (int) xPos; int yPosition = (int) yPos;
 
@@ -51,7 +51,7 @@ public class Entity {
                 tempTileY = 0;
             }
 
-            if (tm.getHeight(chunkX,tempChunkY,tileX,tempTileY,grid) > 0)
+            if (tm.getHeight(chunkX,tempChunkY,tileX,tempTileY,grid) > 0) //TODO outline conditions in comment
             {
                 chunkY = tempChunkY;
                 tileY = tempTileY;
@@ -81,12 +81,10 @@ public class Entity {
         return true;
     }
 
-    /*public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm) //TODO improve naming and add comment explanation
+    /*public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm)
     {
 
         //TODO recursive? Check nearby tiles
-
-        //TODO regression, check up by one extra tile.
 
         byte height;
 
@@ -104,7 +102,7 @@ public class Entity {
 
         height = tm.getHeight(chunkX,chunkY,tileX,tileY,grid);
 
-        //CHECK height depending on conditions TODO outline conditions in comment
+        //CHECK height depending on conditions
         if (height == 0) {
             return 0;
         }
