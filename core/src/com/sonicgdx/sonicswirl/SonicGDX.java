@@ -87,25 +87,25 @@ public class SonicGDX implements Screen {
             //Gdx.app.log("debugMode",String.valueOf(debugMode));
             //TODO acceleration in debug mode
         }
-        if (!debugMode) {
+        if (debugMode) {
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) x += debugSpeed * delta;
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= debugSpeed * delta;;
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) y += debugSpeed * delta;
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= debugSpeed * delta;;
+            //Gdx.app.debug("delta",String.valueOf(delta));
+        }
+        else {
             //if (250-y >= 150) y += 10;
             if (Gdx.input.isKeyPressed(Input.Keys.D)) {
                 groundSpeed = Math.min(groundSpeed + accel, maxSpeed);
                 //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
             } else	groundSpeed = Math.max(groundSpeed - decel, 0);
-
-
             x += groundSpeed * delta;
+
+            Gdx.app.debug("speed",String.valueOf(groundSpeed*delta*60)); //test
 
             //TODO ground angle and sin/cos with Gdx MathUtils
 
-        }
-        else {
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) x += debugSpeed * delta;
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= debugSpeed * delta;;
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) y += debugSpeed * delta;
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= debugSpeed * delta;;
-            Gdx.app.debug("delta",String.valueOf(delta));
         }
 
         //TODO define constants
