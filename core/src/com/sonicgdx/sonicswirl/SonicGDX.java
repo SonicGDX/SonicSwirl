@@ -99,11 +99,11 @@ public class SonicGDX implements Screen {
         else {
             speedX = 0; speedY = 0; groundSpeed = 0;
 
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) speedX += debugSpeed;
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) speedX += 90 * delta;
             if (Gdx.input.isKeyPressed(Input.Keys.A)) speedX -= debugSpeed;
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) speedY += debugSpeed;
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 90 * delta;
             if (Gdx.input.isKeyPressed(Input.Keys.S)) speedY -= debugSpeed;
-
+            Gdx.app.debug("delta",String.valueOf(delta*90));
             x += speedX;
             y += speedY;
         }
