@@ -133,7 +133,7 @@ public class SonicGDX implements Screen {
 		//TODO Add collision logic
 
 		dr.setProjectionMatrix(camera.combined);
-		dr.begin(ShapeRenderer.ShapeType.Line);
+		dr.begin(ShapeRenderer.ShapeType.Filled);
 		for (int i=0;i<8;i++)
 		{
 			for (int j =0; j<1;j++)
