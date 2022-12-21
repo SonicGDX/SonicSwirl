@@ -16,7 +16,7 @@ public class Entity {
     }
 
 
-    public boolean checkTile(float xPos, float yPos, TileMap tm)
+    public boolean checkTile(float xPos, float yPos, TileMap tm) //TODO improve naming and add comment explanation
     {
         int xPosition = (int) xPos; int yPosition = (int) yPos;
 
@@ -27,8 +27,9 @@ public class Entity {
         int tileY = yPosition % 128 / 16;
         int chunkY = yPosition / 128;
 
-
         int grid = xPosition % 16;
+
+        int tempTileY, tempChunkY;
 
         //if (tileY == 0) {
         //	Gdx.app.log("TileY","= 0");
@@ -38,21 +39,52 @@ public class Entity {
 
         if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 16)
         {
-            Gdx.app.log("Regression",String.valueOf(regression(chunkX,chunkY,tileX,tileY,grid,tm)));
+            // sensor regression, checks one tile above with downwards facing sensors in an attempt to find surface if the height of the array is full
+            if (tileY < 7)
+            {
+                tempChunkY = chunkY;
+                tempTileY = tileY + 1;
+            }
+            else
+            {
+                tempChunkY = chunkY + 1;
+                tempTileY = 0;
+            }
 
+            if (tm.getHeight(chunkX,tempChunkY,tileX,tempTileY,grid) > 0) //TODO outline conditions in comment
+            {
+                chunkY = tempChunkY;
+                tileY = tempTileY;
+                Gdx.app.debug("regression","true");
+            }
+            else Gdx.app.debug("regression","false");
         }
+
+        else if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 0)
+        {
+            // sensor extension, checks one tile below with downwards facing sensors in an attempt to find surface
+            if (tileY == 0)
+            {
+                chunkY--;
+                tileY = 7;
+            }
+            else
+            {
+                tileY--;
+            }
+            Gdx.app.debug("extension","true");
+        }
+
 
         // Classes are reference types so modifying a value would affect all the tiles that are the same.
 
         return true;
     }
 
-    public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm) //TODO improve naming and add comment explanation
+    /*public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm)
     {
 
         //TODO recursive? Check nearby tiles
-
-        //TODO regression, check up by one extra tile.
 
         byte height;
 
@@ -70,7 +102,7 @@ public class Entity {
 
         height = tm.getHeight(chunkX,chunkY,tileX,tileY,grid);
 
-        //CHECK height depending on conditions TODO outline conditions in comment
+        //CHECK height depending on conditions
         if (height == 0) {
             return 0;
         }
@@ -82,7 +114,7 @@ public class Entity {
         }
 
 
-    }
+    }*/
 
 
 }
