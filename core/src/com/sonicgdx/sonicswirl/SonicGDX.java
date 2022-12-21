@@ -22,10 +22,13 @@ public class SonicGDX implements Screen {
 
     final Init Init; TileMap tm;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
-    final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
-            groundSpeed = 0, maxSpeed = 6,
+    final float accel = 2.81362F; float speedX = 0, speedY = 0,
+            groundSpeed = 0,
             x = 600, y = 200; // Player starts at (600,200);
-    final int debugSpeed = 90;
+    final int debugSpeed = 90, decel = 30, maxSpeed = 360;
+    // A deltaTime of 0.016666 was approximated to obtain the adjusted values TODO use more accurate values
+    // Original: accel = 0.046875F, decel = 0.5F, debugSpeed = 1.5F, maxSpeed = 6;
+
     //TODO change usage of local variables x and y
     OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
     boolean debugMode = false;
@@ -92,7 +95,7 @@ public class SonicGDX implements Screen {
             } else	groundSpeed = Math.max(groundSpeed - decel, 0);
 
 
-            x += groundSpeed;
+            x += groundSpeed * delta;
 
             //TODO ground angle and sin/cos with Gdx MathUtils
 
@@ -102,7 +105,7 @@ public class SonicGDX implements Screen {
             if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= debugSpeed * delta;;
             if (Gdx.input.isKeyPressed(Input.Keys.W)) y += debugSpeed * delta;
             if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= debugSpeed * delta;;
-            Gdx.app.debug("delta",String.valueOf(debugSpeed * delta));
+            Gdx.app.debug("delta",String.valueOf(delta));
         }
 
         //TODO define constants
