@@ -23,7 +23,7 @@ public class SonicGDX implements Screen {
     final Init Init; TileMap tm;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
     static final float accel = 0.046875F, decel = 0.5F; float speedX = 0, speedY = 0,
-            debugSpeed = 1.5F, groundSpeed = 0, maxSpeed = 6,
+            debugSpeed = 90, groundSpeed = 0, maxSpeed = 6,
             x = 600, y = 200; // Player starts at (600,200);
     //TODO change usage of local variables x and y
     OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
@@ -97,15 +97,11 @@ public class SonicGDX implements Screen {
 
         }
         else {
-            speedX = 0; speedY = 0; groundSpeed = 0;
-
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) speedX += 90 * delta;
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) speedX -= debugSpeed;
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 90 * delta;
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) speedY -= debugSpeed;
-            Gdx.app.debug("delta",String.valueOf(delta*90));
-            x += speedX;
-            y += speedY;
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) x += debugSpeed * delta;
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= debugSpeed * delta;;
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) y += debugSpeed * delta;
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= debugSpeed * delta;;
+            Gdx.app.debug("delta",String.valueOf(debugSpeed * delta));
         }
 
         //TODO define constants
