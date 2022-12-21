@@ -84,6 +84,7 @@ public class SonicGDX implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
         {
             debugMode = !debugMode;
+            groundSpeed = 0;
             //Gdx.app.log("debugMode",String.valueOf(debugMode));
             //TODO acceleration in debug mode
         }
