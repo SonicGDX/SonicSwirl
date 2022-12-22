@@ -22,12 +22,12 @@ public class SonicGDX implements Screen {
 
     final Init Init; TileMap tm;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
-    final float accel = 168F; float speedX = 0, speedY = 0,
+    float speedX = 0, speedY = 0,
             groundSpeed = 0,
             x = 600, y = 200; // Player starts at (600,200);
-    final int debugSpeed = 90, decel = 1800, maxSpeed = 360;
+    final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360, ACCELERATION = 168;
     // A deltaTime of 0.016666 was approximated to obtain the adjusted values TODO use more accurate values
-    // Original: accel = 0.046875F, decel = 0.5F, debugSpeed = 1.5F, maxSpeed = 6;
+    // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6;
 
     //TODO change usage of local variables x and y
     OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
@@ -79,28 +79,27 @@ public class SonicGDX implements Screen {
 
         ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
-        //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather
-        // than constant polling.
+        //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
         {
             debugMode = !debugMode;
             groundSpeed = 0;
             //Gdx.app.log("debugMode",String.valueOf(debugMode));
-            //TODO acceleration in debug mode
+            //TODO ACCELERATION in debug mode
         }
         if (debugMode) {
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) x += (debugSpeed * delta);
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= (debugSpeed * delta);
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) y += (debugSpeed * delta);
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= (debugSpeed * delta);
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) x += (DEBUG_SPEED * delta);
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= (DEBUG_SPEED * delta);
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) y += (DEBUG_SPEED * delta);
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= (DEBUG_SPEED * delta);
             //Gdx.app.debug("delta",String.valueOf(delta));
         }
         else {
             //if (250-y >= 150) y += 10;
             if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                groundSpeed = Math.min(groundSpeed + (accel * delta), maxSpeed);
+                groundSpeed = Math.min(groundSpeed + (ACCELERATION * delta), MAX_SPEED);
                 //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
-            } else	groundSpeed = Math.max(groundSpeed - (decel * delta), 0);
+            } else	groundSpeed = Math.max(groundSpeed - (DECELERATION * delta), 0);
             x += groundSpeed * delta;
 
             Gdx.app.debug("speed",String.valueOf(groundSpeed*delta*60)); //test
@@ -121,7 +120,6 @@ public class SonicGDX implements Screen {
         player.sprite.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
         boolean nothing = player.checkTile(x,y,tm);
-
 
         player.lSensorX = x;
         player.rSensorX = x + (player.sprite.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
