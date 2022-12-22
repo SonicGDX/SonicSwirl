@@ -96,10 +96,9 @@ public class SonicGDX implements Screen {
         }
         else {
             //if (250-y >= 150) y += 10;
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                groundSpeed = Math.min(groundSpeed + (ACCELERATION * delta), MAX_SPEED);
-                //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
-            } else	groundSpeed = Math.max(groundSpeed - (DECELERATION * delta), 0);
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) groundSpeed = Math.min(groundSpeed + (ACCELERATION * delta), MAX_SPEED); //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
+            else if (Gdx.input.isKeyPressed(Input.Keys.A))	groundSpeed = Math.max(groundSpeed - (DECELERATION * delta), -MAX_SPEED);
+            else groundSpeed = Math.max(groundSpeed - (ACCELERATION * delta), 0);
             x += groundSpeed * delta;
 
             Gdx.app.debug("speed",String.valueOf(groundSpeed*delta*60)); //test
@@ -113,7 +112,7 @@ public class SonicGDX implements Screen {
         //TODO check for jumps here
 
         // "Invisible walls" - prevent players from going beyond borders to simplify calculations.
-        x = Math.min(x,1000);
+        x = Math.min(x,1280);
         x = Math.max(x,0);
         y = Math.max(y,0);
 
