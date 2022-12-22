@@ -130,16 +130,13 @@ public class SonicGDX implements Screen {
 
         dr.setProjectionMatrix(camera.combined);
         dr.begin(ShapeRenderer.ShapeType.Filled);
-        int chunkX = 0;
-        while (chunkX <= tm.map.length - 1)
+        //TODO render gradually as player progresses
+        for (int chunkX = 0; chunkX<tm.map.length; chunkX++)
         {
-            int chunkY = 0;
-            while (chunkY <= tm.map[chunkX].length - 1)
+            for (int chunkY = 0; chunkY<tm.map[chunkX].length; chunkY++)
             {
                 drawChunkDR(chunkX,chunkY);
-                chunkY++;
             }
-            chunkX++;
         }
         dr.end();
 
