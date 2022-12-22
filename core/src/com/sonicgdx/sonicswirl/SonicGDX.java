@@ -97,10 +97,21 @@ public class SonicGDX implements Screen {
             //Gdx.app.debug("delta",String.valueOf(delta));
         }
         else {
-            //if (250-y >= 150) y += 10;
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) groundSpeed = Math.min(groundSpeed + (ACCELERATION * delta), MAX_SPEED); //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
-            else if (Gdx.input.isKeyPressed(Input.Keys.A))	groundSpeed = Math.max(groundSpeed - (DECELERATION * delta), -MAX_SPEED);
-            else groundSpeed = Math.max(groundSpeed - (ACCELERATION * delta), 0);
+            if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // (if moving right)
+            {
+                if (groundSpeed < 0) groundSpeed += (DECELERATION * delta); // Deceleration acts in the opposite direction to the one in which the player is currently moving.
+                else groundSpeed = Math.min(groundSpeed + (ACCELERATION * delta), MAX_SPEED); //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
+                //TODO consider if player is already moving at higher than top speed before pressing right
+            }
+            else if (Gdx.input.isKeyPressed(Input.Keys.A) || (Gdx.input.isKeyPressed(Input.Keys.LEFT)))
+            {
+                if (groundSpeed > 0) groundSpeed -= (DECELERATION * delta);
+                else groundSpeed = Math.max(groundSpeed - (ACCELERATION * delta), -MAX_SPEED);
+            }
+            else
+            {
+                groundSpeed = Math.max(groundSpeed - (ACCELERATION * delta), 0);
+            }
             x += groundSpeed * delta;
 
             Gdx.app.debug("speed",String.valueOf(groundSpeed*delta*60)); //test
