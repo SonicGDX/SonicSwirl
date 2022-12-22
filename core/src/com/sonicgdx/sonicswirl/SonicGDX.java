@@ -25,9 +25,11 @@ public class SonicGDX implements Screen {
     float speedX = 0, speedY = 0,
             groundSpeed = 0,
             x = 600, y = 200; // Player starts at (600,200);
-    final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360, ACCELERATION = 168;
-    // A deltaTime of 0.016666 was approximated to obtain the adjusted values TODO use more accurate values
+    final float ACCELERATION = 168.75F;
+    final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360;
+    // An FPS of 60 was used to obtain the adjusted values TODO use more accurate values
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6;
+    // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
 
     //TODO change usage of local variables x and y
     OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
