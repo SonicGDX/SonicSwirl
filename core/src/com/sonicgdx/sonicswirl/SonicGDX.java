@@ -87,7 +87,7 @@ public class SonicGDX implements Screen {
         // tells the SpriteBatch to render in the coordinate system specified by the camera
         Init.batch.setProjectionMatrix(camera.combined);
         Init.batch.begin();
-        Init.batch.disableBlending();
+        //Blending has been disabled in Init constructor
         //TODO render gradually as player progresses
         for (int chunkX = 0; chunkX<tm.map.length; chunkX++)
         {
