@@ -23,18 +23,11 @@ public class SonicGDX implements Screen {
 
     final Init Init; TileMap tm;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
-    float speedX = 0, speedY = 0, groundSpeed = 0, x = 600, y = 200; // Player starts at (600,200);
-    final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
-    final float ACCELERATION = 168.75F; final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360;
-    // An FPS of 60 was used to obtain the adjusted values
-    // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6;
-    // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
 
+    final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
     //TODO change usage of local variables x and y
     OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
     final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
-    boolean debugMode = false;
-    boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
     int vpHeight, vpWidth;
 
     Player player;
@@ -159,6 +152,7 @@ public class SonicGDX implements Screen {
     //TODO multithreading except for GWT?
     public void drawChunkDR(int chunkX, int chunkY) {
 
+        //TODO Foreach loop?
         for (int tileX = 0; tileX < TILES_PER_CHUNK; tileX++)
         {
             for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
