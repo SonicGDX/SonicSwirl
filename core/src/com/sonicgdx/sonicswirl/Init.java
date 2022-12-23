@@ -18,7 +18,6 @@ public class Init extends Game {
         // Can be easily shared between screens
 		font = new BitmapFont(); // Default font = Arial
 		this.setScreen(menuScreen);
-		batch.disableBlending();
 	}
 
 	public void render() {

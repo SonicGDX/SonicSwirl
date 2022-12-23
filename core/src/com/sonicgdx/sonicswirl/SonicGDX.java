@@ -103,6 +103,12 @@ public class SonicGDX implements Screen {
     }
 
     //TODO multithreading except for GWT?
+
+    /**
+     * Draws each Tile using a gradient - for debugging purposes only
+     * @param chunkX - the chunk number on the x-axis - not the same as its co-ordinate
+     * @param chunkY - the chunk number on the y-axis - not the same as its co-ordinate
+     */
     public void drawChunkBatch(int chunkX, int chunkY) {
 
         for (int tileX = 0; tileX < TILES_PER_CHUNK; tileX++)
@@ -136,10 +142,10 @@ public class SonicGDX implements Screen {
     }
 
     /**
-     * Draws each Tile using various colours - for debugging purposes only
+     * Draws each Tile using a gradient - for debugging purposes only
      * @param chunkX - the chunk number on the x-axis - not the same as its co-ordinate
      * @param chunkY - the chunk number on the y-axis - not the same as its co-ordinate
-     * @deprecated Superseded by drawChunkBatch as ShapeRenderer uses its own mesh compared to the SpriteBatch and therefore conflicts in the rendering method making it cumbersome to use.
+     * @deprecated superseded by drawChunkBatch as ShapeRenderer uses its own mesh compared to the SpriteBatch and therefore conflicts in the rendering method making it cumbersome to use.
      */
     @Deprecated
     public void drawChunkDR(int chunkX, int chunkY) {
