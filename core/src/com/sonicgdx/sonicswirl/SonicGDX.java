@@ -23,17 +23,16 @@ public class SonicGDX implements Screen {
 
     final Init Init; TileMap tm;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
-    float speedX = 0, speedY = 0,
-            groundSpeed = 0,
-            x = 600, y = 200; // Player starts at (600,200);
-    final float ACCELERATION = 168.75F;
-    final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360;
+    float speedX = 0, speedY = 0, groundSpeed = 0, x = 600, y = 200; // Player starts at (600,200);
+    final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
+    final float ACCELERATION = 168.75F; final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360;
     // An FPS of 60 was used to obtain the adjusted values TODO use more accurate values
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
 
     //TODO change usage of local variables x and y
     OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
+    final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
     boolean debugMode = false;
     boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
     int vpHeight, vpWidth;
@@ -64,7 +63,7 @@ public class SonicGDX implements Screen {
         tm = new TileMap();
         dr = new ShapeRenderer();
         img = new Texture(Gdx.files.internal("1x1-ffffffff.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
-        player = new Player(playerImg,20,40);
+        player = new Player(playerImg,PLAYER_WIDTH,PLAYER_HEIGHT);
 
         player.sprite.setPosition(x,y);
 
@@ -120,7 +119,7 @@ public class SonicGDX implements Screen {
 
         //TODO check for jumps here
 
-        // "Invisible walls" - prevent players from going beyond borders to simplify calculations.
+        // "Invisible walls" - prevent players from going beyond borders to simplify calculations. TODO stop collision errors when going outside index bounds
         x = Math.min(x,1280);
         x = Math.max(x,0);
         y = Math.max(y,0);
@@ -166,18 +165,19 @@ public class SonicGDX implements Screen {
 
 
     //TODO multithreading except for GWT?
+    @Deprecated
     public void drawChunkBatch(int chunkX, int chunkY) {
 
-        for (int blockX = 0; blockX < 8; blockX++)
+        for (int blockX = 0; blockX < TILES_PER_CHUNK; blockX++)
         {
-            for (int blockY = 0; blockY < 8; blockY++)
+            for (int blockY = 0; blockY < TILES_PER_CHUNK; blockY++)
             {
-                for (int grid = 0; grid < 16; grid++)
+                for (int grid = 0; grid < TILE_SIZE; grid++)
                 {
                     if (tm.map[chunkX][chunkY][blockX][blockY].empty){
                         break;
                     }
-                    Init.batch.draw(img, blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1, tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
+                    Init.batch.draw(img, grid + (blockX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(blockY*TILE_SIZE)+(128*CHUNK_SIZE),1, tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
 
 					/*if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
@@ -192,19 +192,19 @@ public class SonicGDX implements Screen {
     }
     public void drawChunkDR(int chunkX, int chunkY) {
 
-        for (int blockX = 0; blockX < 8; blockX++)
+        for (int blockX = 0; blockX < TILES_PER_CHUNK; blockX++)
         {
-            for (int blockY = 0; blockY < 8; blockY++)
+            for (int blockY = 0; blockY < TILES_PER_CHUNK; blockY++)
             {
                 if (tm.map[chunkX][chunkY][blockX][blockY].empty){
                     continue;
                 }
-                for (int grid = 0; grid < 16; grid++)
+                for (int grid = 0; grid < TILE_SIZE; grid++)
                 {
 
                     if (grid==0) dr.setColor(new Color(0));
                     else dr.setColor(new Color(0.125F * blockY,0,grid,0));
-                    dr.rect(blockX*16+grid+(128*chunkX),blockY*16+(128*chunkY),1,tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
+                    dr.rect( grid + (blockX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(blockY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
 
 					/*if ((int) x == (chunkX*128 + blockX*16+grid))
 					{
