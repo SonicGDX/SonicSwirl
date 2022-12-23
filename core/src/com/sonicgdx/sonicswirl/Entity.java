@@ -6,17 +6,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Entity {
-    int xPos, yPos;
-
+    float xPos, yPos;
+    //TODO reconsider usage of local variables as well as sprite.getx/y
     Sprite sprite;
-
     Entity(Texture image, int width, int height) {
         sprite = new Sprite(image,width,height);
 
     }
 
-
-    public boolean checkTile(float xPos, float yPos, TileMap tm) //TODO improve naming and add comment explanation
+    public boolean checkTile(TileMap tm) //TODO improve naming and add comment explanation
     {
         int xPosition = (int) xPos; int yPosition = (int) yPos;
 
