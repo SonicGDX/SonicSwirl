@@ -93,5 +93,8 @@ https://www.w3schools.com/java/java_arrays_multi.asp \
 https://www.w3schools.com/java/java_break.asp
 
 ## Graphics
-https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites\
+https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites \
 
+## JavaDoc
+https://www.jetbrains.com/help/idea/working-with-code-documentation.html \
+https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html

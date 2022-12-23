@@ -118,7 +118,7 @@ public class SonicGDX implements Screen {
                         break;
                     }
                     if (block==0) Init.batch.setColor(new Color(0));
-                    else Init.batch.setColor(new Color(0.125F * tileY,0,block,0));
+                    else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,0));
                     Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, tm.map[chunkX][chunkY][tileX][tileY].height[block]);
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
@@ -131,10 +131,16 @@ public class SonicGDX implements Screen {
                 }
             }
         }
-        Init.batch.setColor(new Color(1,1,1,1));
+        Init.batch.setColor(new Color(1,1,1,1)); //Resets batch colour
 
     }
 
+    /**
+     * Draws each Tile using various colours - for debugging purposes only
+     * @param chunkX - the chunk number on the x-axis - not the same as its co-ordinate
+     * @param chunkY - the chunk number on the y-axis - not the same as its co-ordinate
+     * @deprecated Superseded by drawChunkBatch as ShapeRenderer uses its own mesh compared to the SpriteBatch and therefore conflicts in the rendering method making it cumbersome to use.
+     */
     @Deprecated
     public void drawChunkDR(int chunkX, int chunkY) {
 
@@ -150,7 +156,7 @@ public class SonicGDX implements Screen {
                 {
 
                     if (block==0) dr.setColor(new Color(0));
-                    else dr.setColor(new Color(0.125F * tileY,0,block,0));
+                    else dr.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,0));
                     dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,tm.map[chunkX][chunkY][tileX][tileY].height[block]);
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
