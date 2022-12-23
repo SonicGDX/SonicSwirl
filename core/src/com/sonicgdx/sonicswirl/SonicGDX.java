@@ -101,21 +101,16 @@ public class SonicGDX implements Screen {
             if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
             {
                 if (groundSpeed < 0) groundSpeed += (DECELERATION * delta); // Deceleration acts in the opposite direction to the one in which the player is currently moving.
-                else groundSpeed = Math.min(groundSpeed + (ACCELERATION * delta), MAX_SPEED); //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
-                //TODO consider if player is already moving at higher than top speed before pressing right
+                else if (groundSpeed < MAX_SPEED) groundSpeed += (ACCELERATION * delta); //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
             }
             else if (Gdx.input.isKeyPressed(Input.Keys.A) || (Gdx.input.isKeyPressed(Input.Keys.LEFT))) // if moving left
             {
                 if (groundSpeed > 0) groundSpeed -= (DECELERATION * delta);
-                else groundSpeed = Math.max(groundSpeed - (ACCELERATION * delta), -MAX_SPEED);
+                else if (groundSpeed > -MAX_SPEED) groundSpeed -= ACCELERATION * delta;
             }
-            else // friction if not pressing any directions
-            {
-                groundSpeed -= Math.min(Math.abs(groundSpeed), ACCELERATION * delta) * Math.signum(groundSpeed);
-            }
-            x += groundSpeed * delta;
+            else groundSpeed -= Math.min(Math.abs(groundSpeed), ACCELERATION * delta) * Math.signum(groundSpeed); // friction if not pressing any directions
 
-            Gdx.app.debug("speed",String.valueOf(groundSpeed*delta*60)); //test
+            x += groundSpeed * delta;
 
             //TODO ground angle and sin/cos with Gdx MathUtils
 
