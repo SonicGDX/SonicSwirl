@@ -50,7 +50,7 @@ public class SonicGDX implements Screen {
         //Gdx.app.debug("debugMode",String.valueOf(tile[1][3][15]));
 
         vpWidth = Gdx.app.getGraphics().getWidth(); vpHeight = Gdx.app.getGraphics().getHeight();
-        //TODO possibly reduce viewport resolution to reduce pixels being missing at lower resolutions
+        //TODO possibly reduce viewport resolution to reduce pixels being missing at lower resolutions or change viewport type
 
         camera = new OrthographicCamera(); // 3D camera which projects into 2D.
         viewport = new FitViewport(vpWidth,vpHeight,camera);
@@ -114,8 +114,6 @@ public class SonicGDX implements Screen {
             //TODO ground angle and sin/cos with Gdx MathUtils
 
         }
-
-        //TODO define constants
 
         //TODO check for jumps here
 
