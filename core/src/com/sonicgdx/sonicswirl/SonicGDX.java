@@ -70,14 +70,14 @@ public class SonicGDX implements Screen {
         cameraOffset.x = camera.position.x - player.sprite.getX();
         cameraOffset.y = camera.position.y - player.sprite.getY();
 
-        //frameLog = new FPSLogger();
+        frameLog = new FPSLogger();
 
     }
 
     @Override
     public void render(float delta) {
 
-        //frameLog.log();
+        frameLog.log();
 
         ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
