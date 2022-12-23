@@ -89,6 +89,7 @@ public class SonicGDX implements Screen {
             //Gdx.app.log("debugMode",String.valueOf(debugMode));
             //TODO ACCELERATION in debug mode
         }
+        //TODO move movement into player class
         if (debugMode) {
             if (Gdx.input.isKeyPressed(Input.Keys.D)) x += (DEBUG_SPEED * delta);
             if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= (DEBUG_SPEED * delta);
