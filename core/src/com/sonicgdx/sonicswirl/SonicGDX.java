@@ -74,56 +74,17 @@ public class SonicGDX implements Screen {
 
         ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
-        //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
-        {
-            debugMode = !debugMode;
-            groundSpeed = 0;
-            //Gdx.app.log("debugMode",String.valueOf(debugMode));
-            //TODO ACCELERATION in debug mode
-        }
-        //TODO move movement into player class
-        if (debugMode) {
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) x += (DEBUG_SPEED * delta);
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= (DEBUG_SPEED * delta);
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) y += (DEBUG_SPEED * delta);
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= (DEBUG_SPEED * delta);
-            //Gdx.app.debug("deltaTime",String.valueOf(delta));
-        }
-        else {
-            if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
-            {
-                if (groundSpeed < 0) groundSpeed += (DECELERATION * delta); // Deceleration acts in the opposite direction to the one in which the player is currently moving.
-                else if (groundSpeed < MAX_SPEED) groundSpeed += (ACCELERATION * delta); //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
-            }
-            else if (Gdx.input.isKeyPressed(Input.Keys.A) || (Gdx.input.isKeyPressed(Input.Keys.LEFT))) // if moving left
-            {
-                if (groundSpeed > 0) groundSpeed -= (DECELERATION * delta);
-                else if (groundSpeed > -MAX_SPEED) groundSpeed -= ACCELERATION * delta;
-            }
-            else groundSpeed -= Math.min(Math.abs(groundSpeed), ACCELERATION * delta) * Math.signum(groundSpeed); // friction if not pressing any directions
-            // Decelerates until the absolute value of groundSpeed is lower than the ACCELERATION value (which doubles as the friction value) and then stops
-
-            x += groundSpeed * delta;
-
-            //TODO ground angle and sin/cos with Gdx MathUtils
-
-        }
+        player.move(delta);
 
         //TODO check for jumps here
 
-        // "Invisible walls" - prevent players from going beyond borders to simplify calculations. TODO stop collision errors when going outside index bounds
-        x = Math.min(x,1280);
-        x = Math.max(x,0);
-        y = Math.max(y,0);
 
-        player.sprite.setPosition(x, y); camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
-        boolean nothing = player.checkTile(x,y,tm);
+         camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
-        player.lSensorX = x;
-        player.rSensorX = x + (player.sprite.getWidth() - 1); // x pos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
-        player.middleY = y + (player.sprite.getHeight() / 2);
+        boolean nothing = player.checkTile(tm);
+
+
 
 
         //TODO Add collision logic
