@@ -23,9 +23,7 @@ public class SonicGDX implements Screen {
 
     final Init Init; TileMap tm;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
-
     final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
-    //TODO change usage of local variables x and y
     OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
     final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
     int vpHeight, vpWidth;
@@ -58,10 +56,8 @@ public class SonicGDX implements Screen {
         img = new Texture(Gdx.files.internal("1x1-ffffffff.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
         player = new Player(playerImg,PLAYER_WIDTH,PLAYER_HEIGHT);
 
-        player.sprite.setPosition(x,y);
-
-        cameraOffset.x = camera.position.x - player.sprite.getX();
-        cameraOffset.y = camera.position.y - player.sprite.getY();
+        cameraOffset.x = camera.position.x - player.xPos;
+        cameraOffset.y = camera.position.y - player.yPos;
 
         frameLog = new FPSLogger();
 
@@ -78,14 +74,9 @@ public class SonicGDX implements Screen {
 
         //TODO check for jumps here
 
-
-
-         camera.position.set(x + cameraOffset.x,y + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
+        camera.position.set(player.xPos + cameraOffset.x,player.yPos + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
         boolean nothing = player.checkTile(tm);
-
-
-
 
         //TODO Add collision logic
 
@@ -106,7 +97,7 @@ public class SonicGDX implements Screen {
         Init.batch.begin();
         player.sprite.draw(Init.batch);
         // DEBUG
-        Init.batch.draw(img,player.lSensorX,y); Init.batch.draw(img,player.rSensorX,y); Init.batch.draw(img,player.lSensorX,player.middleY); Init.batch.draw(img,player.rSensorX,player.middleY);
+        Init.batch.draw(img,player.lSensorX,player.yPos); Init.batch.draw(img,player.rSensorX,player.yPos); Init.batch.draw(img,player.lSensorX,player.middleY); Init.batch.draw(img,player.rSensorX,player.middleY);
         Init.batch.end();
     }
 
