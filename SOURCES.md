@@ -76,6 +76,9 @@ https://jvm-gaming.org/t/libgdx-subpixel-smooth-spite-movement/59881/3 \
 https://colourtann.github.io/HelloLibgdx \
 https://libgdx.com/wiki/start/a-simple-game \
 
+## Movement in both directions / Acceleration
+Constants and movement values were derived from those in - https://info.sonicretro.org/SPG:Running \
+Movement method adapted from here
 ## Gradle
 Fix “[ALSOFT] (EE) Failed to set real-time priority for thread: Operation not permitted” error on running - https://stackoverflow.com/questions/18987228/how-do-i-change-the-intellij-idea-default-jdk \
 

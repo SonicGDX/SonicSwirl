@@ -55,9 +55,9 @@ public class Entity {
             {
                 chunkY = tempChunkY;
                 tileY = tempTileY;
-                Gdx.app.debug("regression","true");
+                //Gdx.app.debug("regression","true");
             }
-            else Gdx.app.debug("regression","false");
+            //else Gdx.app.debug("regression","false");
         }
 
         else if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 0)
@@ -72,7 +72,7 @@ public class Entity {
             {
                 tileY--;
             }
-            Gdx.app.debug("extension","true");
+            //Gdx.app.debug("extension","true");
         }
 
 
@@ -81,7 +81,9 @@ public class Entity {
         return true;
     }
 
-    /*public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm)
+    /*
+    @Deprecated
+    public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm)
     {
 
         //TODO recursive? Check nearby tiles
@@ -114,7 +116,8 @@ public class Entity {
         }
 
 
-    }*/
+    }
+    */
 
 
 }

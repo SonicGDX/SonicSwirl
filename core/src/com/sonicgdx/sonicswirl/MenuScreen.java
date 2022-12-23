@@ -8,15 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import org.w3c.dom.Text;
 
 public class MenuScreen implements Screen {
     
     final Init Init;
-
-    final int sWidth,sHeight;
-    OrthographicCamera camera;
-
+    final int SCREEN_WIDTH,SCREEN_HEIGHT;
+    private final ScreenViewport menuViewport;
     Skin buttonSkin; TextureAtlas atlas; //TextButton button;
 
     public MenuScreen(final Init Init){
@@ -24,10 +23,9 @@ public class MenuScreen implements Screen {
         this.Init = Init;
 
         //TODO change viewport size
-        sWidth = Gdx.graphics.getWidth(); sHeight = Gdx.graphics.getHeight();
+        SCREEN_WIDTH = Gdx.graphics.getWidth(); SCREEN_HEIGHT = Gdx.graphics.getHeight();
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false,sWidth,sHeight);
+        menuViewport = new ScreenViewport();
 
         //TODO replace placeholder assets and finish UI, maybe with VisUI
         atlas = new TextureAtlas(Gdx.files.internal("button/uiskin.atlas"));
@@ -44,12 +42,10 @@ public class MenuScreen implements Screen {
     {
         ScreenUtils.clear(0.1f, 0, 0.2f, 1);
 
-		camera.update();
-		Init.batch.setProjectionMatrix(camera.combined);
+        menuViewport.apply();
 		Init.batch.begin();
-
-		Init.font.draw(Init.batch, "Menu PlaceHolder", sWidth / 2F - 60, sHeight / 2F);
-		Init.font.draw(Init.batch, "Press to begin", sWidth / 2F - 60, sHeight / 2F - 100);
+		Init.font.draw(Init.batch, "Menu PlaceHolder", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F);
+		Init.font.draw(Init.batch, "Press to begin", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F - 100);
 		Init.batch.end();
 
 		if (Gdx.input.isTouched()) {
@@ -73,8 +69,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        // TODO Auto-generated method stub
-        
+        menuViewport.update(width,height,true);
     }
 
     @Override
