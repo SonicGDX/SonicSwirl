@@ -82,7 +82,6 @@ public class Entity {
     }
 
     /*
-
     @Deprecated
     public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm)
     {
@@ -117,7 +116,8 @@ public class Entity {
         }
 
 
-    }*/
+    }
+    */
 
 
 }
