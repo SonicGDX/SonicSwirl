@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -97,20 +98,20 @@ public class SonicGDX implements Screen {
             //Gdx.app.debug("delta",String.valueOf(delta));
         }
         else {
-            if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // (if moving right)
+            if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
             {
                 if (groundSpeed < 0) groundSpeed += (DECELERATION * delta); // Deceleration acts in the opposite direction to the one in which the player is currently moving.
                 else groundSpeed = Math.min(groundSpeed + (ACCELERATION * delta), MAX_SPEED); //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
                 //TODO consider if player is already moving at higher than top speed before pressing right
             }
-            else if (Gdx.input.isKeyPressed(Input.Keys.A) || (Gdx.input.isKeyPressed(Input.Keys.LEFT)))
+            else if (Gdx.input.isKeyPressed(Input.Keys.A) || (Gdx.input.isKeyPressed(Input.Keys.LEFT))) // if moving left
             {
                 if (groundSpeed > 0) groundSpeed -= (DECELERATION * delta);
                 else groundSpeed = Math.max(groundSpeed - (ACCELERATION * delta), -MAX_SPEED);
             }
-            else
+            else // friction if not pressing any directions
             {
-                groundSpeed = Math.max(groundSpeed - (ACCELERATION * delta), 0);
+                groundSpeed -= Math.min(Math.abs(groundSpeed), ACCELERATION * delta) * Math.signum(groundSpeed);
             }
             x += groundSpeed * delta;
 
