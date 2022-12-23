@@ -81,7 +81,10 @@ public class Entity {
         return true;
     }
 
-    /*public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm)
+    /*
+
+    @Deprecated
+    public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm)
     {
 
         //TODO recursive? Check nearby tiles

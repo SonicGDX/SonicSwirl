@@ -156,68 +156,66 @@ public class SonicGDX implements Screen {
         Init.batch.end();
     }
 
+    //TODO multithreading except for GWT?
+    public void drawChunkDR(int chunkX, int chunkY) {
+
+        for (int tileX = 0; tileX < TILES_PER_CHUNK; tileX++)
+        {
+            for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
+            {
+                if (tm.map[chunkX][chunkY][tileX][tileY].empty){
+                    continue;
+                }
+                for (int block = 0; block < TILE_SIZE; block++)
+                {
+
+                    if (block==0) dr.setColor(new Color(0));
+                    else dr.setColor(new Color(0.125F * tileY,0,block,0));
+                    dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,tm.map[chunkX][chunkY][tileX][tileY].height[block]);
+
+					/*if ((int) x == (chunkX*128 + tileX*16+block))
+					{
+						if (tm.map[chunkX][chunkY][tileX][tileY].solidity == 0);
+					}*/
+
+                    //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
+
+                }
+            }
+        }
+    }
+    @Deprecated
+    public void drawChunkBatch(int chunkX, int chunkY) {
+
+        for (int tileX = 0; tileX < TILES_PER_CHUNK; tileX++)
+        {
+            for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
+            {
+                for (int block = 0; block < TILE_SIZE; block++)
+                {
+                    if (tm.map[chunkX][chunkY][tileX][tileY].empty){
+                        break;
+                    }
+                    Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, tm.map[chunkX][chunkY][tileX][tileY].height[block]);
+
+					/*if ((int) x == (chunkX*128 + tileX*16+block))
+					{
+						if (tm.map[chunkX][chunkY][tileX][tileY].solidity == 0);
+					}*/
+
+                    //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
+
+                }
+            }
+        }
+    }
+
     @Override
     public void dispose () {
         img.dispose();
         playerImg.dispose();
         dr.dispose();
     }
-
-
-    //TODO multithreading except for GWT?
-    @Deprecated
-    public void drawChunkBatch(int chunkX, int chunkY) {
-
-        for (int blockX = 0; blockX < TILES_PER_CHUNK; blockX++)
-        {
-            for (int blockY = 0; blockY < TILES_PER_CHUNK; blockY++)
-            {
-                for (int grid = 0; grid < TILE_SIZE; grid++)
-                {
-                    if (tm.map[chunkX][chunkY][blockX][blockY].empty){
-                        break;
-                    }
-                    Init.batch.draw(img, grid + (blockX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(blockY*TILE_SIZE)+(128*CHUNK_SIZE),1, tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
-
-					/*if ((int) x == (chunkX*128 + blockX*16+grid))
-					{
-						if (tm.map[chunkX][chunkY][blockX][blockY].solidity == 0);
-					}*/
-
-                    //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
-
-                }
-            }
-        }
-    }
-    public void drawChunkDR(int chunkX, int chunkY) {
-
-        for (int blockX = 0; blockX < TILES_PER_CHUNK; blockX++)
-        {
-            for (int blockY = 0; blockY < TILES_PER_CHUNK; blockY++)
-            {
-                if (tm.map[chunkX][chunkY][blockX][blockY].empty){
-                    continue;
-                }
-                for (int grid = 0; grid < TILE_SIZE; grid++)
-                {
-
-                    if (grid==0) dr.setColor(new Color(0));
-                    else dr.setColor(new Color(0.125F * blockY,0,grid,0));
-                    dr.rect( grid + (blockX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(blockY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,tm.map[chunkX][chunkY][blockX][blockY].height[grid]);
-
-					/*if ((int) x == (chunkX*128 + blockX*16+grid))
-					{
-						if (tm.map[chunkX][chunkY][blockX][blockY].solidity == 0);
-					}*/
-
-                    //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
-
-                }
-            }
-        }
-    }
-
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);

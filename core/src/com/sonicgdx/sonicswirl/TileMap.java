@@ -138,12 +138,14 @@ public class TileMap {
         else return map[chunkX][chunkY][tileX][tileY].height[block];
     }
 
+    @Deprecated
     public byte[] getWidthArray(int chunkX, int chunkY, int tileX, int tileY)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return new byte[16];
         else return map[chunkX][chunkY][tileX][tileY].width;
     }
 
+    @Deprecated
     public byte[] getHeightArray(int chunkX, int chunkY, int tileX, int tileY)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return new byte[16];
