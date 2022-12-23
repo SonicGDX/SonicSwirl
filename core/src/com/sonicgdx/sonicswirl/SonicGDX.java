@@ -80,21 +80,22 @@ public class SonicGDX implements Screen {
 
         //TODO Add collision logic
 
-        dr.setProjectionMatrix(camera.combined);
+        /*dr.setProjectionMatrix(camera.combined);
         dr.begin(ShapeRenderer.ShapeType.Filled);
+        dr.end();*/
+
+        // tells the SpriteBatch to render in the coordinate system specified by the camera
+        Init.batch.setProjectionMatrix(camera.combined);
+        Init.batch.begin();
+        Init.batch.disableBlending();
         //TODO render gradually as player progresses
         for (int chunkX = 0; chunkX<tm.map.length; chunkX++)
         {
             for (int chunkY = 0; chunkY<tm.map[chunkX].length; chunkY++)
             {
-                drawChunkDR(chunkX,chunkY);
+                drawChunkBatch(chunkX,chunkY);
             }
         }
-        dr.end();
-
-        // tells the SpriteBatch to render in the coordinate system specified by the camera
-        Init.batch.setProjectionMatrix(camera.combined);
-        Init.batch.begin();
         player.sprite.draw(Init.batch);
         // DEBUG
         Init.batch.draw(img,player.lSensorX,player.yPos); Init.batch.draw(img,player.rSensorX,player.yPos); Init.batch.draw(img,player.lSensorX,player.middleY); Init.batch.draw(img,player.rSensorX,player.middleY);
@@ -102,6 +103,39 @@ public class SonicGDX implements Screen {
     }
 
     //TODO multithreading except for GWT?
+    public void drawChunkBatch(int chunkX, int chunkY) {
+
+        for (int tileX = 0; tileX < TILES_PER_CHUNK; tileX++)
+        {
+            for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
+            {
+                if (tm.map[chunkX][chunkY][tileX][tileY].empty){
+                    continue;
+                }
+                for (int block = 0; block < TILE_SIZE; block++)
+                {
+                    if (tm.map[chunkX][chunkY][tileX][tileY].empty){
+                        break;
+                    }
+                    if (block==0) Init.batch.setColor(new Color(0));
+                    else Init.batch.setColor(new Color(0.125F * tileY,0,block,0));
+                    Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, tm.map[chunkX][chunkY][tileX][tileY].height[block]);
+
+					/*if ((int) x == (chunkX*128 + tileX*16+block))
+					{
+						if (tm.map[chunkX][chunkY][tileX][tileY].solidity == 0);
+					}*/
+
+                    //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
+
+                }
+            }
+        }
+        Init.batch.setColor(new Color(1,1,1,1));
+
+    }
+
+    @Deprecated
     public void drawChunkDR(int chunkX, int chunkY) {
 
         //TODO Foreach loop?
@@ -118,31 +152,6 @@ public class SonicGDX implements Screen {
                     if (block==0) dr.setColor(new Color(0));
                     else dr.setColor(new Color(0.125F * tileY,0,block,0));
                     dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,tm.map[chunkX][chunkY][tileX][tileY].height[block]);
-
-					/*if ((int) x == (chunkX*128 + tileX*16+block))
-					{
-						if (tm.map[chunkX][chunkY][tileX][tileY].solidity == 0);
-					}*/
-
-                    //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
-
-                }
-            }
-        }
-    }
-    @Deprecated
-    public void drawChunkBatch(int chunkX, int chunkY) {
-
-        for (int tileX = 0; tileX < TILES_PER_CHUNK; tileX++)
-        {
-            for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
-            {
-                for (int block = 0; block < TILE_SIZE; block++)
-                {
-                    if (tm.map[chunkX][chunkY][tileX][tileY].empty){
-                        break;
-                    }
-                    Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, tm.map[chunkX][chunkY][tileX][tileY].height[block]);
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
 					{
