@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Entity {
-    private float xPos, yPos;
+    float xPos, yPos;
     //TODO reconsider usage of local variables as well as sprite.getx/y
     Sprite sprite;
     Entity(Texture image, int width, int height) {
