@@ -49,11 +49,11 @@ jobs:
 
       - name: Compile GWT
         run: ./gradlew html:dist
-      - name: Remove SuperDev remnants
+      #- name: Remove SuperDev remnants
         # Remove the reload button in the top left - the 11th line in index.html
-        run: |
-          sed -i '11d' html/build/dist/index.html
-          rm -rf html/build/dist/WEB-INF/deploy/html/symbolMaps
+        #run: |
+        #  sed -i '11d' html/build/dist/index.html
+        #  rm -rf html/build/dist/WEB-INF/deploy/html/symbolMaps
 
       - name: Setup Pages
         uses: actions/configure-pages@v2
