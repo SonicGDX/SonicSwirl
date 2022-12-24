@@ -1,91 +1,46 @@
 buildscript {
-    
+  repositories {
+    mavenCentral()
+    maven { url 'https://s01.oss.sonatype.org' }
+    mavenLocal()
+    google()
+    gradlePluginPortal()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+  }
+  dependencies {
+    classpath "com.android.tools.build:gradle:$androidPluginVersion"
+    classpath "org.wisepersist:gwt-gradle-plugin:$gwtPluginVersion"
 
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        gradlePluginPortal()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        google()
-    }
-    dependencies {
-        classpath 'org.wisepersist:gwt-gradle-plugin:1.1.16'
-        classpath 'org.gretty:gretty:3.0.7'
-        
-
-    }
+  }
 }
 
 allprojects {
-    apply plugin: "eclipse"
-
-    version = '1.0'
-    ext {
-        appName = "Sonic Swirl"
-        gdxVersion = '1.11.0'
-        roboVMVersion = '2.3.16'
-        ashleyVersion = '1.7.4'
-        aiVersion = '1.8.2'
-        gdxControllersVersion = '2.2.1'
-    }
-
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        google()
-        gradlePluginPortal()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-        maven { url "https://jitpack.io" }
-    }
+  apply plugin: 'eclipse'
+  apply plugin: 'idea'
 }
 
-project(":desktop") {
-    apply plugin: "java-library"
-
-
-    dependencies {
-        implementation project(":core")
-        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
-        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        api "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
-        api "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:1.3.0"
-        api "com.badlogicgames.gdx:gdx-lwjgl3-glfw-awt-macos:$gdxVersion"
-    }
+configure(subprojects - project(':android')) {
+  apply plugin: 'java-library'
+  sourceCompatibility = 1.8
+  compileJava {
+    options.incremental = true
+  }
 }
 
-project(":html") {
-    apply plugin: "java-library"
-    apply plugin: "gwt"
-    apply plugin: "war"
-    apply plugin: "org.gretty"
-
-
-    dependencies {
-        implementation project(":core")
-        api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-        api "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-        api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
-        api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion:sources"
-        api "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion"
-        api "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion:sources"
-        api "com.kotcrab.vis:vis-ui:1.5.1:sources"
-        api "de.tomgrill.gdxdialogs:gdx-dialogs-html:1.3.0"
-        api "de.tomgrill.gdxdialogs:gdx-dialogs-html:1.3.0:sources"
-        api "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.3.0:sources"
-        
-    }
+subprojects {
+  version = '1.0.0'
+  ext.appName = 'SonicSwirl'
+  repositories {
+    mavenCentral()
+    maven { url 'https://s01.oss.sonatype.org' }
+    mavenLocal()
+    gradlePluginPortal()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://teavm.org/maven/repository/' }
+  }
 }
 
-project(":core") {
-    apply plugin: "java-library"
-
-
-    dependencies {
-        api "com.badlogicgames.gdx:gdx:$gdxVersion"
-        api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
-        api "com.kotcrab.vis:vis-ui:1.5.1"
-        api "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.3.0"
-        
-    }
-}
+eclipse.project.name = 'SonicSwirl' + '-parent'
