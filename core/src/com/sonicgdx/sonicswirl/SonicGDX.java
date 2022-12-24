@@ -56,8 +56,8 @@ public class SonicGDX implements Screen {
         img = new Texture(Gdx.files.internal("1x1-ffffffff.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
         player = new Player(playerImg,PLAYER_WIDTH,PLAYER_HEIGHT);
 
-        cameraOffset.x = camera.position.x - player.sprite.getX();
-        cameraOffset.y = camera.position.y - player.sprite.getY();
+        cameraOffset.x = camera.position.x - player.xPos;
+        cameraOffset.y = camera.position.y - player.xPos;
 
         frameLog = new FPSLogger();
 
@@ -74,7 +74,7 @@ public class SonicGDX implements Screen {
 
         //TODO check for jumps here
 
-        camera.position.set(player.sprite.getX() + cameraOffset.x,player.sprite.getY() + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
+        camera.position.set(player.xPos + cameraOffset.x,player.xPos + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
         boolean nothing = player.checkTile(tm);
 
@@ -98,7 +98,7 @@ public class SonicGDX implements Screen {
         }
         player.sprite.draw(Init.batch);
         // DEBUG
-        Init.batch.draw(img,player.lSensorX,player.sprite.getY()); Init.batch.draw(img,player.rSensorX,player.sprite.getY()); Init.batch.draw(img,player.lSensorX,player.middleY); Init.batch.draw(img,player.rSensorX,player.middleY);
+        Init.batch.draw(img,player.lSensorX,player.xPos); Init.batch.draw(img,player.rSensorX,player.xPos); Init.batch.draw(img,player.lSensorX,player.middleY); Init.batch.draw(img,player.rSensorX,player.middleY);
         Init.batch.end();
     }
 
