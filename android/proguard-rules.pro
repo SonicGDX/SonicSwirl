@@ -31,7 +31,7 @@
 # If you're encountering ProGuard issues and use gdx-controllers, THIS MIGHT BE WHY!!!
 
 # Uncomment the following line if you use the gdx-controllers official extension.
-#-keep class com.badlogic.gdx.controllers.android.AndroidControllers
+-keep class com.badlogic.gdx.controllers.android.AndroidControllers
 
 -keepclassmembers class com.badlogic.gdx.backends.android.AndroidInput* {
    <init>(com.badlogic.gdx.Application, android.content.Context, java.lang.Object, com.badlogic.gdx.backends.android.AndroidApplicationConfiguration);
