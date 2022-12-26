@@ -44,10 +44,9 @@ public class SonicGDX implements Screen {
         //TODO possibly reduce viewport resolution to reduce pixels being missing at lower resolutions or change viewport type
 
         camera = new OrthographicCamera(); // 3D camera which projects into 2D.
-        viewport = new FitViewport(vpWidth,vpHeight,camera);
 
         // stretch viewport //TODO Update comments
-        camera.setToOrtho(false); // Even if the device has a scaled resolution, the in game view will still be 1280x720
+        camera.setToOrtho(false, 1280, 720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
         // So for example, one screen won't be in the bottom left corner in 1080p
         // but would take up the entire view
 
@@ -189,7 +188,7 @@ public class SonicGDX implements Screen {
     }
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+
     }
 
     @Override
