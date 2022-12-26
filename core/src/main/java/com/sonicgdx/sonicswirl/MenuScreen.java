@@ -6,21 +6,17 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.kotcrab.vis.ui.VisUI;
-
 import org.w3c.dom.Text;
 
 public class MenuScreen implements Screen {
-
+    
     final Init Init;
     final int SCREEN_WIDTH,SCREEN_HEIGHT;
     private final ScreenViewport menuViewport;
     Skin buttonSkin; TextureAtlas atlas; //TextButton button;
-    Touchpad touchpad;
 
     public MenuScreen(final Init Init){
         Gdx.app.setLogLevel(3); //TODO reduce logging level for release builds
@@ -38,32 +34,24 @@ public class MenuScreen implements Screen {
 
         Init.gameScreen = new SonicGDX(Init);
 
-        VisUI.load();
-
         //button = new TextButton("Begin", buttonSkin,buttonSkin);
     }
-
+    
     @Override
     public void render(float delta)
     {
         ScreenUtils.clear(0.1f, 0, 0.2f, 1);
 
-
-        touchpad = new Touchpad(0.1f,VisUI.getSkin());
-
-
-        touchpad.setX(100); touchpad.setY(100);
         menuViewport.apply();
 		Init.batch.begin();
-        touchpad.draw(Init.batch,1);
 		Init.font.draw(Init.batch, "Menu PlaceHolder", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F);
 		Init.font.draw(Init.batch, "Press to begin", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F - 100);
 		Init.batch.end();
 
 		if (Gdx.input.isTouched()) {
-            //Init.batch.disableBlending();
-			//Init.setScreen(Init.gameScreen);
-			//dispose();
+            Init.batch.disableBlending();
+			Init.setScreen(Init.gameScreen);
+			dispose();
 		}
 
     }
@@ -77,7 +65,7 @@ public class MenuScreen implements Screen {
     @Override
     public void show() {
         // TODO Auto-generated method stub
-
+        
     }
 
     @Override
@@ -88,20 +76,19 @@ public class MenuScreen implements Screen {
     @Override
     public void resume() {
         // TODO Auto-generated method stub
-
+        
     }
 
     @Override
     public void hide() {
         // TODO Auto-generated method stub
-
+        
     }
 
     @Override
     public void dispose() {
         buttonSkin.dispose();
         atlas.dispose();
-        VisUI.dispose();
     }
 
 
