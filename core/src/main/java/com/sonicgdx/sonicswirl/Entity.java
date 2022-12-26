@@ -3,6 +3,7 @@ package com.sonicgdx.sonicswirl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Entity {
     float xPos, yPos;
@@ -13,8 +14,10 @@ public class Entity {
 
     }
 
-    public SensorReturn downSensorCheck(int xPosition, int yPosition, Tile[][][][] tm) //TODO improve naming and add comment explanation
+    public SensorReturn downSensorCheck(TileMap tm) //TODO improve naming and add comment explanation
     {
+        int xPosition = (int) xPos; int yPosition = (int) yPos;
+
         //TODO max tile no limit
         int tileX = xPosition % 128 / 16;
         int chunkX = xPosition / 128;
@@ -36,13 +39,13 @@ public class Entity {
 
         //Gdx.app.log("gridValue", String.valueOf(tm.map[chunkX][chunkY][tileX][tileY].height[grid]));
 
-        height = tm[chunkX][chunkY][tileX][tileY].getHeight(grid);
+        height = tm.getHeight(chunkX,chunkY,tileX,tileY,grid);
 
         if (height == 16)
         {
             distance = yPosition - (chunkY * 128 + (tileY+1) * 16);
 
-            //Gdx.app.log("distance",String.valueOf(distance));
+            Gdx.app.log("distance",String.valueOf(distance));
 
             // sensor regression, checks one tile above with downwards facing sensors in an attempt to find surface if the height of the array is full
             if (tileY < 7)
@@ -56,7 +59,7 @@ public class Entity {
                 tempTileY = 0;
             }
 
-            height = tm[chunkX][tempChunkY][tileX][tempTileY].getHeight(grid);
+            height = tm.getHeight(chunkX,tempChunkY,tileX,tempTileY,grid);
             if (height > 0) //TODO outline conditions in comment
             {
                 chunkY = tempChunkY;
@@ -65,12 +68,12 @@ public class Entity {
                 distance -= height;
             }
 
-            if (distance == 32 || distance == -32) Gdx.app.log("distance",String.valueOf(distance));
         }
 
         else if (height == 0)
         {
             distance = yPosition - (chunkY * 128 + tileY * 16);
+            Gdx.app.log("distance",String.valueOf(distance));
 
             // sensor extension, checks one tile below with downwards facing sensors in an attempt to find surface
             if (tileY == 0)
@@ -83,7 +86,7 @@ public class Entity {
                 tileY--;
             }
 
-            height = tm[chunkX][chunkY][tileX][tileY].getHeight(grid);
+            height = tm.getHeight(chunkX,chunkY,tileX,tileY,grid);
 
             if (height == 0)
             {
@@ -95,14 +98,12 @@ public class Entity {
             }
             //Gdx.app.debug("extension","true");
 
-           if (distance == 32) Gdx.app.log("distance",String.valueOf(distance));
-
         }
 
 
         // Classes are reference types so modifying a value would affect all the tiles that are the same.
 
-        return new SensorReturn(tm[chunkX][chunkY][tileX][tileY],distance);
+        return new SensorReturn(tm.getTile(chunkX,chunkY,tileX,tileY),distance);
     }
 
     /*

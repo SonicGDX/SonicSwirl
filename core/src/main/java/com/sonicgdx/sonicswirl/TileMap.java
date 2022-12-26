@@ -7,21 +7,21 @@ public class TileMap {
 
     // solid blocks
     //TODO tile ID
-    private static final byte[] zero = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    private static final byte[] slope = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
-    private static final byte[] full = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
-    private static final byte[] half = {8,8,8,8,8,8,8,8};
-    private static final byte[] rvslope = {16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
-    private static final byte[] tall1 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+    private final byte[] zero = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private final byte[] slope = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+    private final byte[] full = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
+    private final byte[] half = {8,8,8,8,8,8,8,8};
+    private final byte[] rvslope = {16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+    private final byte[] tall1 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
-    private static final Tile EMPTY = new Tile();
-    private static final Tile ftile = new Tile(full,full,0,(byte) 4,false);
-    private static final Tile stile = new Tile(slope,slope,45,(byte) 1,false);
-    private static final Tile rvtile = new Tile(rvslope,rvslope,135,(byte) 1,false);
+    private final Tile EMPTY = new Tile();
+    private final Tile ftile = new Tile(full,full,0,(byte) 4,false);
+    private final Tile stile = new Tile(slope,slope,45,(byte) 1,false);
+    private final Tile rvtile = new Tile(rvslope,rvslope,135,(byte) 1,false);
 
 
-    private static final Tile[][] fChunk = Collections.nCopies(8,Collections.nCopies(8,ftile).toArray(new Tile[0])).toArray(new Tile[0][0]);
-    private static final Tile[][] rvChunk = {
+    private final Tile[][] fChunk = Collections.nCopies(8,Collections.nCopies(8,ftile).toArray(new Tile[0])).toArray(new Tile[0][0]);
+    private final Tile[][] rvChunk = {
             {ftile,ftile,ftile,ftile,ftile,ftile,ftile,rvtile},
             {ftile,ftile,ftile,ftile,ftile,ftile,rvtile,EMPTY},
             {ftile,ftile,ftile,ftile,ftile,rvtile,EMPTY,EMPTY},
@@ -31,7 +31,7 @@ public class TileMap {
             {ftile,rvtile,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY},
             {rvtile,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY}};
 
-    private static final Tile[][] sChunk =
+    private final Tile[][] sChunk =
             {
                     {stile,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY},
                     {ftile,stile,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY},
@@ -42,9 +42,9 @@ public class TileMap {
                     {ftile,ftile,ftile,ftile,ftile,ftile,stile,EMPTY},
                     {ftile,ftile,ftile,ftile,ftile,ftile,ftile,stile},
             };
+    
 
-
-    private static final Tile[][] eChunk = Collections.nCopies(8,Collections.nCopies(8,EMPTY).toArray(new Tile[0])).toArray(new Tile[0][0]);
+    private final Tile[][] eChunk = Collections.nCopies(8,Collections.nCopies(8,EMPTY).toArray(new Tile[0])).toArray(new Tile[0][0]);
 
     private final Tile[][] borderedChunk = {
             {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
@@ -75,7 +75,7 @@ public class TileMap {
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk}
 
             };*/
-    private static final Tile[][][][] testMap =
+    private Tile[][][][] testMap =
             {
                     {sChunk,eChunk,eChunk,eChunk},
                     {fChunk,eChunk,eChunk,eChunk},
@@ -95,7 +95,7 @@ public class TileMap {
             };
 
 
-    static final Tile[][][][] map = testMap;
+    Tile[][][][] map = testMap;
 
     // 128x128 chunk - one dimension for x, one dimension for y and the data is a height array
     // one height array makes up a 16x16 block

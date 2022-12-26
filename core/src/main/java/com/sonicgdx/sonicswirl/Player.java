@@ -67,9 +67,6 @@ public class Player extends Entity {
         lSensorX = xPos;
         rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
         middleY = yPos + (sprite.getHeight() / 2);
-
-        SensorReturn nothing = downSensorCheck((int) xPos, (int) yPos, TileMap.map);
-
     }
 
 }
