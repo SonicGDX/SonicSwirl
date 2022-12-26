@@ -14,7 +14,7 @@ public class Entity {
 
     }
 
-    public SensorReturn checkTile(TileMap tm) //TODO improve naming and add comment explanation
+    public SensorReturn downSensorCheck(TileMap tm) //TODO improve naming and add comment explanation
     {
         int xPosition = (int) xPos; int yPosition = (int) yPos;
 
@@ -59,7 +59,7 @@ public class Entity {
                 tempTileY = 0;
             }
 
-            height = tm.getHeight(chunkX,tempChunkY,tileX,tempTileY,grid)
+            height = tm.getHeight(chunkX,tempChunkY,tileX,tempTileY,grid);
             if (height > 0) //TODO outline conditions in comment
             {
                 chunkY = tempChunkY;
@@ -70,8 +70,11 @@ public class Entity {
 
         }
 
-        else if (tm.getHeight(chunkX,chunkY,tileX,tileY,grid) == 0)
+        else if (height == 0)
         {
+            distance = yPosition - (chunkY * 128 + tileY * 16);
+            Gdx.app.log("distance",String.valueOf(distance));
+
             // sensor extension, checks one tile below with downwards facing sensors in an attempt to find surface
             if (tileY == 0)
             {
@@ -81,6 +84,17 @@ public class Entity {
             else
             {
                 tileY--;
+            }
+
+            height = tm.getHeight(chunkX,chunkY,tileX,tileY,grid);
+
+            if (height == 0)
+            {
+                distance += 16;
+            }
+            else
+            {
+                distance += height;
             }
             //Gdx.app.debug("extension","true");
 
