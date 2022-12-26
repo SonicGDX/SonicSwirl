@@ -17,8 +17,6 @@ public class Tile {
 
     }
 
-
-
     Tile()
     {
         this.empty = true;
