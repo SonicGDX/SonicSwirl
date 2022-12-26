@@ -43,7 +43,7 @@ public class SonicGDX implements Screen {
         camera = new OrthographicCamera(); // 3D camera which projects into 2D.
         viewport = new ExtendViewport(1280,720,camera);
         //TODO Update comments
-        camera.setToOrtho(false); // Even if the device has a scaled resolution, the in game view will still be 1280x720
+        camera.setToOrtho(false,1280,720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
         // So for example, one screen won't be in the bottom left corner in 1080p
         // but would take up the entire view
 
@@ -69,7 +69,6 @@ public class SonicGDX implements Screen {
         TileMap.TILE_MAP.getTile(122,122,122,122);
 
         ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
-        viewport.apply();
 
         player.move(delta);
 
@@ -84,6 +83,7 @@ public class SonicGDX implements Screen {
         dr.end();*/
 
         // tells the SpriteBatch to render in the coordinate system specified by the camera
+        //viewport.apply();
         Init.batch.setProjectionMatrix(camera.combined);
         Init.batch.begin();
         //Blending has been disabled in Init constructor
