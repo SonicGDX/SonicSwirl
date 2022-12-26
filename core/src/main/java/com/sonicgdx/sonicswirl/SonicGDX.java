@@ -11,8 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 //import com.badlogic.gdx.maps.tiled.TiledMap;
 //import java.util.Arrays;
@@ -24,9 +23,9 @@ public class SonicGDX implements Screen {
     final Init Init; TileMap tm;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
     final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
-    OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
+    OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero; ExtendViewport viewport;
     final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
-    int vpHeight, vpWidth;
+
 
     Player player;
 
@@ -39,14 +38,12 @@ public class SonicGDX implements Screen {
         //TODO implement class with reference to https://gamedev.stackexchange.com/a/133593
 
         //Gdx.app.debug("debugMode",String.valueOf(tile[1][3][15]));
-
-        vpWidth = Gdx.app.getGraphics().getWidth(); vpHeight = Gdx.app.getGraphics().getHeight();
         //TODO possibly reduce viewport resolution to reduce pixels being missing at lower resolutions or change viewport type
 
         camera = new OrthographicCamera(); // 3D camera which projects into 2D.
-
-        // stretch viewport //TODO Update comments
-        camera.setToOrtho(false, 1280, 720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
+        viewport = new ExtendViewport(1280,720,camera);
+        //TODO Update comments
+        camera.setToOrtho(false); // Even if the device has a scaled resolution, the in game view will still be 1280x720
         // So for example, one screen won't be in the bottom left corner in 1080p
         // but would take up the entire view
 
@@ -68,6 +65,7 @@ public class SonicGDX implements Screen {
         frameLog.log();
 
         ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
+        viewport.apply();
 
         player.move(delta);
 
@@ -184,7 +182,7 @@ public class SonicGDX implements Screen {
     }
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width,height);
     }
 
     @Override
