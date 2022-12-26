@@ -25,4 +25,17 @@ public class Tile {
         this.angle = 0;
     }
 
+    public byte getHeight(int block)
+    {
+        if (empty) return 0;
+        else return height[block];
+    }
+
+    public byte getWidth(int block)
+    {
+        if (empty) return 0;
+        else return width[block];
+    }
+
+
 }

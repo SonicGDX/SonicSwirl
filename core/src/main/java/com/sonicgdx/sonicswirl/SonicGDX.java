@@ -76,8 +76,6 @@ public class SonicGDX implements Screen {
 
         camera.position.set(player.xPos + cameraOffset.x,player.yPos + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
-        SensorReturn nothing = player.downSensorCheck(tm);
-
         //TODO Add collision logic
 
         /*dr.setProjectionMatrix(camera.combined);
