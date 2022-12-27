@@ -20,6 +20,7 @@ public class Player extends Entity {
 
     }
 
+    //TODO TommyEttinger's Math library could provide faster operations on GWT
     public void move(float delta)
     {
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
