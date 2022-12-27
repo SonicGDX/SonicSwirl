@@ -102,6 +102,7 @@ public class SonicGDX implements Screen {
         // DEBUG
         Init.batch.draw(img,player.lSensorX,player.sprite.getY()); Init.batch.draw(img,player.rSensorX,player.sprite.getY()); Init.batch.draw(img,player.lSensorX,player.middleY); Init.batch.draw(img,player.rSensorX,player.middleY);
         Init.batch.end();
+        Gdx.app.log("Native Heap",String.valueOf(Gdx.app.getNativeHeap()));
     }
 
     //TODO multithreading except for GWT?
