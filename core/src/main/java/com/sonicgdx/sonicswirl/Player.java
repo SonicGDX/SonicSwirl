@@ -58,6 +58,7 @@ public class Player extends Entity {
             }
 
 
+            //TODO Right now, right movement is prioritised if both directions are pressed at the same time. Consider cancelling them out.
             if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
             {
                 if (groundSpeed < 0) groundSpeed += (DECELERATION * delta); // Deceleration acts in the opposite direction to the one in which the player is currently moving.
