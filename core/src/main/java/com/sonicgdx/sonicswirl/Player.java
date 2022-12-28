@@ -93,6 +93,8 @@ public class Player extends Entity {
         middleY = yPos + (sprite.getHeight() / 2);
 
 
+
+        //TODO prevent slow shift right even when pressing nothing
     }
 
 }
