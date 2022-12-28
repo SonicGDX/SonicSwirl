@@ -40,7 +40,7 @@ public class Entity {
 
         if (height == 16)
         {
-            distance = yPosition - (chunkY * 128 + (tileY+1) * 16);
+            distance = (chunkY * 128 + (tileY+1) * 16) - yPosition;
 
             //Gdx.app.log("distance",String.valueOf(distance));
 
@@ -62,7 +62,7 @@ public class Entity {
                 chunkY = tempChunkY;
                 tileY = tempTileY;
 
-                distance -= height;
+                distance += height;
             }
 
             //if (distance == 32 || distance == -32) Gdx.app.log("distance",String.valueOf(distance));
@@ -70,7 +70,7 @@ public class Entity {
 
         else if (height == 0)
         {
-            distance = yPosition - (chunkY * 128 + tileY * 16);
+            distance =  (chunkY * 128 + tileY * 16) - yPosition;
 
             // sensor extension, checks one tile below with downwards facing sensors in an attempt to find surface
             if (tileY == 0)
@@ -87,11 +87,11 @@ public class Entity {
 
             if (height == 0)
             {
-                distance += 16;
+                distance -= 16;
             }
             else
             {
-                distance += height;
+                distance -= height;
             }
             //Gdx.app.debug("extension","true");
 
