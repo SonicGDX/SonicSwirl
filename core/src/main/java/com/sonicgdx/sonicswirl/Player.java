@@ -15,12 +15,12 @@ public class Player extends Entity {
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
 
-    private final float widthRadius, heightRadius;
+    private final float WIDTH_RADIUS, HEIGHT_RADIUS;
     Texture img;
     Player(Texture image, int width, int height) {
         super(image, width, height);
         xPos = 600; yPos = 200; // Player starts at (600,200);
-        widthRadius = width / 2F; heightRadius = height / 2F;
+        WIDTH_RADIUS = width / 2F; HEIGHT_RADIUS = height / 2F;
 
     }
 
@@ -30,13 +30,13 @@ public class Player extends Entity {
 
         System.out.println(xPos);
 
-        SensorReturn leftSensorTile = downSensorCheck((int) (xPos - widthRadius), (int) yPos);
-        SensorReturn rightSensorTile = downSensorCheck((int) (xPos + widthRadius), (int) yPos);
+        SensorReturn leftSensorTile = downSensorCheck((int) (xPos - WIDTH_RADIUS), (int) yPos);
+        SensorReturn rightSensorTile = downSensorCheck((int) (xPos + WIDTH_RADIUS), (int) yPos);
 
 
         if (leftSensorTile.returnDistance <= Math.min(Math.abs(speedX+4), 14) && leftSensorTile.returnDistance > -14)
         {
-            yPos += leftSensorTile.returnDistance;
+            yPos -= leftSensorTile.returnDistance;
             groundAngle = leftSensorTile.returnTile.angle;
         }
 
@@ -70,7 +70,7 @@ public class Player extends Entity {
             // Decelerates until the absolute value of groundSpeed is lower than the ACCELERATION value (which doubles as the friction value) and then stops
 
             speedX = groundSpeed + MathUtils.cosDeg(groundAngle);
-            speedY = groundSpeed * -MathUtils.sinDeg(groundAngle);
+            speedY = groundSpeed * MathUtils.sinDeg(groundAngle);
 
             xPos += speedX * delta;
             yPos += speedY * delta;
