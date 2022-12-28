@@ -28,13 +28,23 @@ public class Player extends Entity {
 
         SensorReturn leftSensorTile = downSensorCheck((int) (xPos), (int) yPos);
         SensorReturn rightSensorTile = downSensorCheck((int) (xPos + sprite.getWidth()), (int) yPos);
-
-
-        if (leftSensorTile.returnDistance <= Math.min(Math.abs(speedX+4), 14) && leftSensorTile.returnDistance > -14)
-        {
-            yPos -= leftSensorTile.returnDistance;
-            groundAngle = leftSensorTile.returnTile.angle;
+        if (leftSensorTile.returnDistance < rightSensorTile.returnDistance) {
+            if (leftSensorTile.returnDistance <= Math.min(Math.abs(speedX+4), 14) && leftSensorTile.returnDistance > -14)
+            {
+                yPos -= leftSensorTile.returnDistance;
+                groundAngle = leftSensorTile.returnTile.angle;
+            }
         }
+        else {
+            if (rightSensorTile.returnDistance <= Math.min(Math.abs(speedX+4), 14) && rightSensorTile.returnDistance > -14)
+            {
+                yPos -= rightSensorTile.returnDistance;
+                groundAngle = rightSensorTile.returnTile.angle;
+            }
+        }
+
+
+
 
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
