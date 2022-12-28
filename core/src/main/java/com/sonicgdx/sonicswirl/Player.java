@@ -3,16 +3,17 @@ package com.sonicgdx.sonicswirl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Player extends Entity {
     float lSensorX, rSensorX, middleY;
-    boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
-    boolean debugMode = false;
-    final float ACCELERATION = 168.75F; final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360;
+    private boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
+    private boolean debugMode = false;
+    private final float ACCELERATION = 168.75F; final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360;
     // An FPS of 60 was used to obtain the adjusted values
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
-    float speedX = 0, speedY = 0, groundSpeed = 0;
+    private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
     Texture img;
     Player(Texture image, int width, int height) {
         super(image, width, height);
@@ -23,6 +24,14 @@ public class Player extends Entity {
     //TODO TommyEttinger's Math library could provide faster operations on GWT
     public void move(float delta)
     {
+
+        SensorReturn sensorTile = downSensorCheck((int) xPos, (int) yPos);
+        if (sensorTile.returnDistance <= Math.min(Math.abs(speedX+4), 14) && sensorTile.returnDistance > -14)
+        {
+            yPos += sensorTile.returnDistance;
+            groundAngle = sensorTile.returnTile.angle;
+        }
+
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
         {
@@ -52,7 +61,11 @@ public class Player extends Entity {
             else groundSpeed -= Math.min(Math.abs(groundSpeed), ACCELERATION * delta) * Math.signum(groundSpeed); // friction if not pressing any directions
             // Decelerates until the absolute value of groundSpeed is lower than the ACCELERATION value (which doubles as the friction value) and then stops
 
-            xPos += groundSpeed * delta;
+            speedX = groundSpeed + MathUtils.cosDeg(groundAngle);
+            speedY = groundSpeed * -MathUtils.sinDeg(groundAngle);
+
+            xPos += speedX * delta;
+            yPos += speedY * delta;
 
             //TODO ground angle and sin/cos with Gdx MathUtils
 
@@ -69,7 +82,6 @@ public class Player extends Entity {
         rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
         middleY = yPos + (sprite.getHeight() / 2);
 
-        SensorReturn nothing = downSensorCheck((int) xPos, (int) yPos, TileMap.map);
 
     }
 

@@ -67,7 +67,7 @@ public class SonicGDX implements Screen {
     @Override
     public void render(float delta) {
 
-        frameLog.log();
+        //frameLog.log();
 
         ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 

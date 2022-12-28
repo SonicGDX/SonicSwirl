@@ -13,7 +13,7 @@ public class Entity {
 
     }
 
-    public SensorReturn downSensorCheck(int xPosition, int yPosition, Tile[][][][] tm) //TODO improve naming and add comment explanation
+    public SensorReturn downSensorCheck(int xPosition, int yPosition) //TODO improve naming and add comment explanation
     {
         //TODO max tile no limit
         int tileX = xPosition % 128 / 16;
@@ -34,9 +34,9 @@ public class Entity {
         //	Gdx.app.log("TileY","= 0");
         //}
 
-        //Gdx.app.log("gridValue", String.valueOf(tm.map[chunkX][chunkY][tileX][tileY].height[grid]));
+        //Gdx.app.log("gridValue", String.valueOf(TileMap.map[chunkX][chunkY][tileX][tileY].height[grid]));
 
-        height = tm[chunkX][chunkY][tileX][tileY].getHeight(grid);
+        height = TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(grid);
 
         if (height == 16)
         {
@@ -56,7 +56,7 @@ public class Entity {
                 tempTileY = 0;
             }
 
-            height = tm[chunkX][tempChunkY][tileX][tempTileY].getHeight(grid);
+            height = TileMap.map[chunkX][tempChunkY][tileX][tempTileY].getHeight(grid);
             if (height > 0) //TODO outline conditions in comment
             {
                 chunkY = tempChunkY;
@@ -65,7 +65,7 @@ public class Entity {
                 distance -= height;
             }
 
-            if (distance == 32 || distance == -32) Gdx.app.log("distance",String.valueOf(distance));
+            //if (distance == 32 || distance == -32) Gdx.app.log("distance",String.valueOf(distance));
         }
 
         else if (height == 0)
@@ -83,7 +83,7 @@ public class Entity {
                 tileY--;
             }
 
-            height = tm[chunkX][chunkY][tileX][tileY].getHeight(grid);
+            height = TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(grid);
 
             if (height == 0)
             {
@@ -102,12 +102,12 @@ public class Entity {
 
         // Classes are reference types so modifying a value would affect all the tiles that are the same.
 
-        return new SensorReturn(tm[chunkX][chunkY][tileX][tileY],distance);
+        return new SensorReturn(TileMap.map[chunkX][chunkY][tileX][tileY],distance);
     }
 
     /*
     @Deprecated
-    public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid, TileMap tm)
+    public int regression(int chunkX, int chunkY, int tileX, int tileY, int grid)
     {
 
         //TODO recursive? Check nearby tiles
@@ -126,7 +126,7 @@ public class Entity {
         }
 
 
-        height = tm.getHeight(chunkX,chunkY,tileX,tileY,grid);
+        height = TileMap.map.getHeight(chunkX,chunkY,tileX,tileY,grid);
 
         //CHECK height depending on conditions
         if (height == 0) {
@@ -136,7 +136,7 @@ public class Entity {
             return 1;
         }
         else {
-            return MathUtils.clamp(1 + regression(chunkX, chunkY, tileX, tileY, grid, tm),0,2);
+            return MathUtils.clamp(1 + regression(chunkX, chunkY, tileX, tileY, grid),0,2);
         }
 
 
