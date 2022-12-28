@@ -15,6 +15,8 @@ public class Entity {
 
     public SensorReturn downSensorCheck(int xPosition, int yPosition) //TODO improve naming and add comment explanation
     {
+        Tile[][][][] tileMap = TileMap.getTileMap().getMap();
+
         //TODO max tile no limit
         int tileX = xPosition % 128 / 16;
         int chunkX = xPosition / 128;
@@ -36,7 +38,7 @@ public class Entity {
 
         //Gdx.app.log("gridValue", String.valueOf(TileMap.map[chunkX][chunkY][tileX][tileY].height[grid]));
 
-        height = TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(grid);
+        height = tileMap[chunkX][chunkY][tileX][tileY].getHeight(grid);
 
         if (height == 16)
         {
@@ -56,7 +58,7 @@ public class Entity {
                 tempTileY = 0;
             }
 
-            height = TileMap.map[chunkX][tempChunkY][tileX][tempTileY].getHeight(grid);
+            height = tileMap[chunkX][tempChunkY][tileX][tempTileY].getHeight(grid);
             if (height > 0) //TODO outline conditions in comment
             {
                 chunkY = tempChunkY;
@@ -83,7 +85,7 @@ public class Entity {
                 tileY--;
             }
 
-            height = TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(grid);
+            height = tileMap[chunkX][chunkY][tileX][tileY].getHeight(grid);
 
             if (height == 0)
             {
@@ -95,14 +97,14 @@ public class Entity {
             }
             //Gdx.app.debug("extension","true");
 
-           if (distance == 32) Gdx.app.log("distance",String.valueOf(distance));
+           //if (distance == 32) Gdx.app.log("distance",String.valueOf(distance));
 
         }
 
 
         // Classes are reference types so modifying a value would affect all the tiles that are the same.
 
-        return new SensorReturn(TileMap.map[chunkX][chunkY][tileX][tileY],distance);
+        return new SensorReturn(tileMap[chunkX][chunkY][tileX][tileY],distance);
     }
 
     /*
