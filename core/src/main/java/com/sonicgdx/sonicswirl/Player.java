@@ -26,21 +26,7 @@ public class Player extends Entity {
 
         SensorReturn leftSensorTile = downSensorCheck((int) (xPos), (int) yPos);
         SensorReturn rightSensorTile = downSensorCheck((int) (xPos + sprite.getWidth()), (int) yPos);
-
         Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
-
-        if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
-            if (leftSensorTile.returnDistance > Math.max(-Math.abs(speedX+4),-14) && leftSensorTile.returnDistance < 14)
-            {
-                yPos += leftSensorTile.returnDistance;
-                groundAngle = leftSensorTile.returnTile.angle;
-            }
-        }
-        else if (rightSensorTile.returnDistance > Math.max(-Math.abs(speedX+4), -14) && rightSensorTile.returnDistance < 14) {
-                yPos += rightSensorTile.returnDistance;
-                groundAngle = rightSensorTile.returnTile.angle;
-        }
-
 
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
@@ -58,6 +44,20 @@ public class Player extends Entity {
             //Gdx.app.debug("deltaTime",String.valueOf(delta));
         }
         else {
+
+            if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
+                if (leftSensorTile.returnDistance > Math.max(-Math.abs(speedX+4),-14) && leftSensorTile.returnDistance < 14)
+                {
+                    yPos += leftSensorTile.returnDistance;
+                    groundAngle = leftSensorTile.returnTile.angle;
+                }
+            }
+            else if (rightSensorTile.returnDistance > Math.max(-Math.abs(speedX+4), -14) && rightSensorTile.returnDistance < 14) {
+                yPos += rightSensorTile.returnDistance;
+                groundAngle = rightSensorTile.returnTile.angle;
+            }
+
+
             if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
             {
                 if (groundSpeed < 0) groundSpeed += (DECELERATION * delta); // Deceleration acts in the opposite direction to the one in which the player is currently moving.

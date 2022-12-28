@@ -38,10 +38,10 @@ public class Entity {
 
         height = TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(grid);
 
+        distance = ((chunkY * 128) + (tileY * 16) + height) - yPosition;
+
         if (height == 16)
         {
-            distance = (chunkY * 128 + (tileY+1) * 16) - yPosition;
-
             //Gdx.app.debug("distance",String.valueOf(distance));
 
             // sensor regression, checks one tile above with downwards facing sensors in an attempt to find surface if the height of the array is full
@@ -70,8 +70,6 @@ public class Entity {
 
         else if (height == 0)
         {
-            distance =  (chunkY * 128 + tileY * 16) - yPosition;
-
             // sensor extension, checks one tile below with downwards facing sensors in an attempt to find surface
             if (tileY == 0)
             {
@@ -98,7 +96,6 @@ public class Entity {
            //if (distance == 32) Gdx.app.debug("distance",String.valueOf(distance));
 
         }
-
 
         // Classes are reference types so modifying a value would affect all the tiles that are the same.
 
