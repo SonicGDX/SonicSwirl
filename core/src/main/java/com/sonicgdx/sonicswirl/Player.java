@@ -86,7 +86,7 @@ public class Player extends Entity {
         }
 
         // "Invisible walls" - prevent players from going beyond borders to simplify calculations. TODO stop collision errors when going outside index bounds
-        xPos = Math.min(xPos,1280);
+        xPos = Math.min(xPos,1750);
         xPos = Math.max(xPos,0);
         yPos = Math.max(yPos,0);
 

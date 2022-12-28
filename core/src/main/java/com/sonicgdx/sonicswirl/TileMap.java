@@ -22,7 +22,7 @@ public enum TileMap {
     private final Tile EMPTY = new Tile();
     private final Tile ftile = new Tile(full,full,0,(byte) 4,false);
     private final Tile stile = new Tile(slope,slope,45,(byte) 1,false);
-    private final Tile rvtile = new Tile(rvSlope, rvSlope,135,(byte) 1,false);
+    private final Tile rvtile = new Tile(rvSlope, rvSlope,-45,(byte) 1,false);
 
     private final Tile[][] fChunk = Collections.nCopies(8,Collections.nCopies(8,ftile).toArray(new Tile[0])).toArray(new Tile[0][0]);
     private final Tile[][] rvChunk = {
