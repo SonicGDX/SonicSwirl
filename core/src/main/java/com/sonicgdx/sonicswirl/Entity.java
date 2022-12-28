@@ -89,7 +89,7 @@ public class Entity {
             }
             else
             {
-                distance -= height;
+                distance -= (16-height);
             }
             //Gdx.app.debug("extension","true");
 
