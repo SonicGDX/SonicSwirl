@@ -28,8 +28,6 @@ public class SonicGDX implements Screen {
     final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
     int vpHeight, vpWidth;
 
-    Tile[][][][] tileMap;
-
     Player player;
 
     public SonicGDX(final Init Init) {
@@ -64,8 +62,6 @@ public class SonicGDX implements Screen {
 
         frameLog = new FPSLogger();
 
-        tileMap = TileMap.getTileMap().getMap();
-
     }
 
     @Override
@@ -92,9 +88,9 @@ public class SonicGDX implements Screen {
         Init.batch.begin();
         //Blending has been disabled in Init constructor
         //TODO render gradually as player progresses
-        for (int chunkX = 0; chunkX<tileMap.length; chunkX++)
+        for (int chunkX = 0; chunkX<TileMap.map.length; chunkX++)
         {
-            for (int chunkY = 0; chunkY<tileMap[chunkX].length; chunkY++)
+            for (int chunkY = 0; chunkY<TileMap.map[chunkX].length; chunkY++)
             {
                 drawChunkBatch(chunkX,chunkY);
             }
@@ -118,21 +114,21 @@ public class SonicGDX implements Screen {
         {
             for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
             {
-                if (tileMap[chunkX][chunkY][tileX][tileY].empty){
+                if (TileMap.map[chunkX][chunkY][tileX][tileY].empty){
                     continue;
                 }
                 for (int block = 0; block < TILE_SIZE; block++)
                 {
-                    if (tileMap[chunkX][chunkY][tileX][tileY].empty){
+                    if (TileMap.map[chunkX][chunkY][tileX][tileY].empty){
                         break;
                     }
                     if (block==0) Init.batch.setColor(new Color(0));
                     else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,0));
-                    Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, tileMap[chunkX][chunkY][tileX][tileY].getHeight(block));
+                    Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
 					{
-						if (tileMap[chunkX][chunkY][tileX][tileY].solidity == 0);
+						if (TileMap.map[chunkX][chunkY][tileX][tileY].solidity == 0);
 					}*/
 
                     //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
@@ -158,7 +154,7 @@ public class SonicGDX implements Screen {
         {
             for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
             {
-                if (tileMap[chunkX][chunkY][tileX][tileY].empty){
+                if (TileMap.map[chunkX][chunkY][tileX][tileY].empty){
                     continue;
                 }
                 for (int block = 0; block < TILE_SIZE; block++)
@@ -166,11 +162,11 @@ public class SonicGDX implements Screen {
 
                     if (block==0) dr.setColor(new Color(0));
                     else dr.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,0));
-                    dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,tileMap[chunkX][chunkY][tileX][tileY].getHeight(block));
+                    dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
 					{
-						if (tileMap[chunkX][chunkY][tileX][tileY].solidity == 0);
+						if (TileMap.map[chunkX][chunkY][tileX][tileY].solidity == 0);
 					}*/
 
                     //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)

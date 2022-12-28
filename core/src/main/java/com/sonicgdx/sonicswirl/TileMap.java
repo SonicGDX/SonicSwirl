@@ -2,31 +2,15 @@ package com.sonicgdx.sonicswirl;
 
 import java.util.Collections;
 
-public class TileMap {
+public enum TileMap {
+
+    TILE_MAP;
 
     // solid blocks
     //TODO tile ID
     //TODO reconsider usage of TileMap class
 
-    private final Tile[][][][] map;
-
-    private static TileMap tileMap;
-
-    private TileMap() {
-        //Singleton design pattern - only one instance
-        this.map = testMap;
-    }
-
-    public static TileMap getTileMap() {
-        if (tileMap == null) {
-            synchronized(TileMap.class) {
-                if (tileMap == null) {
-                    tileMap = new TileMap();
-                }
-            }
-        }
-        return tileMap;
-    }
+    public static final Tile[][][][] map = TILE_MAP.testMap;
 
     private final byte[] zero = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private final byte[] slope = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
@@ -133,11 +117,13 @@ public class TileMap {
         else return map[chunkX][chunkY][tileX][tileY].width[block];
     }
 
+    @Deprecated
     public Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
     {
         return map[chunkX][chunkY][tileX][tileY];
     }
 
+    @Deprecated
     public Tile[][][][] getMap() {
         return map;
     }
