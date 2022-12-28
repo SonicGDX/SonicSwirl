@@ -26,7 +26,7 @@ public class Player extends Entity {
 
         SensorReturn leftSensorTile = downSensorCheck(xPos, yPos);
         SensorReturn rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
-        Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
+        //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
 
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
@@ -93,8 +93,6 @@ public class Player extends Entity {
         middleY = yPos + (sprite.getHeight() / 2);
 
 
-
-        //TODO prevent slow shift right even when pressing nothing
     }
 
 }
