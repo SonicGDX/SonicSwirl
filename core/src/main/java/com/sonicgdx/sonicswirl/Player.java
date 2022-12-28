@@ -46,12 +46,13 @@ public class Player extends Entity {
         else {
 
             if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
-
+                if (leftSensorTile.returnDistance > Math.max(-Math.abs(speedX+4),-14) && leftSensorTile.returnDistance < 14)
+                {
                     yPos += leftSensorTile.returnDistance;
                     groundAngle = leftSensorTile.returnTile.angle;
-
+                }
             }
-            else {
+            else if (rightSensorTile.returnDistance > Math.max(-Math.abs(speedX+4), -14) && rightSensorTile.returnDistance < 14) {
                 yPos += rightSensorTile.returnDistance;
                 groundAngle = rightSensorTile.returnTile.angle;
             }
