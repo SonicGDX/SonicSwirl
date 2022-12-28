@@ -13,20 +13,20 @@ public class Entity {
 
     }
 
-    public SensorReturn downSensorCheck(int xPosition, int yPosition) //TODO improve naming and add comment explanation
+    public SensorReturn downSensorCheck(float xPosition, float yPosition) //TODO improve naming and add comment explanation
     {
         //TODO max tile no limit
-        int tileX = xPosition % 128 / 16;
-        int chunkX = xPosition / 128;
+        int tileX = (int) xPosition % 128 / 16;
+        int chunkX = (int) xPosition / 128;
 
-        int tileY = yPosition % 128 / 16;
-        int chunkY = yPosition / 128;
+        int tileY = (int) yPosition % 128 / 16;
+        int chunkY = (int) yPosition / 128;
 
-        int grid = xPosition % 16;
+        int grid = (int) xPosition % 16;
 
         int tempTileY, tempChunkY;
 
-        int distance = 0;
+        float distance = 0;
 
         byte height;
 
