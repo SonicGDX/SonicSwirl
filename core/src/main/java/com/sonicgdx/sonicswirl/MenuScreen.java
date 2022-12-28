@@ -16,7 +16,7 @@ public class MenuScreen implements Screen {
     final Init Init;
     final int SCREEN_WIDTH,SCREEN_HEIGHT;
     private final ScreenViewport menuViewport;
-    Skin buttonSkin; TextureAtlas atlas; //TextButton button;
+    Skin buttonSkin; TextButton button;
 
     public MenuScreen(final Init Init){
         Gdx.app.setLogLevel(3); //TODO reduce logging level for release builds
@@ -28,13 +28,12 @@ public class MenuScreen implements Screen {
         menuViewport = new ScreenViewport();
 
         //TODO replace placeholder assets and finish UI, maybe with VisUI
-        atlas = new TextureAtlas(Gdx.files.internal("button/uiskin.atlas"));
-        buttonSkin = new Skin();
-        buttonSkin.addRegions(atlas);
 
         Init.gameScreen = new SonicGDX(Init);
 
-        //button = new TextButton("Begin", buttonSkin,buttonSkin);
+        buttonSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+
+        button = new TextButton("Begin", buttonSkin);
     }
 
     @Override
@@ -44,6 +43,7 @@ public class MenuScreen implements Screen {
 
         menuViewport.apply();
 		Init.batch.begin();
+        button.draw(Init.batch,1); //TODO what is parent alpha?
 		Init.font.draw(Init.batch, "Sonic Swirl", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F);
 		Init.font.draw(Init.batch, "Press to begin", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F - 100);
 		Init.batch.end();
@@ -88,7 +88,6 @@ public class MenuScreen implements Screen {
     @Override
     public void dispose() {
         buttonSkin.dispose();
-        atlas.dispose();
     }
 
 
