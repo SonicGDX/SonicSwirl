@@ -36,15 +36,10 @@ public class Player extends Entity {
                 groundAngle = leftSensorTile.returnTile.angle;
             }
         }
-        else {
-            if (rightSensorTile.returnDistance > Math.max(-Math.abs(speedX+4), -14) && rightSensorTile.returnDistance < 14)
-            {
+        else if (rightSensorTile.returnDistance > Math.max(-Math.abs(speedX+4), -14) && rightSensorTile.returnDistance < 14) {
                 yPos += rightSensorTile.returnDistance;
                 groundAngle = rightSensorTile.returnTile.angle;
-            }
         }
-
-
 
 
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
@@ -78,6 +73,8 @@ public class Player extends Entity {
 
             speedX = groundSpeed + MathUtils.cosDeg(groundAngle);
             speedY = groundSpeed * MathUtils.sinDeg(groundAngle);
+
+            speedY -= 13.125;
 
             xPos += speedX * delta;
             yPos += speedY * delta;
