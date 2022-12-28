@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import org.w3c.dom.Text;
 
 public class MenuScreen implements Screen {
-    
+
     final Init Init;
     final int SCREEN_WIDTH,SCREEN_HEIGHT;
     private final ScreenViewport menuViewport;
@@ -36,7 +36,7 @@ public class MenuScreen implements Screen {
 
         //button = new TextButton("Begin", buttonSkin,buttonSkin);
     }
-    
+
     @Override
     public void render(float delta)
     {
@@ -44,7 +44,7 @@ public class MenuScreen implements Screen {
 
         menuViewport.apply();
 		Init.batch.begin();
-		Init.font.draw(Init.batch, "Menu PlaceHolder", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F);
+		Init.font.draw(Init.batch, "Sonic Swirl", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F);
 		Init.font.draw(Init.batch, "Press to begin", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F - 100);
 		Init.batch.end();
 
@@ -65,7 +65,7 @@ public class MenuScreen implements Screen {
     @Override
     public void show() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -76,13 +76,13 @@ public class MenuScreen implements Screen {
     @Override
     public void resume() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void hide() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
