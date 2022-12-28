@@ -14,14 +14,10 @@ public class Player extends Entity {
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
-
-    private final float WIDTH_RADIUS, HEIGHT_RADIUS;
     Texture img;
     Player(Texture image, int width, int height) {
         super(image, width, height);
         xPos = 600; yPos = 200; // Player starts at (600,200);
-        WIDTH_RADIUS = width / 2F; HEIGHT_RADIUS = height / 2F;
-
     }
 
     //TODO TommyEttinger's Math library could provide faster operations on GWT
@@ -30,8 +26,8 @@ public class Player extends Entity {
 
         System.out.println(xPos);
 
-        SensorReturn leftSensorTile = downSensorCheck((int) (xPos - WIDTH_RADIUS), (int) yPos);
-        SensorReturn rightSensorTile = downSensorCheck((int) (xPos + WIDTH_RADIUS), (int) yPos);
+        SensorReturn leftSensorTile = downSensorCheck((int) (xPos), (int) yPos);
+        SensorReturn rightSensorTile = downSensorCheck((int) (xPos + sprite.getWidth()), (int) yPos);
 
 
         if (leftSensorTile.returnDistance <= Math.min(Math.abs(speedX+4), 14) && leftSensorTile.returnDistance > -14)

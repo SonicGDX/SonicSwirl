@@ -98,6 +98,7 @@ https://www.w3schools.com/java/java_enums.asp \
 https://www.baeldung.com/a-guide-to-java-enums
 ## Graphics
 https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites \
+https://libgdx.com/wiki/articles/coordinate-systems#game-coordinates \
 
 ## JavaDoc
 https://www.jetbrains.com/help/idea/working-with-code-documentation.html \
