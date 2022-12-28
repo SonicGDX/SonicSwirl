@@ -24,10 +24,10 @@ public class Player extends Entity {
     public void move(float delta)
     {
 
-        System.out.println(xPos);
-
         SensorReturn leftSensorTile = downSensorCheck((int) (xPos), (int) yPos);
         SensorReturn rightSensorTile = downSensorCheck((int) (xPos + sprite.getWidth()), (int) yPos);
+
+        Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
 
         if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
             if (leftSensorTile.returnDistance > Math.max(-Math.abs(speedX+4),-14) && leftSensorTile.returnDistance < 14)
@@ -47,7 +47,7 @@ public class Player extends Entity {
         {
             debugMode = !debugMode;
             groundSpeed = 0;
-            //Gdx.app.log("debugMode",String.valueOf(debugMode));
+            //Gdx.app.debug("debugMode",String.valueOf(debugMode));
             //TODO acceleration in debug mode
         }
         if (debugMode) {
@@ -73,8 +73,6 @@ public class Player extends Entity {
 
             speedX = groundSpeed + MathUtils.cosDeg(groundAngle);
             speedY = groundSpeed * MathUtils.sinDeg(groundAngle);
-
-            speedY -= 13.125;
 
             xPos += speedX * delta;
             yPos += speedY * delta;

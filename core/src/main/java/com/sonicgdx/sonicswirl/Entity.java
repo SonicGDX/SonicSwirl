@@ -31,10 +31,10 @@ public class Entity {
         byte height;
 
         //if (tileY == 0) {
-        //	Gdx.app.log("TileY","= 0");
+        //	Gdx.app.debug("TileY","= 0");
         //}
 
-        //Gdx.app.log("gridValue", String.valueOf(TileMap.map[chunkX][chunkY][tileX][tileY].height[grid]));
+        //Gdx.app.debug("gridValue", String.valueOf(TileMap.map[chunkX][chunkY][tileX][tileY].height[grid]));
 
         height = TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(grid);
 
@@ -42,7 +42,7 @@ public class Entity {
         {
             distance = (chunkY * 128 + (tileY+1) * 16) - yPosition;
 
-            //Gdx.app.log("distance",String.valueOf(distance));
+            //Gdx.app.debug("distance",String.valueOf(distance));
 
             // sensor regression, checks one tile above with downwards facing sensors in an attempt to find surface if the height of the array is full
             if (tileY < 7)
@@ -65,7 +65,7 @@ public class Entity {
                 distance += height;
             }
 
-            //if (distance == 32 || distance == -32) Gdx.app.log("distance",String.valueOf(distance));
+            //if (distance == 32 || distance == -32) Gdx.app.debug("distance",String.valueOf(distance));
         }
 
         else if (height == 0)
@@ -95,7 +95,7 @@ public class Entity {
             }
             //Gdx.app.debug("extension","true");
 
-           //if (distance == 32) Gdx.app.log("distance",String.valueOf(distance));
+           //if (distance == 32) Gdx.app.debug("distance",String.valueOf(distance));
 
         }
 
