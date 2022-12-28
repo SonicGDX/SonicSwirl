@@ -14,10 +14,13 @@ public class Player extends Entity {
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
+
+    private final float widthRadius, heightRadius;
     Texture img;
     Player(Texture image, int width, int height) {
         super(image, width, height);
         xPos = 600; yPos = 200; // Player starts at (600,200);
+        widthRadius = width / 2F; heightRadius = height / 2F;
 
     }
 
@@ -25,11 +28,16 @@ public class Player extends Entity {
     public void move(float delta)
     {
 
-        SensorReturn sensorTile = downSensorCheck((int) xPos, (int) yPos);
-        if (sensorTile.returnDistance <= Math.min(Math.abs(speedX+4), 14) && sensorTile.returnDistance > -14)
+        System.out.println(xPos);
+
+        SensorReturn leftSensorTile = downSensorCheck((int) (xPos - widthRadius), (int) yPos);
+        SensorReturn rightSensorTile = downSensorCheck((int) (xPos + widthRadius), (int) yPos);
+
+
+        if (leftSensorTile.returnDistance <= Math.min(Math.abs(speedX+4), 14) && leftSensorTile.returnDistance > -14)
         {
-            yPos += sensorTile.returnDistance;
-            groundAngle = sensorTile.returnTile.angle;
+            yPos += leftSensorTile.returnDistance;
+            groundAngle = leftSensorTile.returnTile.angle;
         }
 
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.

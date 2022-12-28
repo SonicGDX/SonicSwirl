@@ -128,8 +128,8 @@ public enum TileMap {
         return map;
     }
 
-
-    /*public byte getHeightAbove(int chunkX, int chunkY, int tileX, int tileY, int block)
+    @Deprecated
+    public byte getHeightAbove(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
         if (tileY < 7)
         {
@@ -144,7 +144,7 @@ public enum TileMap {
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
         else return map[chunkX][chunkY][tileX][tileY].height[block];
     }
-
+    @Deprecated
     public byte getHeightBelow(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
         //TODO
@@ -166,6 +166,6 @@ public enum TileMap {
         if (map[chunkX][chunkY][tileX][tileY].empty) return new byte[16];
         else return map[chunkX][chunkY][tileX][tileY].height;
     }
-    */
+
 
 }
