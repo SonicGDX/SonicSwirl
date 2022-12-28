@@ -10,14 +10,21 @@ public class TileMap {
 
     private final Tile[][][][] map;
 
+    private static TileMap tileMap;
+
     private TileMap() {
         //Singleton design pattern - only one instance
         this.map = testMap;
     }
 
-    private static TileMap tileMap;
-
     public static TileMap getTileMap() {
+        if (tileMap == null) {
+            synchronized(TileMap.class) {
+                if (tileMap == null) {
+                    tileMap = new TileMap();
+                }
+            }
+        }
         return tileMap;
     }
 
