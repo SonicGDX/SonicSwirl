@@ -7,6 +7,7 @@ public class TileMap {
 
     // solid blocks
     //TODO tile ID
+    //TODO reconsider usage of TileMap class
     private static final byte[] zero = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private static final byte[] slope = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
     private static final byte[] full = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
@@ -95,24 +96,35 @@ public class TileMap {
             };
 
 
-    static final Tile[][][][] map = testMap;
+    public static final Tile[][][][] map = testMap;
 
     // 128x128 chunk - one dimension for x, one dimension for y and the data is a height array
     // one height array makes up a 16x16 block
 
 
-
+    @Deprecated
     public byte getHeight(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
         else return map[chunkX][chunkY][tileX][tileY].height[block];
     }
 
+    @Deprecated
     public byte getWidth(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
         else return map[chunkX][chunkY][tileX][tileY].width[block];
     }
+
+    public Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
+    {
+        return map[chunkX][chunkY][tileX][tileY];
+    }
+
+    public Tile[][][][] getMap() {
+        return map;
+    }
+
 
     /*public byte getHeightAbove(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
@@ -152,11 +164,5 @@ public class TileMap {
         else return map[chunkX][chunkY][tileX][tileY].height;
     }
     */
-
-    public Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
-    {
-        return map[chunkX][chunkY][tileX][tileY];
-    }
-
 
 }

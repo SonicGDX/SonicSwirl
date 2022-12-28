@@ -21,7 +21,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class SonicGDX implements Screen {
 
-    final Init Init; TileMap tm;
+    final Init Init;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
     final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
     OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
@@ -51,7 +51,6 @@ public class SonicGDX implements Screen {
         // So for example, one screen won't be in the bottom left corner in 1080p
         // but would take up the entire view
 
-        tm = new TileMap();
         dr = new ShapeRenderer();
 
         //TODO AssetManager
@@ -89,9 +88,9 @@ public class SonicGDX implements Screen {
         Init.batch.begin();
         //Blending has been disabled in Init constructor
         //TODO render gradually as player progresses
-        for (int chunkX = 0; chunkX<tm.map.length; chunkX++)
+        for (int chunkX = 0; chunkX<TileMap.map.length; chunkX++)
         {
-            for (int chunkY = 0; chunkY<tm.map[chunkX].length; chunkY++)
+            for (int chunkY = 0; chunkY<TileMap.map[chunkX].length; chunkY++)
             {
                 drawChunkBatch(chunkX,chunkY);
             }
@@ -100,7 +99,6 @@ public class SonicGDX implements Screen {
         // DEBUG
         Init.batch.draw(img,player.lSensorX,player.sprite.getY()); Init.batch.draw(img,player.rSensorX,player.sprite.getY()); Init.batch.draw(img,player.lSensorX,player.middleY); Init.batch.draw(img,player.rSensorX,player.middleY);
         Init.batch.end();
-        Gdx.app.log("Native Heap",String.valueOf(Gdx.app.getNativeHeap()));
     }
 
     //TODO multithreading except for GWT?
@@ -116,21 +114,21 @@ public class SonicGDX implements Screen {
         {
             for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
             {
-                if (tm.map[chunkX][chunkY][tileX][tileY].empty){
+                if (TileMap.map[chunkX][chunkY][tileX][tileY].empty){
                     continue;
                 }
                 for (int block = 0; block < TILE_SIZE; block++)
                 {
-                    if (tm.map[chunkX][chunkY][tileX][tileY].empty){
+                    if (TileMap.map[chunkX][chunkY][tileX][tileY].empty){
                         break;
                     }
                     if (block==0) Init.batch.setColor(new Color(0));
                     else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,0));
-                    Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, tm.map[chunkX][chunkY][tileX][tileY].height[block]);
+                    Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
 					{
-						if (tm.map[chunkX][chunkY][tileX][tileY].solidity == 0);
+						if (TileMap.map[chunkX][chunkY][tileX][tileY].solidity == 0);
 					}*/
 
                     //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
@@ -156,7 +154,7 @@ public class SonicGDX implements Screen {
         {
             for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
             {
-                if (tm.map[chunkX][chunkY][tileX][tileY].empty){
+                if (TileMap.map[chunkX][chunkY][tileX][tileY].empty){
                     continue;
                 }
                 for (int block = 0; block < TILE_SIZE; block++)
@@ -164,11 +162,11 @@ public class SonicGDX implements Screen {
 
                     if (block==0) dr.setColor(new Color(0));
                     else dr.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,0));
-                    dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,tm.map[chunkX][chunkY][tileX][tileY].height[block]);
+                    dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
 					{
-						if (tm.map[chunkX][chunkY][tileX][tileY].solidity == 0);
+						if (TileMap.map[chunkX][chunkY][tileX][tileY].solidity == 0);
 					}*/
 
                     //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
