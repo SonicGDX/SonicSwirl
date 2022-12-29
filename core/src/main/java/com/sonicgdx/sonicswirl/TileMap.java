@@ -9,6 +9,7 @@ public enum TileMap {
     // solid blocks
     //TODO tile ID
     //TODO reconsider usage of TileMap class
+    //TODO possible GUI chunk editor
 
     public static final Tile[][][][] map = TILE_MAP.testMap;
 
@@ -114,6 +115,11 @@ public enum TileMap {
 
     }
 
+    public static Tile getEmpty()
+    {
+        return TILE_MAP.EMPTY;
+    }
+
     @Deprecated
     public byte getHeight(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
@@ -152,7 +158,15 @@ public enum TileMap {
     @Deprecated
     public byte getHeightBelow(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
-        //TODO
+        if (tileY == 0)
+        {
+            chunkY--;
+            tileY = 7;
+        }
+        else
+        {
+            tileY--;
+        }
 
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
         else return map[chunkX][chunkY][tileX][tileY].height[block];

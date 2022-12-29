@@ -97,7 +97,8 @@ https://stackoverflow.com/a/12697861 \
 https://www.w3schools.com/java/java_enums.asp \
 https://www.baeldung.com/a-guide-to-java-enums \
 https://stackoverflow.com/a/32648520 \
-https://www.w3schools.com/java/java_try_catch.asp
+https://www.w3schools.com/java/java_try_catch.asp \
+https://stackoverflow.com/a/25830153/20226215
 
 ## Graphics
 https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites \
