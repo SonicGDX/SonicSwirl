@@ -92,13 +92,13 @@ public class Player extends Entity {
         //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
 
         if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
-            if (Math.max(-Math.abs(speedX + 4),-14) < leftSensorTile.returnDistance && leftSensorTile.returnDistance < 14)
+            if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.returnDistance && leftSensorTile.returnDistance < 14)
             {
                 yPos += leftSensorTile.returnDistance;
                 groundAngle = leftSensorTile.returnTile.angle;
             }
         }
-        else if (Math.max(-Math.abs(speedX + 4), -14) < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14) {
+        else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14) {
             yPos += rightSensorTile.returnDistance;
             groundAngle = rightSensorTile.returnTile.angle;
         }
