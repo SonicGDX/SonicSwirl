@@ -1,6 +1,5 @@
 package com.sonicgdx.sonicswirl;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -16,7 +15,7 @@ public class Entity {
 
     public void floorSensors()
     {
-        calculateSensors();
+        calculateSensorPositions();
 
         SensorReturn leftSensorTile = downSensorCheck(xPos, yPos);
         SensorReturn rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
@@ -42,7 +41,7 @@ public class Entity {
         yPos = Math.max(yPos,0);
     }
 
-    public void calculateSensors()
+    public void calculateSensorPositions()
     {
         lSensorX = xPos;
         rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square

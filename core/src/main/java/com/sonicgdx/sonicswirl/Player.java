@@ -69,7 +69,7 @@ public class Player extends Entity {
 
         enforceBoundaries();
 
-        calculateSensors();
+        calculateSensorPositions();
 
         sprite.setPosition(xPos, yPos);
 
@@ -78,7 +78,7 @@ public class Player extends Entity {
     @Override
     public void floorSensors()
     {
-        calculateSensors();
+        calculateSensorPositions();
 
         //Uses angle for rotation and speed of player only and for player slope physics. TODO possibly apply this to enemies?
         //Applies unique calculation to find minimum value, from Sonic 2 depending on player's speed
