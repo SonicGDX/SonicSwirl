@@ -68,7 +68,7 @@ public enum TileMap {
     private final Tile[][][][] eMap =
 
             Collections.nCopies(8,Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
-            /*{
+            /*{ OLD
                     Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0]),
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
@@ -102,6 +102,17 @@ public enum TileMap {
     // 128x128 chunk - one dimension for x, one dimension for y and the data is a height array
     // one height array makes up a 16x16 block
 
+    public static Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
+    {
+        try {
+            return map[chunkX][chunkY][tileX][tileY];
+        }
+        catch (Exception e){
+            //Gdx.app.error("getTile() Error",String.valueOf(e));
+            return TILE_MAP.EMPTY;
+        }
+
+    }
 
     @Deprecated
     public byte getHeight(int chunkX, int chunkY, int tileX, int tileY, int block)
@@ -115,18 +126,6 @@ public enum TileMap {
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
         else return map[chunkX][chunkY][tileX][tileY].width[block];
-    }
-
-    public static Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
-    {
-        try {
-            return map[chunkX][chunkY][tileX][tileY];
-        }
-        catch (Exception e){
-            //Gdx.app.error("getTile() Error",String.valueOf(e));
-            return TILE_MAP.EMPTY;
-        }
-
     }
 
     @Deprecated

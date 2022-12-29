@@ -27,13 +27,9 @@ public class Tile {
 
     public byte getHeight(int block)
     {
-        if (empty) return 0;
-        try{
+        if (empty || block < 0 || block > 15) return 0;
+        else {
             return height[block];
-        }
-        catch(Exception e){
-            //Gdx.app.error("getHeight() error", String.valueOf(e));
-            return 0;
         }
 
     }
@@ -41,7 +37,13 @@ public class Tile {
     public byte getWidth(int block)
     {
         if (empty) return 0;
-        else return width[block];
+        else try {
+            return width[block];
+        }
+        catch(Exception e){
+            //Gdx.app.error("getHeight() error", String.valueOf(e));
+            return 0;
+        }
     }
 
 
