@@ -81,20 +81,20 @@ public enum TileMap {
             };*/
     private final Tile[][][][] testMap =
             {
-                    {sChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk},
-                    {rvChunk,eChunk,eChunk,eChunk}
+                    {eChunk,sChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,rvChunk,eChunk,eChunk,eChunk}
 
             };
 
