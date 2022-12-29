@@ -68,6 +68,11 @@ public class Player extends Entity {
 
         enforceBoundaries();
 
+        //TODO remove debug drawing / set it to only in a debugging mode
+        lSensorX = xPos;
+        rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+        centreY = yPos + (sprite.getHeight() / 2);
+
         sprite.setPosition(xPos, yPos);
 
     }
@@ -75,6 +80,7 @@ public class Player extends Entity {
     @Override
     public void floorSensors()
     {
+        //TODO move into a method?
         lSensorX = xPos;
         rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
         centreY = yPos + (sprite.getHeight() / 2);
