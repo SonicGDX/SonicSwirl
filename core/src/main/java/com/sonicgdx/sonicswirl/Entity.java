@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Entity {
     float xPos, yPos;
+    float lSensorX, rSensorX, centreY;
+
     //TODO reconsider usage of local variables as well as sprite.getx/y
     Sprite sprite;
     Entity(Texture image, int width, int height) {
@@ -15,6 +17,10 @@ public class Entity {
 
     public void floorSensors()
     {
+        lSensorX = xPos;
+        rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+        centreY = yPos + (sprite.getHeight() / 2);
+
         SensorReturn leftSensorTile = downSensorCheck(xPos, yPos);
         SensorReturn rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
         //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
@@ -30,6 +36,14 @@ public class Entity {
         }
     }
 
+    public void enforceBoundaries()
+    {
+        // "Invisible walls" - prevent objects from going beyond borders to simplify calculations. TODO stop collision errors when going outside index bounds
+        //xPos = Math.min(xPos,1280);
+        //yPos = Math.min(yPos,720);
+        xPos = Math.max(xPos,0);
+        yPos = Math.max(yPos,0);
+    }
 
     public SensorReturn downSensorCheck(float xPosition, float yPosition) //TODO improve naming and add comment explanation
     {

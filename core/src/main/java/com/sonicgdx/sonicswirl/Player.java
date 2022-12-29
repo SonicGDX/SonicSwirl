@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Player extends Entity {
-    float lSensorX, rSensorX, middleY;
     private boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
     private boolean debugMode = false;
     private final float ACCELERATION = 168.75F; final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360;
@@ -67,28 +66,24 @@ public class Player extends Entity {
 
         }
 
-        // "Invisible walls" - prevent players from going beyond borders to simplify calculations. TODO stop collision errors when going outside index bounds
-        /*xPos = Math.min(xPos,1750);
-        xPos = Math.max(xPos,0);
-        yPos = Math.max(yPos,0);*/
+        enforceBoundaries();
 
         sprite.setPosition(xPos, yPos);
-
-        lSensorX = xPos;
-        rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
-        middleY = yPos + (sprite.getHeight() / 2);
-
 
     }
 
     @Override
     public void floorSensors()
     {
+        lSensorX = xPos;
+        rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+        centreY = yPos + (sprite.getHeight() / 2);
+
         //Uses angle for rotation and speed of player only and for player slope physics. TODO possibly apply this to enemies?
         //Applies unique calculation to find minimum value, from Sonic 2 depending on player's speed
 
-        SensorReturn leftSensorTile = downSensorCheck(xPos, yPos);
-        SensorReturn rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
+        SensorReturn leftSensorTile = downSensorCheck(lSensorX, yPos);
+        SensorReturn rightSensorTile = downSensorCheck(rSensorX, yPos);
         //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
 
         if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
