@@ -16,7 +16,6 @@ public class Tile {
         this.solidity = solid;
 
     }
-
     Tile()
     {
         this.empty = true;
@@ -33,16 +32,11 @@ public class Tile {
         }
 
     }
-
     public byte getWidth(int block)
     {
-        if (empty) return 0;
-        else try {
+        if (empty || block < 0 || block > 15) return 0;
+        else {
             return width[block];
-        }
-        catch(Exception e){
-            //Gdx.app.error("getHeight() error", String.valueOf(e));
-            return 0;
         }
     }
 
