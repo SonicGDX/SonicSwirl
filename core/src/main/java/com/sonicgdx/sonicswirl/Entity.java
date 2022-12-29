@@ -20,12 +20,12 @@ public class Entity {
         //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
 
         if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
-            if (leftSensorTile.returnDistance > -14 && leftSensorTile.returnDistance < 14)
+            if (-14 < leftSensorTile.returnDistance && leftSensorTile.returnDistance < 14)
             {
                 yPos += leftSensorTile.returnDistance;
             }
         }
-        else if (rightSensorTile.returnDistance > -14 && rightSensorTile.returnDistance < 14) {
+        else if (-14 < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14) {
             yPos += rightSensorTile.returnDistance;
         }
     }
