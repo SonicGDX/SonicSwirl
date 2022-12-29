@@ -19,7 +19,7 @@ public class Player extends Entity {
         xPos = 600; yPos = 200; // Player starts at (600,200);
     }
 
-    //TODO TommyEttinger's Math library could provide faster operations on GWT
+    //TODO TommyEttinger's digital library could provide faster operations on GWT
     public void move(float delta)
     {
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
@@ -72,6 +72,7 @@ public class Player extends Entity {
         calculateSensorPositions();
 
         sprite.setPosition(xPos, yPos);
+        sprite.setRotation(groundAngle);
 
     }
 
