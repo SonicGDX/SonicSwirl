@@ -71,7 +71,8 @@ public class Player extends Entity {
         //TODO remove debug drawing / set it to only in a debugging mode
         lSensorX = xPos;
         rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
-        centreY = yPos + (sprite.getHeight() / 2);
+        centreY = yPos + ((sprite.getHeight() - 1) / 2);
+        topY = yPos + (sprite.getHeight() - 1);
 
         sprite.setPosition(xPos, yPos);
 
@@ -83,7 +84,8 @@ public class Player extends Entity {
         //TODO move into a method?
         lSensorX = xPos;
         rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
-        centreY = yPos + (sprite.getHeight() / 2);
+        centreY = yPos + ((sprite.getHeight() - 1) / 2);
+        topY = yPos + (sprite.getHeight() - 1);
 
         //Uses angle for rotation and speed of player only and for player slope physics. TODO possibly apply this to enemies?
         //Applies unique calculation to find minimum value, from Sonic 2 depending on player's speed

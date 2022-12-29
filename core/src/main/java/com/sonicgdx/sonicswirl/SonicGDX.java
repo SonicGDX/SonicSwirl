@@ -100,7 +100,9 @@ public class SonicGDX implements Screen {
         }
         player.sprite.draw(Init.batch);
         // DEBUG
-        Init.batch.draw(img,player.lSensorX,player.sprite.getY()); Init.batch.draw(img,player.rSensorX,player.sprite.getY()); Init.batch.draw(img,player.lSensorX,player.centreY); Init.batch.draw(img,player.rSensorX,player.centreY);
+        Init.batch.draw(img,player.lSensorX,player.sprite.getY()); Init.batch.draw(img,player.rSensorX,player.sprite.getY());
+        Init.batch.draw(img,player.lSensorX,player.centreY); Init.batch.draw(img,player.rSensorX,player.centreY);
+        Init.batch.draw(img,player.lSensorX,player.topY); Init.batch.draw(img,player.rSensorX,player.topY);
         Init.batch.end();
     }
 

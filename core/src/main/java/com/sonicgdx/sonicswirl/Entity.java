@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Entity {
     float xPos, yPos;
-    float lSensorX, rSensorX, centreY;
+    float lSensorX, rSensorX, centreY, topY;
 
     //TODO reconsider usage of local variables as well as sprite.getx/y
     Sprite sprite;
