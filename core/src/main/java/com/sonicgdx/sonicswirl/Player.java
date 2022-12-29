@@ -19,7 +19,7 @@ public class Player extends Entity {
         xPos = 600; yPos = 200; // Player starts at (600,200);
     }
 
-    //TODO TommyEttinger's digital library could provide faster operations on GWT
+    //TODO Tommy Ettinger's digital extension could be used for faster operations on GWT
     public void move(float delta)
     {
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
@@ -95,7 +95,7 @@ public class Player extends Entity {
                 groundAngle = leftSensorTile.returnTile.angle;
             }
         }
-        else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14) {
+        else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14 && rightSensorTile.returnDistance > leftSensorTile.returnDistance) {
             yPos += rightSensorTile.returnDistance;
             groundAngle = rightSensorTile.returnTile.angle;
         }
