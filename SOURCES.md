@@ -95,7 +95,9 @@ https://www.geeksforgeeks.org/singleton-class-java \
 https://en.wikipedia.org/wiki/Singleton_pattern \
 https://stackoverflow.com/a/12697861 \
 https://www.w3schools.com/java/java_enums.asp \
-https://www.baeldung.com/a-guide-to-java-enums
+https://www.baeldung.com/a-guide-to-java-enums \
+https://www.w3schools.com/java/java_try_catch.asp
+
 ## Graphics
 https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites \
 https://libgdx.com/wiki/articles/coordinate-systems#game-coordinates \

@@ -117,10 +117,16 @@ public enum TileMap {
         else return map[chunkX][chunkY][tileX][tileY].width[block];
     }
 
-    @Deprecated
-    public Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
+    public static Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
     {
-        return map[chunkX][chunkY][tileX][tileY];
+        try {
+            return map[chunkX][chunkY][tileX][tileY];
+        }
+        catch (Exception e){
+            //Gdx.app.error("getTile() Error",String.valueOf(e));
+            return TILE_MAP.EMPTY;
+        }
+
     }
 
     @Deprecated

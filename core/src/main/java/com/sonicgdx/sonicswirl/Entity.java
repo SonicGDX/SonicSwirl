@@ -54,7 +54,7 @@ public class Entity {
 
         //Gdx.app.debug("gridValue", String.valueOf(TileMap.map[chunkX][chunkY][tileX][tileY].height[grid]));
 
-        height = TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(grid);
+        height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(grid);
 
         distance = ((chunkY * 128) + (tileY * 16) + height) - yPosition;
 
@@ -74,7 +74,7 @@ public class Entity {
                 tempTileY = 0;
             }
 
-            height = TileMap.map[chunkX][tempChunkY][tileX][tempTileY].getHeight(grid);
+            height = TileMap.getTile(chunkX,tempChunkY,tileX,tempTileY).getHeight(grid);
             if (height > 0) //TODO outline conditions in comment
             {
                 chunkY = tempChunkY;
@@ -99,7 +99,7 @@ public class Entity {
                 tileY--;
             }
 
-            height = TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(grid);
+            height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(grid);
 
             if (height == 0)
             {
@@ -117,7 +117,7 @@ public class Entity {
 
         // Classes are reference types so modifying a value would affect all the tiles that are the same.
 
-        return new SensorReturn(TileMap.map[chunkX][chunkY][tileX][tileY],distance);
+        return new SensorReturn(TileMap.getTile(chunkX,chunkY,tileX,tileY),distance);
     }
 
     /*
