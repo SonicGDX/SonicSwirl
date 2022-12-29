@@ -65,11 +65,10 @@ public class Entity {
         int grid = Math.floorMod((int) xPosition,16); //Different behaviour for negative numbers compared to using %. For
         // example, -129 % 16 would return -1 which would cause an ArrayIndexOutOfBoundsException. Math.floorMod would return a positive index in these cases.
 
-        int tempTileY, tempChunkY;
-
         float distance = 0;
-
         byte height;
+
+        int tempTileY, tempChunkY;
 
         //if (tileY == 0) {
         //	Gdx.app.debug("TileY","= 0");
@@ -116,29 +115,17 @@ public class Entity {
                 chunkY--;
                 tileY = 7;
             }
-            else
-            {
-                tileY--;
-            }
+            else tileY--;
 
             height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(grid);
 
-            if (height == 0)
-            {
-                distance -= 16;
-            }
-            else
-            {
-                distance -= (16-height);
-            }
+            if (height == 0) distance -= 16;
+            else distance -= (16-height);
             //Gdx.app.debug("extension","true");
-
-           //if (distance == 32) Gdx.app.debug("distance",String.valueOf(distance));
+            //if (distance == 32) Gdx.app.debug("distance",String.valueOf(distance));
 
         }
-
         // Classes are reference types so modifying a value would affect all the tiles that are the same.
-
         return new SensorReturn(TileMap.getTile(chunkX,chunkY,tileX,tileY),distance);
     }
 
