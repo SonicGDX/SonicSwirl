@@ -73,7 +73,6 @@ public class Player extends Entity {
         yPos = Math.max(yPos,0);*/
 
         sprite.setPosition(xPos, yPos);
-        sprite.setRotation(groundAngle);
 
         lSensorX = xPos;
         rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
