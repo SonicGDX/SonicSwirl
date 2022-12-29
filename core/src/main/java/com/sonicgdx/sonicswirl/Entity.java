@@ -13,6 +13,24 @@ public class Entity {
 
     }
 
+    public void floorSensors()
+    {
+        SensorReturn leftSensorTile = downSensorCheck(xPos, yPos);
+        SensorReturn rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
+        //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
+
+        if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
+            if (leftSensorTile.returnDistance > -14 && leftSensorTile.returnDistance < 14)
+            {
+                yPos += leftSensorTile.returnDistance;
+            }
+        }
+        else if (rightSensorTile.returnDistance > -14 && rightSensorTile.returnDistance < 14) {
+            yPos += rightSensorTile.returnDistance;
+        }
+    }
+
+
     public SensorReturn downSensorCheck(float xPosition, float yPosition) //TODO improve naming and add comment explanation
     {
         //TODO max tile no limit

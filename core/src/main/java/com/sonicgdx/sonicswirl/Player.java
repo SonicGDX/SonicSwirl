@@ -23,11 +23,6 @@ public class Player extends Entity {
     //TODO TommyEttinger's Math library could provide faster operations on GWT
     public void move(float delta)
     {
-
-        SensorReturn leftSensorTile = downSensorCheck(xPos, yPos);
-        SensorReturn rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
-        //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
-
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
         {
@@ -45,18 +40,8 @@ public class Player extends Entity {
         }
         else {
 
-            if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
-                if (leftSensorTile.returnDistance > Math.max(-Math.abs(speedX+4),-14) && leftSensorTile.returnDistance < 14)
-                {
-                    yPos += leftSensorTile.returnDistance;
-                    groundAngle = leftSensorTile.returnTile.angle;
-                }
-            }
-            else if (rightSensorTile.returnDistance > Math.max(-Math.abs(speedX+4), -14) && rightSensorTile.returnDistance < 14) {
-                yPos += rightSensorTile.returnDistance;
-                groundAngle = rightSensorTile.returnTile.angle;
-            }
-
+            floorSensors();
+            //TODO possibly extract more parts into methods
 
             //TODO Right now, right movement is prioritised if both directions are pressed at the same time. Consider cancelling them out.
             if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
@@ -94,6 +79,30 @@ public class Player extends Entity {
         middleY = yPos + (sprite.getHeight() / 2);
 
 
+    }
+
+    @Override
+    public void floorSensors()
+    {
+        //Uses angle for rotation and speed of player only and for player slope physics. TODO possibly apply this to enemies?
+        //Applies unique calculation to find minimum value, from Sonic 2 depending on player's speed
+
+
+        SensorReturn leftSensorTile = downSensorCheck(xPos, yPos);
+        SensorReturn rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
+        //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
+
+        if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
+            if (leftSensorTile.returnDistance > Math.max(-Math.abs(speedX+4),-14) && leftSensorTile.returnDistance < 14)
+            {
+                yPos += leftSensorTile.returnDistance;
+                groundAngle = leftSensorTile.returnTile.angle;
+            }
+        }
+        else if (rightSensorTile.returnDistance > Math.max(-Math.abs(speedX+4), -14) && rightSensorTile.returnDistance < 14) {
+            yPos += rightSensorTile.returnDistance;
+            groundAngle = rightSensorTile.returnTile.angle;
+        }
     }
 
 }
