@@ -17,9 +17,7 @@ public class Entity {
 
     public void floorSensors()
     {
-        lSensorX = xPos;
-        rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
-        centreY = yPos + (sprite.getHeight() / 2);
+        calculateSensors();
 
         SensorReturn leftSensorTile = downSensorCheck(xPos, yPos);
         SensorReturn rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
@@ -43,6 +41,14 @@ public class Entity {
         //yPos = Math.min(yPos,720);
         xPos = Math.max(xPos,0);
         yPos = Math.max(yPos,0);
+    }
+
+    public void calculateSensors()
+    {
+        lSensorX = xPos;
+        rSensorX = xPos + (sprite.getWidth() - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+        centreY = yPos + ((sprite.getHeight() - 1) / 2);
+        topY = yPos + (sprite.getHeight() - 1);
     }
 
     public SensorReturn downSensorCheck(float xPosition, float yPosition) //TODO improve naming and add comment explanation
