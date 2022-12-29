@@ -27,6 +27,7 @@ public class Player extends Entity {
         {
             debugMode = !debugMode;
             groundSpeed = 0;
+            groundAngle = 0;
             //Gdx.app.debug("debugMode",String.valueOf(debugMode));
             //TODO acceleration in debug mode
         }

@@ -12,7 +12,6 @@ public class Entity {
     Sprite sprite;
     Entity(Texture image, int width, int height) {
         sprite = new Sprite(image,width,height);
-
     }
 
     public void floorSensors()
