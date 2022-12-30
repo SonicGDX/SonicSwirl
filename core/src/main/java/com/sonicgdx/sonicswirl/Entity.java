@@ -50,19 +50,19 @@ public class Entity {
         topY = yPos + (sprite.getHeight() - 1);
     }
 
-    public SensorReturn downSensorCheck() //TODO improve naming and add comment explanation
+    public SensorReturn downSensorCheck(float xPosition, float yPosition) //TODO improve naming and add comment explanation
     {
-        if (xPos < 0 || yPos < 0) return new SensorReturn(TileMap.getEmpty(),-16);
+        if (xPosition < 0 || yPosition < 0) return new SensorReturn(TileMap.getEmpty(),-16);
 
         //TODO prevent catch block in getTile() from being used.
 
-        int tileX = Math.floorMod(MathUtils.round(xPos), 128) / 16;
-        int chunkX = (int) xPos / 128;
+        int tileX = Math.floorMod(MathUtils.round(xPosition), 128) / 16;
+        int chunkX = (int) xPosition / 128;
 
-        int tileY = Math.floorMod(MathUtils.round(yPos), 128) / 16;
-        int chunkY = (int) yPos / 128;
+        int tileY = Math.floorMod(MathUtils.round(yPosition), 128) / 16;
+        int chunkY = (int) yPosition / 128;
 
-        int grid = Math.floorMod(MathUtils.round(xPos),16); //Different behaviour for negative numbers compared to using %. For
+        int grid = Math.floorMod(MathUtils.round(xPosition),16); //Different behaviour for negative numbers compared to using %. For
         // example, -129 % 16 would return -1 which would cause an ArrayIndexOutOfBoundsException. Math.floorMod would return a positive index in these cases.
 
         float distance = 0;
@@ -77,7 +77,7 @@ public class Entity {
         //Gdx.app.debug("gridValue", String.valueOf(TileMap.map[chunkX][chunkY][tileX][tileY].height[grid]));
         height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(grid);
 
-        distance = ((chunkY * 128) + (tileY * 16) + height) - yPos;
+        distance = ((chunkY * 128) + (tileY * 16) + height) - yPosition;
 
         if (height == 16)
         {
