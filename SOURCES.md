@@ -106,4 +106,6 @@ https://libgdx.com/wiki/articles/coordinate-systems#game-coordinates \
 
 ## JavaDoc
 https://www.jetbrains.com/help/idea/working-with-code-documentation.html \
-https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
+https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html \
+https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html#CHDJGIJB \
+https://stackoverflow.com/a/35129578
