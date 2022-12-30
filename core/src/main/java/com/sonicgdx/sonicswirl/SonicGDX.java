@@ -104,8 +104,8 @@ public class SonicGDX implements Screen {
 
     /**
      * Draws each Tile using a gradient - for debugging purposes only
-     * @param chunkX - the chunk number on the x-axis - not the same as its co-ordinate
-     * @param chunkY - the chunk number on the y-axis - not the same as its co-ordinate
+     * @param chunkX the chunk number on the x-axis - not the same as its co-ordinate
+     * @param chunkY the chunk number on the y-axis - not the same as its co-ordinate
      */
     public void drawChunkBatch(int chunkX, int chunkY) {
 
@@ -141,9 +141,9 @@ public class SonicGDX implements Screen {
 
     /**
      * Draws each Tile using a gradient - for debugging purposes only
-     * @param chunkX - the chunk number on the x-axis - not the same as its co-ordinate
-     * @param chunkY - the chunk number on the y-axis - not the same as its co-ordinate
-     * @deprecated superseded by drawChunkBatch as ShapeRenderer uses its own mesh compared to the SpriteBatch and therefore conflicts in the rendering method making it cumbersome to use.
+     * @param chunkX the chunk number on the x-axis - not the same as its co-ordinate
+     * @param chunkY the chunk number on the y-axis - not the same as its co-ordinate
+     * @deprecated Superseded by drawChunkBatch as ShapeRenderer uses its own mesh compared to the SpriteBatch and therefore conflicts in the rendering method making it cumbersome to use.
      */
     @Deprecated
     public void drawChunkDR(int chunkX, int chunkY) {
@@ -159,8 +159,8 @@ public class SonicGDX implements Screen {
                 for (int block = 0; block < TILE_SIZE; block++)
                 {
 
-                    if (block==0) dr.setColor(new Color(0));
-                    else dr.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,0));
+                    if (block==0) dr.setColor(new Color(0,0,0,1));
+                    else dr.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
                     dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
