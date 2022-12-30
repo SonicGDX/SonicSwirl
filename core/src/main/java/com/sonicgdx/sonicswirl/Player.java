@@ -95,7 +95,8 @@ public class Player extends Entity {
                 groundAngle = leftSensorTile.returnTile.angle;
             }
         }
-        else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14 && rightSensorTile.returnDistance > leftSensorTile.returnDistance) {
+        else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14)
+        {
             yPos += rightSensorTile.returnDistance;
             groundAngle = rightSensorTile.returnTile.angle;
         }
