@@ -13,10 +13,11 @@ public enum TileMap {
 
     public static final Tile[][][][] map = TILE_MAP.testMap;
 
+    //TODO test class - check if all these are 16 in length
     private final byte[] zero = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private final byte[] slope = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
     private final byte[] full = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
-    private final byte[] half = {8,8,8,8,8,8,8,8};
+    private final byte[] halfh = {8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}; private final byte[] halfw = {16,16,16,16,16,16,16,16,0,0,0,0,0,0,0,0};
     private final byte[] rvSlope = {16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
     private final byte[] tall1 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
@@ -24,8 +25,19 @@ public enum TileMap {
     private final Tile ftile = new Tile(full,full,0,(byte) 4,false);
     private final Tile stile = new Tile(slope,slope,45,(byte) 1,false);
     private final Tile rvtile = new Tile(rvSlope, rvSlope,-45,(byte) 1,false);
+    private final Tile htile = new Tile(halfh,halfw,0,(byte) 1,false);
 
     private final Tile[][] fChunk = Collections.nCopies(8,Collections.nCopies(8,ftile).toArray(new Tile[0])).toArray(new Tile[0][0]);
+
+    private final Tile[][] hChunk = {
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,htile},
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,htile},
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,htile},
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,htile},
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,htile},
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,htile},
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,htile},
+            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,htile}};
     private final Tile[][] rvChunk = {
             {ftile,ftile,ftile,ftile,ftile,ftile,ftile,rvtile},
             {ftile,ftile,ftile,ftile,ftile,ftile,rvtile,EMPTY},
@@ -86,9 +98,9 @@ public enum TileMap {
                     {eChunk,fChunk,eChunk,eChunk,eChunk},
                     {eChunk,fChunk,eChunk,eChunk,eChunk},
                     {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,hChunk,eChunk,eChunk,eChunk},
+                    {eChunk,hChunk,eChunk,eChunk,eChunk},
+                    {eChunk,hChunk,eChunk,eChunk,eChunk},
                     {eChunk,fChunk,eChunk,eChunk,eChunk},
                     {eChunk,fChunk,eChunk,eChunk,eChunk},
                     {eChunk,fChunk,eChunk,eChunk,eChunk},
