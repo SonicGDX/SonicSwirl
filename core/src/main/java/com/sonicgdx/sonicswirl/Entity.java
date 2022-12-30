@@ -2,6 +2,7 @@ package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Entity {
     float xPos, yPos;
@@ -55,13 +56,13 @@ public class Entity {
 
         //TODO prevent catch block in getTile() from being used.
 
-        int tileX = Math.floorMod(Math.round(xPosition), 128) / 16;
+        int tileX = Math.floorMod(MathUtils.round(xPosition), 128) / 16;
         int chunkX = (int) xPosition / 128;
 
-        int tileY = Math.floorMod(Math.round(yPosition), 128) / 16;
+        int tileY = Math.floorMod(MathUtils.round(yPosition), 128) / 16;
         int chunkY = (int) yPosition / 128;
 
-        int grid = Math.floorMod(Math.round(xPosition),16); //Different behaviour for negative numbers compared to using %. For
+        int grid = Math.floorMod(MathUtils.round(xPosition),16); //Different behaviour for negative numbers compared to using %. For
         // example, -129 % 16 would return -1 which would cause an ArrayIndexOutOfBoundsException. Math.floorMod would return a positive index in these cases.
 
         float distance = 0;
