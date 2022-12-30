@@ -65,8 +65,12 @@ However, I kept the HTML submodule as this could make it more convenient to play
 https://www.mgsx.net/html5-libgdx-tutorial \ 
 https://libgdx.com/wiki/html5-backend-and-gwt-specifics \
 
-## Dependencies
+## Dependencies / Gradle
 https://libgdx.com/wiki/articles/dependency-management-with-gradle#box2d-gradle \
+Fix “[ALSOFT] (EE) Failed to set real-time priority for thread: Operation not permitted” error on running - https://stackoverflow.com/questions/18987228/how-do-i-change-the-intellij-idea-default-jdk \
+https://docs.gradle.org/current/userguide/java_testing.html
+https://stackoverflow.com/a/20707188/
+https://www.petrikainulainen.net/programming/testing/junit-5-tutorial-running-unit-tests-with-gradle/
 
 ## Input
 https://libgdx.com/wiki/input/polling \
@@ -80,8 +84,6 @@ https://libgdx.com/wiki/start/a-simple-game \
 ## Movement in both directions / Acceleration
 Constants and movement values were derived from those in - https://info.sonicretro.org/SPG:Running \
 Movement method adapted from here
-## Gradle
-Fix “[ALSOFT] (EE) Failed to set real-time priority for thread: Operation not permitted” error on running - https://stackoverflow.com/questions/18987228/how-do-i-change-the-intellij-idea-default-jdk \
 
 ## Gdx-liftoff
 
@@ -109,3 +111,8 @@ https://www.jetbrains.com/help/idea/working-with-code-documentation.html \
 https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html \
 https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html#CHDJGIJB \
 https://stackoverflow.com/a/35129578
+
+## JUnit5 and Unit Tests
+https://junit.org/junit5/docs/current/user-guide \
+https://www.youtube.com/watch?v=vZm0lHciFsQ \
+https://www.petrikainulainen.net/programming/testing/junit-5-tutorial-running-unit-tests-with-gradle/
