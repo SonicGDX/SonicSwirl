@@ -124,8 +124,8 @@ public class SonicGDX implements Screen {
                     if (TileMap.map[chunkX][chunkY][tileX][tileY].empty){
                         break;
                     }
-                    if (block==0) Init.batch.setColor(new Color(0));
-                    else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,0));
+                    if (block==0) Init.batch.setColor(new Color(0,0,0,1));
+                    else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
                     Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
