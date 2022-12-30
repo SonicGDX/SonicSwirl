@@ -1,5 +1,7 @@
 package com.sonicgdx.sonicswirl;
 
+import com.badlogic.gdx.utils.GdxRuntimeException;
+
 import java.util.Collections;
 
 public enum TileMap {
@@ -122,8 +124,9 @@ public enum TileMap {
         try {
             return map[chunkX][chunkY][tileX][tileY];
         }
-        catch (Exception e){
+        catch (ArrayIndexOutOfBoundsException e){
             //Gdx.app.error("getTile() Error",String.valueOf(e));
+            //e.printStackTrace();
             return TILE_MAP.EMPTY;
         }
 
