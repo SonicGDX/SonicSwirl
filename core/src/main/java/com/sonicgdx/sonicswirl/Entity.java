@@ -84,44 +84,41 @@ public class Entity {
 
         distance = ((chunkY * 128) + (tileY * 16) + height) - yPosition;
 
-        if (height == 16)
-        {
-            // sensor regression, checks one tile above with downwards facing sensors in an attempt to find surface if the height of the array is full
-            if (tileY < 7)
-            {
-                tempChunkY = chunkY;
-                tempTileY = tileY + 1;
-            }
-            else
-            {
-                tempChunkY = chunkY + 1;
-                tempTileY = 0;
-            }
+        switch(height){
+            case(16):
+                // sensor regression, checks one tile above with downwards facing sensors in an attempt to find surface if the height of the array is full
+                if (tileY < 7)
+                {
+                    tempChunkY = chunkY;
+                    tempTileY = tileY + 1;
+                }
+                else
+                {
+                    tempChunkY = chunkY + 1;
+                    tempTileY = 0;
+                }
 
-            height = TileMap.getTile(chunkX,tempChunkY,tileX,tempTileY).getHeight(grid);
-            if (height > 0) //TODO outline conditions in comment
-            {
-                chunkY = tempChunkY;
-                tileY = tempTileY;
+                height = TileMap.getTile(chunkX,tempChunkY,tileX,tempTileY).getHeight(grid);
+                if (height > 0) //TODO outline conditions in comment
+                {
+                    chunkY = tempChunkY;
+                    tileY = tempTileY;
 
-                distance += height;
-            }
-        }
+                    distance += height;
+                }
+            case(0):
+                // sensor extension, checks one tile below with downwards facing sensors in an attempt to find surface
+                if (tileY == 0)
+                {
+                    chunkY--;
+                    tileY = 7;
+                }
+                else tileY--;
 
-        else if (height == 0)
-        {
-            // sensor extension, checks one tile below with downwards facing sensors in an attempt to find surface
-            if (tileY == 0)
-            {
-                chunkY--;
-                tileY = 7;
-            }
-            else tileY--;
+                height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(grid);
 
-            height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(grid);
-
-            if (height == 0) distance -= 16;
-            else distance -= (16-height);
+                if (height == 0) distance -= 16;
+                else distance -= (16-height);
         }
         return new SensorReturn(TileMap.getTile(chunkX,chunkY,tileX,tileY),distance);
     }
