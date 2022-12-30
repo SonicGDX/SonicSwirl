@@ -49,7 +49,7 @@ public class MenuScreen implements Screen {
 		Init.batch.end();
 
 		if (Gdx.input.isTouched()) {
-            //Init.batch.disableBlending();
+            Init.batch.disableBlending();
 			Init.setScreen(Init.gameScreen);
 			dispose();
 		}
