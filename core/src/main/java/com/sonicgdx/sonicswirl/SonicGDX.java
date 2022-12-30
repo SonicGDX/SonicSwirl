@@ -69,9 +69,6 @@ public class SonicGDX implements Screen {
 
         //frameLog.log();
 
-
-        TileMap.TILE_MAP.getTile(122,122,122,122);
-
         ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
         player.move(delta);
