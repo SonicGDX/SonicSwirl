@@ -40,6 +40,7 @@ public class Player extends Entity {
         }
         else {
 
+            //TODO perhaps add a check if the player is stationary before calculating collision
             floorSensors();
             //TODO possibly extract more parts into methods
 
