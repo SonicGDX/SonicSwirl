@@ -87,14 +87,25 @@ Fix “[ALSOFT] (EE) Failed to set real-time priority for thread: Operation not 
 
 https://github.com/tommyettinger/gdx-liftoff \
 
-## Java
-
+## General Java
 https://www.w3schools.com/java/java_arrays_multi.asp \
-https://www.w3schools.com/java/java_break.asp
+https://www.w3schools.com/java/java_break.asp \
+https://stackoverflow.com/a/457642 \
+https://www.geeksforgeeks.org/singleton-class-java \
+https://en.wikipedia.org/wiki/Singleton_pattern \
+https://stackoverflow.com/a/12697861 \
+https://www.w3schools.com/java/java_enums.asp \
+https://www.baeldung.com/a-guide-to-java-enums \
+https://stackoverflow.com/a/32648520 \
+https://www.w3schools.com/java/java_try_catch.asp \
+https://stackoverflow.com/a/25830153/20226215
 
 ## Graphics
 https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites \
+https://libgdx.com/wiki/articles/coordinate-systems#game-coordinates \
 
 ## JavaDoc
 https://www.jetbrains.com/help/idea/working-with-code-documentation.html \
-https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
+https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html \
+https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html#CHDJGIJB \
+https://stackoverflow.com/a/35129578

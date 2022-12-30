@@ -16,9 +16,6 @@ public class Tile {
         this.solidity = solid;
 
     }
-
-
-
     Tile()
     {
         this.empty = true;
@@ -26,5 +23,22 @@ public class Tile {
         this.width = null;
         this.angle = 0;
     }
+
+    public byte getHeight(int block)
+    {
+        if (empty || block < 0 || block > 15) return 0;
+        else {
+            return height[block];
+        }
+
+    }
+    public byte getWidth(int block)
+    {
+        if (empty || block < 0 || block > 15) return 0;
+        else {
+            return width[block];
+        }
+    }
+
 
 }
