@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Init extends Game {
     public SpriteBatch batch;
 	public BitmapFont font;
-	public SonicGDX gameScreen;
+	public GameScreen gameScreen;
 
 	private MenuScreen menuScreen;
 

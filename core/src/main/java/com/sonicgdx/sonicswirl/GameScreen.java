@@ -2,13 +2,11 @@ package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -18,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 //import java.awt.*;
 //import com.badlogic.gdx.math.Rectangle;
 
-public class SonicGDX implements Screen {
+public class GameScreen implements Screen {
 
     final Init Init;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
@@ -29,7 +27,7 @@ public class SonicGDX implements Screen {
 
     Player player;
 
-    public SonicGDX(final Init Init) {
+    public GameScreen(final Init Init) {
 
         //Have to declare it outside, so it is a global variable?
 
