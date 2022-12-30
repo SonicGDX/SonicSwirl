@@ -86,7 +86,7 @@ public class SonicGDX implements Screen {
         //viewport.apply();
         Init.batch.setProjectionMatrix(camera.combined);
         Init.batch.begin();
-        //Blending has been disabled in Init constructor
+        //Blending has been disabled in MenuScreen
         //TODO render gradually as player progresses
         for (int chunkX = 0; chunkX<TileMap.map.length; chunkX++)
         {
@@ -138,7 +138,7 @@ public class SonicGDX implements Screen {
                 }
             }
         }
-        Init.batch.setColor(new Color(1,1,1,1)); //Resets batch colour
+        Init.batch.setColor(Color.WHITE); //Resets batch colour
 
     }
 
