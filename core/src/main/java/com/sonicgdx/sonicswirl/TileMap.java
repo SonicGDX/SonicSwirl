@@ -14,6 +14,8 @@ public enum TileMap {
     public static final Tile[][][][] map = TILE_MAP.testMap;
 
     //TODO test class - check if all these are 16 in length
+
+    // Classes are reference types so modifying a value would affect all the tiles that are the same.
     private final byte[] zero = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private final byte[] slope = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
     private final byte[] full = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};

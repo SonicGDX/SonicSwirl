@@ -77,17 +77,20 @@ public class Player extends Entity {
 
     }
 
+    /**
+     *Collides with the nearest floor within a certain limit by adjusting the player's yPos appropriately.
+     *The positive limit is always 14, but the negative limit only becomes more lenient as the player's speed increases.
+     *Limits of -16<=x<=16 are not used as those distances are likely too far away from the player to matter.
+     *Uses angle for rotation and speed of player only and for player slope physics.
+     *Applies unique calculation to find minimum value, from Sonic 2 depending on player's speed
+     */
     @Override
     public void floorSensors()
     {
         calculateSensorPositions();
 
-        //Uses angle for rotation and speed of player only and for player slope physics. TODO possibly apply this to enemies?
-        //Applies unique calculation to find minimum value, from Sonic 2 depending on player's speed
-
         SensorReturn leftSensorTile = downSensorCheck(lSensorX, yPos);
         SensorReturn rightSensorTile = downSensorCheck(rSensorX, yPos);
-        //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
 
         if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
             if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.returnDistance && leftSensorTile.returnDistance < 14)
@@ -99,7 +102,7 @@ public class Player extends Entity {
         else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14)
         {
             yPos += rightSensorTile.returnDistance;
-            groundAngle = rightSensorTile.returnTile.angle;
+            groundAngle = rightSensorTile.returnTile.angle; //TODO possibly apply this to enemies?
         }
     }
 

@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 
+/**
+ * The base class all objects extend from, including the Player.
+ */
 public class Entity {
     float xPos, yPos;
     float lSensorX, rSensorX, centreY, topY;
@@ -50,10 +53,17 @@ public class Entity {
         topY = yPos + (sprite.getHeight() - 1);
     }
 
+    /**Attempts to find the nearest top of the surface relative to the sensor's position.
+     * If no surface is found, the method will check one tile downwards for a non-empty height (and therefore a non-empty Tile).
+     * Conversely, if a tile that is full in that position (has a height of 16) is found, the method will check one tile upwards for a possible top of the surface.
+     * @param xPosition the x-axis of the sensor that is being checked - this can be either the leftmost part of the object's sprite or the rightmost part; however if the sprite is rotated 90, 180, or 270 degrees the sensor's position will be adjusted accordingly.
+     * @param yPosition the y-axis position of the sensor that is being checked - this will be the bottom of the Entity's sprite; however if the sprite is rotated 90, 180, or 270 degrees the sensor's position will be adjusted accordingly.
+     * @return The Tile type of the nearest floor that has been located as well as the distance on the y-axis between the sensor and that Tile.
+     * @see SensorReturn
+     */
     public SensorReturn downSensorCheck(float xPosition, float yPosition) //TODO improve naming and add comment explanation
     {
         if (xPosition < 0 || yPosition < 0) return new SensorReturn(TileMap.getEmpty(),-16);
-
         //TODO prevent catch block in getTile() from being used.
 
         int tileX = Math.floorMod(MathUtils.round(xPosition), 128) / 16;
@@ -63,26 +73,19 @@ public class Entity {
         int chunkY = (int) yPosition / 128;
 
         int grid = Math.floorMod(MathUtils.round(xPosition),16); //Different behaviour for negative numbers compared to using %. For
-        // example, -129 % 16 would return -1 which would cause an ArrayIndexOutOfBoundsException. Math.floorMod would return a positive index in these cases.
+        // example, -129 % 16 would return -1 which would cause an ArrayIndexOutOfBoundsException. Math.floorMod() would return a positive index in these cases.
 
         float distance = 0;
         byte height;
 
         int tempTileY, tempChunkY;
 
-        //if (tileY == 0) {
-        //	Gdx.app.debug("TileY","= 0");
-        //}
-
-        //Gdx.app.debug("gridValue", String.valueOf(TileMap.map[chunkX][chunkY][tileX][tileY].height[grid]));
         height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(grid);
 
         distance = ((chunkY * 128) + (tileY * 16) + height) - yPosition;
 
         if (height == 16)
         {
-            //Gdx.app.debug("distance",String.valueOf(distance));
-
             // sensor regression, checks one tile above with downwards facing sensors in an attempt to find surface if the height of the array is full
             if (tileY < 7)
             {
@@ -103,8 +106,6 @@ public class Entity {
 
                 distance += height;
             }
-
-            //if (distance == 32 || distance == -32) Gdx.app.debug("distance",String.valueOf(distance));
         }
 
         else if (height == 0)
@@ -121,11 +122,7 @@ public class Entity {
 
             if (height == 0) distance -= 16;
             else distance -= (16-height);
-            //Gdx.app.debug("extension","true");
-            //if (distance == 32) Gdx.app.debug("distance",String.valueOf(distance));
-
         }
-        // Classes are reference types so modifying a value would affect all the tiles that are the same.
         return new SensorReturn(TileMap.getTile(chunkX,chunkY,tileX,tileY),distance);
     }
 
