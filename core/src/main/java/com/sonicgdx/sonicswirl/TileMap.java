@@ -119,7 +119,8 @@ public enum TileMap {
 
     public static Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
     {
-        if (chunkX < map.length && chunkY < map[chunkX].length && tileX < map[chunkX][chunkY].length && tileY < map[chunkX][chunkY][tileX].length) {
+        if (chunkX < map.length && chunkY < map[chunkX].length && tileX < map[chunkX][chunkY].length && tileY < map[chunkX][chunkY][tileX].length
+        && chunkX > 0 && chunkY > 0 && tileX > 0 && tileY > 0) {
             return map[chunkX][chunkY][tileX][tileY];
         }
         else {
