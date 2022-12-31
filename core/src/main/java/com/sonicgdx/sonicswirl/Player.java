@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 public class Player extends Entity {
     private boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
     private boolean debugMode = false;
-    private final float ACCELERATION = 168.75F, SLOPE_FACTOR = 7.5F; private final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360;
+    private final float ACCELERATION = 168.75F, SLOPE_FACTOR = 7.5F; private final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 390;
     // An FPS of 60 was used to obtain the adjusted values
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6, SLOPE_FACTOR = 0.125;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
@@ -64,8 +64,12 @@ public class Player extends Entity {
             speedX = groundSpeed * MathUtils.cosDeg(groundAngle);
             speedY = groundSpeed * MathUtils.sinDeg(groundAngle);
 
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) jump(delta);
+
             xPos += speedX * delta;
             yPos += speedY * delta;
+
+
 
             //TODO ground angle and sin/cos with Gdx MathUtils
 
@@ -77,6 +81,12 @@ public class Player extends Entity {
 
         sprite.setPosition(xPos, yPos);
         sprite.setRotation(groundAngle);
+
+    }
+
+    public void jump(float delta) {
+        speedX -= delta * JUMP_FORCE * MathUtils.sinDeg(groundAngle);
+        speedY -= delta * JUMP_FORCE * MathUtils.cosDeg(groundAngle);
 
     }
 
