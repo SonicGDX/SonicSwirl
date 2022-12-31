@@ -167,10 +167,7 @@ public enum TileMap {
     @Deprecated
     public byte getHeightAbove(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
-        if (tileY < 7)
-        {
-            tileY = tileY + 1;
-        }
+        if (tileY < 7) tileY = tileY + 1;
         else
         {
             chunkY +=1;
@@ -188,10 +185,7 @@ public enum TileMap {
             chunkY--;
             tileY = 7;
         }
-        else
-        {
-            tileY--;
-        }
+        else tileY--;
 
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
         else return map[chunkX][chunkY][tileX][tileY].heightArray[block];
