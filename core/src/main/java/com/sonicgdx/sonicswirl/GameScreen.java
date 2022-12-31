@@ -11,17 +11,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-//import com.badlogic.gdx.maps.tiled.TiledMap;
-//import java.util.Arrays;
-//import java.awt.*;
-//import com.badlogic.gdx.math.Rectangle;
-
 public class GameScreen implements Screen {
 
     final Init Init;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
     final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
-    OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero; ExtendViewport viewport;
+    OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero; ExtendViewport gameViewport;
     final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
 
 
@@ -39,7 +34,7 @@ public class GameScreen implements Screen {
         //TODO possibly reduce viewport resolution to reduce pixels being missing at lower resolutions or change viewport type
 
         camera = new OrthographicCamera(); // 3D camera which projects into 2D.
-        viewport = new ExtendViewport(1280,720,camera);
+        gameViewport = new ExtendViewport(1280,720,camera);
         //TODO Update comments
         camera.setToOrtho(false,1280,720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
         // So for example, one screen won't be in the bottom left corner in 1080p
@@ -181,7 +176,7 @@ public class GameScreen implements Screen {
     }
     @Override
     public void resize(int width, int height) {
-        viewport.update(width,height);
+        gameViewport.update(width,height);
     }
 
     @Override
