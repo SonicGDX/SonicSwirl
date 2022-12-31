@@ -123,3 +123,4 @@ https://www.petrikainulainen.net/programming/testing/junit-5-tutorial-running-un
 
 ## Physics
 https://info.sonicretro.org/SPG:Slope_Physics \
+https://info.sonicretro.org/SPG:Main_Game_Loop \

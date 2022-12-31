@@ -40,8 +40,7 @@ public class Player extends Entity {
         }
         else {
 
-            //TODO perhaps add a check if the player is stationary before calculating collision
-            floorSensors();
+
             //TODO possibly extract more parts into methods
 
             //TODO Right now, right movement is prioritised if both directions are pressed at the same time. Consider cancelling them out.
@@ -70,8 +69,9 @@ public class Player extends Entity {
             yPos += speedY * delta;
 
 
+            //TODO perhaps add a check if the player is stationary before calculating collision
+            floorSensors();
 
-            //TODO ground angle and sin/cos with Gdx MathUtils
 
         }
 
