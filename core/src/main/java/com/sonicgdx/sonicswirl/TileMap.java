@@ -1,7 +1,5 @@
 package com.sonicgdx.sonicswirl;
 
-import com.badlogic.gdx.utils.GdxRuntimeException;
-
 import java.util.Collections;
 
 public enum TileMap {
@@ -141,14 +139,14 @@ public enum TileMap {
     public byte getHeight(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
-        else return map[chunkX][chunkY][tileX][tileY].height[block];
+        else return map[chunkX][chunkY][tileX][tileY].heightArray[block];
     }
 
     @Deprecated
     public byte getWidth(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
-        else return map[chunkX][chunkY][tileX][tileY].width[block];
+        else return map[chunkX][chunkY][tileX][tileY].widthArray[block];
     }
 
     @Deprecated
@@ -170,7 +168,7 @@ public enum TileMap {
         }
 
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
-        else return map[chunkX][chunkY][tileX][tileY].height[block];
+        else return map[chunkX][chunkY][tileX][tileY].heightArray[block];
     }
     @Deprecated
     public byte getHeightBelow(int chunkX, int chunkY, int tileX, int tileY, int block)
@@ -186,21 +184,21 @@ public enum TileMap {
         }
 
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
-        else return map[chunkX][chunkY][tileX][tileY].height[block];
+        else return map[chunkX][chunkY][tileX][tileY].heightArray[block];
     }
 
     @Deprecated
     public byte[] getWidthArray(int chunkX, int chunkY, int tileX, int tileY)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return new byte[16];
-        else return map[chunkX][chunkY][tileX][tileY].width;
+        else return map[chunkX][chunkY][tileX][tileY].widthArray;
     }
 
     @Deprecated
     public byte[] getHeightArray(int chunkX, int chunkY, int tileX, int tileY)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return new byte[16];
-        else return map[chunkX][chunkY][tileX][tileY].height;
+        else return map[chunkX][chunkY][tileX][tileY].heightArray;
     }
 
 
