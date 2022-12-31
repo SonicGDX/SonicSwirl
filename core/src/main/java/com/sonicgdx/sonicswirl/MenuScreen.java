@@ -40,6 +40,7 @@ public class MenuScreen implements Screen {
         ScreenUtils.clear(0.1f, 0, 0.2f, 1);
 
         menuViewport.apply();
+        //Init.batch.setProjectionMatrix(menuViewport.getCamera().combined);
 		Init.batch.begin();
         button.draw(Init.batch,1); //TODO what is parent alpha?
 		Init.font.draw(Init.batch, "Sonic Swirl", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F);
@@ -86,6 +87,7 @@ public class MenuScreen implements Screen {
     @Override
     public void dispose() {
         buttonSkin.dispose();
+        stage.dispose();
     }
 
 
