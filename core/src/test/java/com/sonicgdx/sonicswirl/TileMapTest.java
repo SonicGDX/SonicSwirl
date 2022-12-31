@@ -16,9 +16,8 @@ class TileMapTest {
         System.out.println(Arrays.toString(ClassReflection.getFields(TileMap.class)));
 
         for (Field field:ClassReflection.getDeclaredFields(TileMap.class)) {
-            for (Annotation annotation : field.getDeclaredAnnotations()) {
-                System.out.println(annotation.getAnnotationType());
-            }
+            field.setAccessible(true);
+            System.out.println(field.getName());
             /*if (field.getType() == byte[])
             {
 
