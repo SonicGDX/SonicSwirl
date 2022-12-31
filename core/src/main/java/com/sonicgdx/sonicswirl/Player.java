@@ -102,7 +102,7 @@ public class Player extends Entity {
         {
             if (speedX > -MAX_SPEED) speedX -= AIR_ACCELERATION * delta;
         }
-        speedY += GRAVITY_FORCE;
+        speedY += GRAVITY_FORCE * delta;
     }
 
     /**
