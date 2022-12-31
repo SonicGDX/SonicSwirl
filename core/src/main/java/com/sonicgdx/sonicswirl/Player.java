@@ -8,12 +8,12 @@ import com.badlogic.gdx.math.MathUtils;
 public class Player extends Entity {
     private boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
     private boolean debugMode = false;
-    private final float ACCELERATION = 168.75F; final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360;
+    private final float ACCELERATION = 168.75F, SLOPE_FACTOR = 7.5F; private final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360;
     // An FPS of 60 was used to obtain the adjusted values
-    // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6;
+    // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6, SLOPE_FACTOR = 0.125;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
-    Texture img;
+    private Texture img;
     Player(Texture image, int width, int height) {
         super(image, width, height);
         xPos = 600; yPos = 200; // Player starts at (600,200);
@@ -57,6 +57,8 @@ public class Player extends Entity {
             }
             else groundSpeed -= Math.min(Math.abs(groundSpeed), ACCELERATION * delta) * Math.signum(groundSpeed); // friction if not pressing any directions
             // Decelerates until the absolute value of groundSpeed is lower than the ACCELERATION value (which doubles as the friction value) and then stops
+
+            groundSpeed -= SLOPE_FACTOR * MathUtils.sinDeg(groundAngle); //TODO this only happens when the player is not in ceiling mode.
 
             speedX = groundSpeed * MathUtils.cosDeg(groundAngle);
             speedY = groundSpeed * MathUtils.sinDeg(groundAngle);

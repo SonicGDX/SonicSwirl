@@ -120,3 +120,6 @@ https://stackoverflow.com/a/35129578
 https://junit.org/junit5/docs/current/user-guide \
 https://www.youtube.com/watch?v=vZm0lHciFsQ \
 https://www.petrikainulainen.net/programming/testing/junit-5-tutorial-running-unit-tests-with-gradle/
+
+## Physics
+https://info.sonicretro.org/SPG:Slope_Physics \
