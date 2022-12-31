@@ -23,11 +23,9 @@ public class MenuScreen implements Screen {
 
         menuViewport = new ScreenViewport();
 
-        //TODO replace placeholder assets and finish UI, maybe with VisUI
-
         Init.gameScreen = new GameScreen(Init);
 
-        buttonSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+        buttonSkin = new Skin(Gdx.files.internal("ui/uiskin.json")); //Constructor automatically finds and disposes atlas file as required.
 
         button = new TextButton("Begin", buttonSkin);
     }
@@ -45,7 +43,7 @@ public class MenuScreen implements Screen {
 		Init.batch.end();
 
 		if (Gdx.input.isTouched()) {
-            Init.batch.disableBlending();
+            Init.batch.disableBlending(); //Blending is responsible for translucency using the alpha value but decreases performance.
 			Init.setScreen(Init.gameScreen);
 			dispose();
 		}
