@@ -12,10 +12,18 @@ import barsoosayque.libgdxoboe.OboeAudio;
 
 /** Launches the Android application. */
 public class AndroidLauncher extends AndroidApplication {
+    //Uses libGDX-Oboe extension
     @Override
     public AndroidAudio createAudio(Context context, AndroidApplicationConfiguration config) {
         return new OboeAudio(context.getAssets());
     }
+
+    //Uncomment for alternate AsynchronousAndroidAudio implementation
+    /*@Override
+    public AndroidAudio createAudio(Context context, AndroidApplicationConfiguration config) {
+        return new AsynchronousAndroidAudio(context, config);
+    }*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
