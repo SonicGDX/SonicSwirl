@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 /**
  * The base class all objects extend from, including the Player.
  */
-public class Entity {
+public abstract class Entity {
     float xPos, yPos;
     float lSensorX, rSensorX, centreY, topY;
 
