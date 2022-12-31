@@ -58,7 +58,7 @@ public class Player extends Entity {
             else groundSpeed -= Math.min(Math.abs(groundSpeed), ACCELERATION * delta) * Math.signum(groundSpeed); // friction if not pressing any directions
             // Decelerates until the absolute value of groundSpeed is lower than the ACCELERATION value (which doubles as the friction value) and then stops
 
-            groundSpeed -= SLOPE_FACTOR * MathUtils.sinDeg(groundAngle); //TODO this only happens when the player is not in ceiling mode.
+            groundSpeed -= delta * SLOPE_FACTOR * -MathUtils.sinDeg(groundAngle); //TODO this only happens when the player is not in ceiling mode.
 
             speedX = groundSpeed * MathUtils.cosDeg(groundAngle);
             speedY = groundSpeed * MathUtils.sinDeg(groundAngle);
