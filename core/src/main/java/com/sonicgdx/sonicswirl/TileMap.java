@@ -11,7 +11,7 @@ public enum TileMap {
     //TODO reconsider usage of TileMap class
     //TODO possible GUI chunk editor
 
-    public static final Tile[][][][] map = TILE_MAP.testMap;
+    public static final Tile[][][][] map = TILE_MAP.rvMap;
 
     //TODO test class - check if all these are 16 in length
 
@@ -94,6 +94,9 @@ public enum TileMap {
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk}
 
             };*/
+
+    private final Tile[][][][] sMap = Collections.nCopies(8,Collections.nCopies(8,sChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
+    private final Tile[][][][] rvMap = Collections.nCopies(8,Collections.nCopies(8,rvChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
     private final Tile[][][][] testMap =
             {
                     {eChunk,sChunk,eChunk,eChunk,eChunk},
