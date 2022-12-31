@@ -106,6 +106,9 @@ https://stackoverflow.com/a/25830153/20226215
 https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites \
 https://libgdx.com/wiki/articles/coordinate-systems#game-coordinates \
 
+## Android
+https://github.com/barsoosayque/libgdx-oboe/blob/master/docs/Usage.md
+
 ## JavaDoc
 https://www.jetbrains.com/help/idea/working-with-code-documentation.html \
 https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html \
