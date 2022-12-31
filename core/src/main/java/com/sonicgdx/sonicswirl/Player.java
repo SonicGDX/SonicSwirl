@@ -7,10 +7,11 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Player extends Entity {
     private boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
-    private boolean debugMode = false;
-    private final float ACCELERATION = 168.75F, SLOPE_FACTOR = 7.5F; private final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 390;
+    private boolean debugMode = false, isGrounded;
+    private final float ACCELERATION = 168.75F, AIR_ACCELERATION = 337.5F, SLOPE_FACTOR = 7.5F, GRAVITY_FORCE = -787.5F;
+    private final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 390;
     // An FPS of 60 was used to obtain the adjusted values
-    // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6, SLOPE_FACTOR = 0.125;
+    // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6, SLOPE_FACTOR = 0.125, AIR_ACCELERATION = 0.09375F, GRAVITY_FORCE = 0.21875F;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
     private Texture img;
@@ -63,7 +64,9 @@ public class Player extends Entity {
             speedX = groundSpeed * MathUtils.cosDeg(groundAngle);
             speedY = groundSpeed * MathUtils.sinDeg(groundAngle);
 
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) jump(delta);
+            //if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) jump(delta);
+
+            if(!isGrounded) airMove(delta);
 
             xPos += speedX * delta;
             yPos += speedY * delta;
@@ -90,6 +93,18 @@ public class Player extends Entity {
 
     }
 
+    public void airMove(float delta) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
+        {
+            if (speedX < MAX_SPEED) speedX += AIR_ACCELERATION * delta;
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.A) || (Gdx.input.isKeyPressed(Input.Keys.LEFT))) // if moving left
+        {
+            if (speedX > -MAX_SPEED) speedX -= AIR_ACCELERATION * delta;
+        }
+        speedY += GRAVITY_FORCE;
+    }
+
     /**
      *Collides with the nearest floor within a certain limit by adjusting the player's yPos appropriately.
      *The positive limit is always 14, but the negative limit only becomes more lenient as the player's speed increases.
@@ -110,13 +125,16 @@ public class Player extends Entity {
             {
                 yPos += leftSensorTile.returnDistance;
                 groundAngle = leftSensorTile.returnTile.angle;
+                isGrounded = true;
             }
         }
         else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14)
         {
             yPos += rightSensorTile.returnDistance;
             groundAngle = rightSensorTile.returnTile.angle; //TODO possibly apply this to enemies?
+            isGrounded = true;
         }
+        else isGrounded = false;
     }
 
 }
