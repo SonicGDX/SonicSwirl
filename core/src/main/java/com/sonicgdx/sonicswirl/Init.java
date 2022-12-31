@@ -12,9 +12,9 @@ public class Init extends Game {
 	private MenuScreen menuScreen;
 
 	public void create() {
-		menuScreen = new MenuScreen(this);
-		batch = new SpriteBatch(); // sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-defInition-of-sprite-batching
+        batch = new SpriteBatch(); // sprite batch provides multiple sprites to draw to the GPU to improve openGl performance https://gamedev.stackexchange.com/questions/32910/what-is-the-technical-defInition-of-sprite-batching
         // Can be easily shared between screens
+		menuScreen = new MenuScreen(this);
 		font = new BitmapFont(); // Default font = Liberation Sans
 		this.setScreen(menuScreen);
 	}
