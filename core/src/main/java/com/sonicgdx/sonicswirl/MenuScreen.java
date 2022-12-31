@@ -1,6 +1,7 @@
 package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MenuScreen implements Screen {
 
+    Stage stage;
     final Init Init;
     final int SCREEN_WIDTH,SCREEN_HEIGHT;
     private final ScreenViewport menuViewport;
@@ -22,6 +24,8 @@ public class MenuScreen implements Screen {
         SCREEN_WIDTH = Gdx.graphics.getWidth(); SCREEN_HEIGHT = Gdx.graphics.getHeight();
 
         menuViewport = new ScreenViewport();
+
+        stage = new Stage(menuViewport,Init.batch);
 
         Init.gameScreen = new GameScreen(Init);
 
