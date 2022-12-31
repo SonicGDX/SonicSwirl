@@ -1,5 +1,9 @@
 package com.sonicgdx.sonicswirl;
 
+import com.badlogic.gdx.utils.GdxRuntimeException;
+
+import javax.naming.SizeLimitExceededException;
+
 public class Tile {
 
     boolean isFlipped, empty;
@@ -7,10 +11,14 @@ public class Tile {
     byte solidity;
     // 0 = solid from top, 1 = solid from bottom, 2 = solid from left, 3 = solid from right, 4 = solid from all sides
     float angle;
-    Tile(byte[] heightArray, byte[] widthArray, float angle, byte solid, boolean flipped){
+    Tile(byte[] heightArray, byte[] widthArray, float angle, byte solid, boolean flipped) {
         this.empty = false;
-        this.height = heightArray;
-        this.width = widthArray;
+        
+        if (heightArray.length == 16) this.height = heightArray;
+        else throw new RuntimeException("heightArray Length = " + String.valueOf(heightArray.length));
+        if (widthArray.length == 16) this.width = heightArray;
+        else throw new RuntimeException("widthArray Length = " + String.valueOf(widthArray.length));
+
         this.angle = angle;
         this.isFlipped = flipped;
         this.solidity = solid;
