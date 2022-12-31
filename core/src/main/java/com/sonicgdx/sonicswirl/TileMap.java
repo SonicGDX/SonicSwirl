@@ -119,12 +119,13 @@ public enum TileMap {
 
     public static Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
     {
-        if (chunkX >= map.length || chunkY >= map[chunkX].length || tileX >= map[chunkX][chunkY].length || tileY >= map[chunkX][chunkY][tileX].length)
-        {
+        if (chunkX < map.length && chunkY < map[chunkX].length && tileX < map[chunkX][chunkY].length && tileY < map[chunkX][chunkY][tileX].length) {
+            return map[chunkX][chunkY][tileX][tileY];
+        }
+        else {
             //Gdx.app.error("getTile() Error","ArrayIndexOutOfBounds");
             return TILE_MAP.EMPTY;
         }
-        else return map[chunkX][chunkY][tileX][tileY];
 
         //OLD try catch version
         /*try {
