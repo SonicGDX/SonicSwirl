@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 /**
  * The base class all objects extend from, including the Player.
  */
-public class Entity {
+public abstract class Entity {
     float xPos, yPos;
     float lSensorX, rSensorX, centreY, topY;
 
@@ -72,7 +72,7 @@ public class Entity {
         int tileY = Math.floorMod(MathUtils.round(yPosition), 128) / 16;
         int chunkY = (int) yPosition / 128;
 
-        int grid = Math.floorMod(MathUtils.round(xPosition),16); //Different behaviour for negative numbers compared to using %. For
+        int block = Math.floorMod(MathUtils.round(xPosition),16); //Different behaviour for negative numbers compared to using %. For
         // example, -129 % 16 would return -1 which would cause an ArrayIndexOutOfBoundsException. Math.floorMod() would return a positive index in these cases.
 
         float distance = 0;
@@ -80,7 +80,7 @@ public class Entity {
 
         int tempTileY, tempChunkY;
 
-        height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(grid);
+        height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(block);
 
         distance = ((chunkY * 128) + (tileY * 16) + height) - yPosition;
 
@@ -98,7 +98,7 @@ public class Entity {
                 tempTileY = 0;
             }
 
-            height = TileMap.getTile(chunkX,tempChunkY,tileX,tempTileY).getHeight(grid);
+            height = TileMap.getTile(chunkX,tempChunkY,tileX,tempTileY).getHeight(block);
             if (height > 0) //TODO outline conditions in comment
             {
                 chunkY = tempChunkY;
@@ -118,7 +118,7 @@ public class Entity {
             }
             else tileY--;
 
-            height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(grid);
+            height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(block);
 
             if (height == 0) distance -= 16;
             else distance -= (16-height);

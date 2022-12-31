@@ -1,22 +1,20 @@
 package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import org.w3c.dom.Text;
 
 public class MenuScreen implements Screen {
-    
+
+    Stage stage;
     final Init Init;
     final int SCREEN_WIDTH,SCREEN_HEIGHT;
     private final ScreenViewport menuViewport;
-    Skin buttonSkin; TextureAtlas atlas; //TextButton button;
+    Skin buttonSkin; TextButton button;
 
     public MenuScreen(final Init Init){
         Gdx.app.setLogLevel(3); //TODO reduce logging level for release builds
@@ -27,29 +25,30 @@ public class MenuScreen implements Screen {
 
         menuViewport = new ScreenViewport();
 
-        //TODO replace placeholder assets and finish UI, maybe with VisUI
-        atlas = new TextureAtlas(Gdx.files.internal("button/uiskin.atlas"));
-        buttonSkin = new Skin();
-        buttonSkin.addRegions(atlas);
+        stage = new Stage(menuViewport,Init.batch);
 
-        Init.gameScreen = new SonicGDX(Init);
+        Init.gameScreen = new GameScreen(Init);
 
-        //button = new TextButton("Begin", buttonSkin,buttonSkin);
+        buttonSkin = new Skin(Gdx.files.internal("ui/uiskin.json")); //Constructor automatically finds and disposes atlas file as required.
+
+        button = new TextButton("Begin", buttonSkin);
     }
-    
+
     @Override
     public void render(float delta)
     {
         ScreenUtils.clear(0.1f, 0, 0.2f, 1);
 
         menuViewport.apply();
+        //Init.batch.setProjectionMatrix(menuViewport.getCamera().combined);
 		Init.batch.begin();
-		Init.font.draw(Init.batch, "Menu PlaceHolder", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F);
+        button.draw(Init.batch,1); //TODO what is parent alpha?
+		Init.font.draw(Init.batch, "Sonic Swirl", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F);
 		Init.font.draw(Init.batch, "Press to begin", SCREEN_WIDTH / 2F - 65, SCREEN_HEIGHT / 2F - 100);
 		Init.batch.end();
 
 		if (Gdx.input.isTouched()) {
-            Init.batch.disableBlending();
+            Init.batch.disableBlending(); //Blending is responsible for translucency using the alpha value but decreases performance.
 			Init.setScreen(Init.gameScreen);
 			dispose();
 		}
@@ -65,7 +64,7 @@ public class MenuScreen implements Screen {
     @Override
     public void show() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -76,19 +75,19 @@ public class MenuScreen implements Screen {
     @Override
     public void resume() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void hide() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void dispose() {
         buttonSkin.dispose();
-        atlas.dispose();
+        stage.dispose();
     }
 
 

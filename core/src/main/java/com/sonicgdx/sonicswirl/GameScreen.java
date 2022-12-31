@@ -2,35 +2,27 @@ package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-//import com.badlogic.gdx.maps.tiled.TiledMap;
-//import java.util.Arrays;
-//import java.awt.*;
-//import com.badlogic.gdx.math.Rectangle;
-
-public class SonicGDX implements Screen {
+public class GameScreen implements Screen {
 
     final Init Init;
     ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
     final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
-    OrthographicCamera camera; Viewport viewport; Vector2 cameraOffset = Vector2.Zero;
+    OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero; ExtendViewport gameViewport;
     final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
-    int vpHeight, vpWidth;
+
 
     Player player;
 
-    public SonicGDX(final Init Init) {
+    public GameScreen(final Init Init) {
 
         //Have to declare it outside, so it is a global variable?
 
@@ -39,15 +31,12 @@ public class SonicGDX implements Screen {
         //TODO implement class with reference to https://gamedev.stackexchange.com/a/133593
 
         //Gdx.app.debug("debugMode",String.valueOf(tile[1][3][15]));
-
-        vpWidth = Gdx.app.getGraphics().getWidth(); vpHeight = Gdx.app.getGraphics().getHeight();
         //TODO possibly reduce viewport resolution to reduce pixels being missing at lower resolutions or change viewport type
 
         camera = new OrthographicCamera(); // 3D camera which projects into 2D.
-        viewport = new FitViewport(vpWidth,vpHeight,camera);
-
-        // stretch viewport //TODO Update comments
-        camera.setToOrtho(false); // Even if the device has a scaled resolution, the in game view will still be 1280x720
+        gameViewport = new ExtendViewport(1280,720,camera);
+        //TODO Update comments
+        camera.setToOrtho(false,1280,720); // Even if the device has a scaled resolution, the in game view will still be 1280x720
         // So for example, one screen won't be in the bottom left corner in 1080p
         // but would take up the entire view
 
@@ -84,9 +73,10 @@ public class SonicGDX implements Screen {
         dr.end();*/
 
         // tells the SpriteBatch to render in the coordinate system specified by the camera
+        //viewport.apply();
         Init.batch.setProjectionMatrix(camera.combined);
         Init.batch.begin();
-        //Blending has been disabled in Init constructor
+        //Blending has been disabled in MenuScreen
         //TODO render gradually as player progresses
         for (int chunkX = 0; chunkX<TileMap.map.length; chunkX++)
         {
@@ -107,8 +97,8 @@ public class SonicGDX implements Screen {
 
     /**
      * Draws each Tile using a gradient - for debugging purposes only
-     * @param chunkX - the chunk number on the x-axis - not the same as its co-ordinate
-     * @param chunkY - the chunk number on the y-axis - not the same as its co-ordinate
+     * @param chunkX the chunk number on the x-axis - not the same as its co-ordinate
+     * @param chunkY the chunk number on the y-axis - not the same as its co-ordinate
      */
     public void drawChunkBatch(int chunkX, int chunkY) {
 
@@ -124,8 +114,8 @@ public class SonicGDX implements Screen {
                     if (TileMap.map[chunkX][chunkY][tileX][tileY].empty){
                         break;
                     }
-                    if (block==0) Init.batch.setColor(new Color(0));
-                    else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,0));
+                    if (block==0) Init.batch.setColor(new Color(0,0,0,1));
+                    else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
                     Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
@@ -138,15 +128,15 @@ public class SonicGDX implements Screen {
                 }
             }
         }
-        Init.batch.setColor(new Color(1,1,1,1)); //Resets batch colour
+        Init.batch.setColor(Color.WHITE); //Resets batch colour
 
     }
 
     /**
      * Draws each Tile using a gradient - for debugging purposes only
-     * @param chunkX - the chunk number on the x-axis - not the same as its co-ordinate
-     * @param chunkY - the chunk number on the y-axis - not the same as its co-ordinate
-     * @deprecated superseded by drawChunkBatch as ShapeRenderer uses its own mesh compared to the SpriteBatch and therefore conflicts in the rendering method making it cumbersome to use.
+     * @param chunkX the chunk number on the x-axis - not the same as its co-ordinate
+     * @param chunkY the chunk number on the y-axis - not the same as its co-ordinate
+     * @deprecated Superseded by drawChunkBatch as ShapeRenderer uses its own mesh compared to the SpriteBatch and therefore conflicts in the rendering method making it cumbersome to use.
      */
     @Deprecated
     public void drawChunkDR(int chunkX, int chunkY) {
@@ -162,8 +152,8 @@ public class SonicGDX implements Screen {
                 for (int block = 0; block < TILE_SIZE; block++)
                 {
 
-                    if (block==0) dr.setColor(new Color(0));
-                    else dr.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,0));
+                    if (block==0) dr.setColor(new Color(0,0,0,1));
+                    else dr.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
                     dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
 
 					/*if ((int) x == (chunkX*128 + tileX*16+block))
@@ -186,7 +176,7 @@ public class SonicGDX implements Screen {
     }
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        gameViewport.update(width,height);
     }
 
     @Override

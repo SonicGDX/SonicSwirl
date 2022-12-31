@@ -19,7 +19,7 @@ public enum TileMap {
     private final byte[] zero = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private final byte[] slope = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
     private final byte[] full = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
-    private final byte[] halfh = {8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}; private final byte[] halfw = {16,16,16,16,16,16,16,16,0,0,0,0,0,0,0,0};
+    private final byte[] halfh = {8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}; private final byte[] halfw = {16,16,16,16,16,16,16,16,0,0,0,0,0,0,0,0};
     private final byte[] rvSlope = {16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
     private final byte[] tall1 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
@@ -119,13 +119,22 @@ public enum TileMap {
 
     public static Tile getTile(int chunkX, int chunkY, int tileX, int tileY)
     {
-        try {
+        if(chunkX >= 0 && chunkY >= 0 && tileX >= 0 && tileY >= 0) {
+            if (chunkX < map.length && chunkY < map[chunkX].length && tileX < map[chunkX][chunkY].length && tileY < map[chunkX][chunkY][tileX].length)
+                return map[chunkX][chunkY][tileX][tileY];
+            else return TILE_MAP.EMPTY;
+        }
+        else return TILE_MAP.EMPTY;
+        //OLD try catch version
+        /*try {
             return map[chunkX][chunkY][tileX][tileY];
         }
-        catch (Exception e){
+        catch (ArrayIndexOutOfBoundsException e){
             //Gdx.app.error("getTile() Error",String.valueOf(e));
+            //e.printStackTrace();
             return TILE_MAP.EMPTY;
-        }
+        }*/
+
 
     }
 
@@ -138,14 +147,14 @@ public enum TileMap {
     public byte getHeight(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
-        else return map[chunkX][chunkY][tileX][tileY].height[block];
+        else return map[chunkX][chunkY][tileX][tileY].heightArray[block];
     }
 
     @Deprecated
     public byte getWidth(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
-        else return map[chunkX][chunkY][tileX][tileY].width[block];
+        else return map[chunkX][chunkY][tileX][tileY].widthArray[block];
     }
 
     @Deprecated
@@ -156,10 +165,7 @@ public enum TileMap {
     @Deprecated
     public byte getHeightAbove(int chunkX, int chunkY, int tileX, int tileY, int block)
     {
-        if (tileY < 7)
-        {
-            tileY = tileY + 1;
-        }
+        if (tileY < 7) tileY = tileY + 1;
         else
         {
             chunkY +=1;
@@ -167,7 +173,7 @@ public enum TileMap {
         }
 
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
-        else return map[chunkX][chunkY][tileX][tileY].height[block];
+        else return map[chunkX][chunkY][tileX][tileY].heightArray[block];
     }
     @Deprecated
     public byte getHeightBelow(int chunkX, int chunkY, int tileX, int tileY, int block)
@@ -177,27 +183,24 @@ public enum TileMap {
             chunkY--;
             tileY = 7;
         }
-        else
-        {
-            tileY--;
-        }
+        else tileY--;
 
         if (map[chunkX][chunkY][tileX][tileY].empty) return 0;
-        else return map[chunkX][chunkY][tileX][tileY].height[block];
+        else return map[chunkX][chunkY][tileX][tileY].heightArray[block];
     }
 
     @Deprecated
     public byte[] getWidthArray(int chunkX, int chunkY, int tileX, int tileY)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return new byte[16];
-        else return map[chunkX][chunkY][tileX][tileY].width;
+        else return map[chunkX][chunkY][tileX][tileY].widthArray;
     }
 
     @Deprecated
     public byte[] getHeightArray(int chunkX, int chunkY, int tileX, int tileY)
     {
         if (map[chunkX][chunkY][tileX][tileY].empty) return new byte[16];
-        else return map[chunkX][chunkY][tileX][tileY].height;
+        else return map[chunkX][chunkY][tileX][tileY].heightArray;
     }
 
 
