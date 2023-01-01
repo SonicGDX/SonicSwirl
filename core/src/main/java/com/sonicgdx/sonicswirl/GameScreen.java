@@ -16,10 +16,8 @@ public class GameScreen implements Screen {
     private final Init Init;
     private final Texture img, playerImg;
     private final FPSLogger frameLog; private final ShapeRenderer dr;
-    private final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
-    private final OrthographicCamera camera; private Vector2 cameraOffset = Vector2.Zero; private final ExtendViewport gameViewport;
+    private final OrthographicCamera camera; private final Vector2 cameraOffset = Vector2.Zero; private final ExtendViewport gameViewport;
     private final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
-
 
     Player player;
 
@@ -43,7 +41,8 @@ public class GameScreen implements Screen {
 
         //TODO AssetManager
         img = new Texture(Gdx.files.internal("1x1-ffffffff.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
-        player = new Player(playerImg,PLAYER_WIDTH,PLAYER_HEIGHT);
+        final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
+        player = new Player(playerImg, PLAYER_WIDTH,PLAYER_HEIGHT);
 
         cameraOffset.x = camera.position.x - player.xPos;
         cameraOffset.y = camera.position.y - player.yPos;
