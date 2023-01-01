@@ -23,7 +23,7 @@ public abstract class Entity {
         //xPos = Math.min(xPos,1280);
         //yPos = Math.min(yPos,720);
         xPos = Math.max(xPos,0);
-        yPos = Math.max(yPos,0);
+        //yPos = Math.max(yPos,0);
     }
 
     public void calculateSensorPositions()
