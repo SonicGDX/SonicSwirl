@@ -126,9 +126,10 @@ https://junit.org/junit5/docs/current/user-guide \
 https://www.youtube.com/watch?v=vZm0lHciFsQ \
 https://www.petrikainulainen.net/programming/testing/junit-5-tutorial-running-unit-tests-with-gradle/
 
-## Physics
+## Sonic Physics
 https://info.sonicretro.org/SPG:Slope_Physics \
 https://info.sonicretro.org/SPG:Main_Game_Loop \
 https://info.sonicretro.org/SPG:Air_State \
 https://info.sonicretro.org/SPG:Slope_Collision \
 https://info.sonicretro.org/SPG:Solid_Tiles#Sensors \
+https://info.sonicretro.org/SPG:Jumping \

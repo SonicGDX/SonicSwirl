@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Player extends Entity {
-    private boolean debugMode = false, isGrounded;
+    private boolean debugMode = false, isGrounded, isJumping;
     private final float ACCELERATION = 168.75F, AIR_ACCELERATION = 337.5F, SLOPE_FACTOR = 7.5F, GRAVITY_FORCE = -787.5F;
     private final int DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 390;
     // An FPS of 60 was used to obtain the adjusted values
@@ -91,11 +91,11 @@ public class Player extends Entity {
     public void jump(float delta) {
         speedX -= JUMP_FORCE * MathUtils.sinDeg(groundAngle);
         speedY += JUMP_FORCE * MathUtils.cosDeg(groundAngle);
-        isGrounded = false;
+        isGrounded = false; isJumping = true;
     }
 
     public void airMove(float delta) {
-        if (!Gdx.input.isKeyPressed(Input.Keys.SPACE) && speedY > 4) speedY = 4;
+        if (!Gdx.input.isKeyPressed(Input.Keys.SPACE) && speedY > 4 && isJumping) speedY = 4;
 
         if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
         {
@@ -186,6 +186,7 @@ public class Player extends Entity {
             if (groundAngle >= 0 && groundAngle <= 23) groundSpeed = speedX;
             //TODO else... https://info.sonicretro.org/SPG:Slope_Physics#When_Falling_Downward
             isGrounded = true;
+            if (isJumping) isJumping = false;
         }
     }
 
