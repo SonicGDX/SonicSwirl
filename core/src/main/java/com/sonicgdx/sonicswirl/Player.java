@@ -17,7 +17,7 @@ public class Player extends Entity {
     private Texture img;
     Player(Texture image, int width, int height) {
         super(image, width, height);
-        xPos = 600; yPos = 200; // Player starts at (600,200);
+        xPos = 600; yPos = 400; // Player starts at (600,400);
     }
 
     //TODO Tommy Ettinger's digital extension could be used for faster operations on GWT
