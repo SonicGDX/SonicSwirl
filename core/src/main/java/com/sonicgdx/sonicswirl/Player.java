@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 public class Player extends Entity {
     private boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
     private boolean debugMode = false, isGrounded;
-    private final float ACCELERATION = 168.75F, AIR_ACCELERATION = 337.5F, SLOPE_FACTOR = 7.5F, GRAVITY_FORCE = -13.125F;
+    private final float ACCELERATION = 168.75F, AIR_ACCELERATION = 337.5F, SLOPE_FACTOR = 7.5F, GRAVITY_FORCE = -787.5F;
     private final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 390;
     // An FPS of 60 was used to obtain the adjusted values
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6, SLOPE_FACTOR = 0.125, AIR_ACCELERATION = 0.09375F, GRAVITY_FORCE = 0.21875F;
@@ -17,7 +17,7 @@ public class Player extends Entity {
     private Texture img;
     Player(Texture image, int width, int height) {
         super(image, width, height);
-        xPos = 600; yPos = 400; // Player starts at (600,400);
+        xPos = 600; yPos = 200; // Player starts at (600,200);
     }
 
     //TODO Tommy Ettinger's digital extension could be used for faster operations on GWT
