@@ -47,25 +47,7 @@ public class Player extends Entity {
 
             //TODO Right now, right movement is prioritised if both directions are pressed at the same time. Consider cancelling them out.
             else {
-                if (groundSpeed != 0) groundSpeed -= delta * SLOPE_FACTOR * MathUtils.sinDeg(groundAngle); //TODO this only happens when the player is not in ceiling mode.
-
-                if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
-                {
-                    if (groundSpeed < 0) groundSpeed += (DECELERATION * delta); // Deceleration acts in the opposite direction to the one in which the player is currently moving.
-                    else if (groundSpeed < MAX_SPEED) groundSpeed += (ACCELERATION * delta); //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
-                }
-                else if (Gdx.input.isKeyPressed(Input.Keys.A) || (Gdx.input.isKeyPressed(Input.Keys.LEFT))) // if moving left
-                {
-                    if (groundSpeed > 0) groundSpeed -= (DECELERATION * delta);
-                    else if (groundSpeed > -MAX_SPEED) groundSpeed -= ACCELERATION * delta;
-                }
-                else groundSpeed -= Math.min(Math.abs(groundSpeed), ACCELERATION * delta) * Math.signum(groundSpeed); // friction if not pressing any directions
-                // Decelerates until the absolute value of groundSpeed is lower than the ACCELERATION value (which doubles as the friction value) and then stops
-
-                speedX = groundSpeed * MathUtils.cosDeg(groundAngle);
-                speedY = groundSpeed * MathUtils.sinDeg(groundAngle);
-
-                //if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) jump(delta);
+                groundMove(delta);
 
             }
 
@@ -85,6 +67,28 @@ public class Player extends Entity {
         sprite.setPosition(xPos, yPos);
         sprite.setRotation(groundAngle);
 
+    }
+
+    private void groundMove(float delta) {
+        if (groundSpeed != 0) groundSpeed -= delta * SLOPE_FACTOR * MathUtils.sinDeg(groundAngle); //TODO this only happens when the player is not in ceiling mode.
+
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
+        {
+            if (groundSpeed < 0) groundSpeed += (DECELERATION * delta); // Deceleration acts in the opposite direction to the one in which the player is currently moving.
+            else if (groundSpeed < MAX_SPEED) groundSpeed += (ACCELERATION * delta); //Takes 128 frames to accelerate from 0 to 6 - exactly 2 seconds
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.A) || (Gdx.input.isKeyPressed(Input.Keys.LEFT))) // if moving left
+        {
+            if (groundSpeed > 0) groundSpeed -= (DECELERATION * delta);
+            else if (groundSpeed > -MAX_SPEED) groundSpeed -= ACCELERATION * delta;
+        }
+        else groundSpeed -= Math.min(Math.abs(groundSpeed), ACCELERATION * delta) * Math.signum(groundSpeed); // friction if not pressing any directions
+        // Decelerates until the absolute value of groundSpeed is lower than the ACCELERATION value (which doubles as the friction value) and then stops
+
+        speedX = groundSpeed * MathUtils.cosDeg(groundAngle);
+        speedY = groundSpeed * MathUtils.sinDeg(groundAngle);
+
+        //if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) jump(delta);
     }
 
     public void jump(float delta) {
