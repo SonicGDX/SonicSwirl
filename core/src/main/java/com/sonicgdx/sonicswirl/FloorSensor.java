@@ -4,8 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class FloorSensor extends Sensor{
     public FloorSensor(float xPos, float yPos) {
-        this.xPosition = xPos;
-        this.yPosition = yPos;
+        super(xPos,yPos);
     }
 
     /**Attempts to find the nearest top of the surface relative to the sensor's position.

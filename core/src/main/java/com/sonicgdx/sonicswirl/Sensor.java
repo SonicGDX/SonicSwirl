@@ -7,6 +7,11 @@ public abstract class Sensor {
     protected Tile tile;
     protected float distance;
 
+    public Sensor(float xPos, float yPos) {
+        this.xPosition = xPos;
+        this.yPosition = yPos;
+    }
+
     abstract void process();
 
     public void setPosition(float x, float y) {
