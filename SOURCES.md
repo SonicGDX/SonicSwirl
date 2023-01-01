@@ -26,7 +26,7 @@ https://medium.com/analytics-vidhya/basics-of-bounding-boxes-94e583b5e16c \
 https://jonathanwhiting.com/tutorial/collision \
 https://forums.sonicretro.org/index.php?threads/how-to-build-a-2d-sonic-engine.37317/page-2 \
 https://undisbeliever.net/blog/20200110-tile-collisions.html \
-https://stackoverflow.com/questions/41946007/efficient-and-well-explained-implementation-of-a-quadtree-for-2d-collision-det \
+Didn't end up using - https://stackoverflow.com/questions/41946007/efficient-and-well-explained-implementation-of-a-quadtree-for-2d-collision-det \
 
 
 ## Camera:
@@ -102,7 +102,10 @@ https://stackoverflow.com/a/32648520 \
 https://www.w3schools.com/java/java_try_catch.asp \
 https://stackoverflow.com/a/25830153 \
 https://stackoverflow.com/a/22013564 \
-https://stackoverflow.com/a/2869272/
+https://stackoverflow.com/a/2869272/ \
+https://en.wikipedia.org//wiki/Object_pool_pattern#Criticism \
+https://stackoverflow.com/a/7520464
+
 
 ## Graphics
 https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites \
