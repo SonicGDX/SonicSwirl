@@ -18,6 +18,8 @@ public class Player extends Entity {
     Player(Texture image, int width, int height) {
         super(image, width, height);
         xPos = 600; yPos = 200; // Player starts at (600,200);
+        sensorA = new FloorSensor(xPos,yPos);
+        sensorB = new FloorSensor(xPos + (sprite.getWidth() - 1),yPos);
     }
 
     //TODO Tommy Ettinger's digital extension could be used for faster operations on GWT
