@@ -30,14 +30,11 @@ public class FloorSensor extends Sensor{
         int block = Math.floorMod(MathUtils.round(xPosition),16); //Different behaviour for negative numbers compared to using %. For
         // example, -129 % 16 would return -1 which would cause an ArrayIndexOutOfBoundsException. Math.floorMod() would return a positive index in these cases.
 
-        float checkDistance = 0;
-        byte height;
-
         int tempTileY, tempChunkY;
 
-        height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(block);
+        byte height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(block);
 
-        checkDistance = ((chunkY * 128) + (tileY * 16) + height) - yPosition;
+        float checkDistance = ((chunkY * 128) + (tileY * 16) + height) - yPosition;
 
         if (height == 16)
         {
