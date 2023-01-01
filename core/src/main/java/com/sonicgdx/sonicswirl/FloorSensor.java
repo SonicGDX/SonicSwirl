@@ -15,6 +15,12 @@ public class FloorSensor implements Sensor{
         this.yPosition = yPos;
     }
 
+    /**Attempts to find the nearest top of the surface relative to the sensor's position.
+     * If no surface is found, the method will check one tile downwards for a non-empty height (and therefore a non-empty Tile).
+     * Conversely, if a tile that is full in that position (has a height of 16) is found, the method will check one tile upwards for a possible top of the surface.
+     * The tile attribute is set to the tile type of the nearest floor that has been located
+     * The distance attribute is set to the distance on the y-axis between the sensor and that Tile.
+     */
     @Override
     public void process() {
         if (xPosition < 0 || yPosition < 0) {

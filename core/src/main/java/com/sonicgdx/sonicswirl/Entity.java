@@ -60,6 +60,7 @@ public abstract class Entity {
      * @param yPosition the y-axis position of the sensor that is being checked - this will be the bottom of the Entity's sprite; however if the sprite is rotated 90, 180, or 270 degrees the sensor's position will be adjusted accordingly.
      * @return The Tile type of the nearest floor that has been located as well as the distance on the y-axis between the sensor and that Tile.
      * @see ReturnTile
+     * @deprecated moved to the FloorSensor class.
      */
     public ReturnTile downSensorCheck(float xPosition, float yPosition) //TODO improve naming and add comment explanation
     {
