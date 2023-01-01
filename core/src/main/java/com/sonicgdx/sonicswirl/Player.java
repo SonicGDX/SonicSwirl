@@ -172,7 +172,11 @@ public class Player extends Entity {
     public void groundCollision(FloorSensor sensor)
     {
         yPos += sensor.getDistance();
-        groundAngle = sensor.getTile().angle; //TODO possibly apply this to enemies?
+
+        if (groundAngle == 360) {
+            groundAngle = snapToNearest90(groundAngle);
+        }
+        else groundAngle = sensor.getTile().angle; //TODO possibly apply this to enemies?
         if (!isGrounded) {
             if (groundAngle >= 0 && groundAngle <= 23) groundSpeed = speedX;
             //TODO else... https://info.sonicretro.org/SPG:Slope_Physics#When_Falling_Downward

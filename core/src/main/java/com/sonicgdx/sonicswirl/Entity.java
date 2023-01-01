@@ -33,6 +33,10 @@ public abstract class Entity {
         centreY = yPos + ((sprite.getHeight() - 1) / 2);
         topY = yPos + (sprite.getHeight() - 1);
     }
+    public float snapToNearest90 (float angle) {
+        return (float) (MathUtils.round(angle/ 90) * 90);
+    }
+
 
     /*
     @Deprecated
