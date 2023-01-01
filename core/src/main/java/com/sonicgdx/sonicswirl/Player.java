@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 public class Player extends Entity {
     private boolean debugMode = false, isGrounded;
     private final float ACCELERATION = 168.75F, AIR_ACCELERATION = 337.5F, SLOPE_FACTOR = 7.5F, GRAVITY_FORCE = -787.5F;
-    private final int DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 390;
+    private final int DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 23400;
     // An FPS of 60 was used to obtain the adjusted values
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6, SLOPE_FACTOR = 0.125, AIR_ACCELERATION = 0.09375F, GRAVITY_FORCE = 0.21875F;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
@@ -83,13 +83,12 @@ public class Player extends Entity {
         speedX = groundSpeed * MathUtils.cosDeg(groundAngle);
         speedY = groundSpeed * MathUtils.sinDeg(groundAngle);
 
-        //if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) jump(delta);
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) jump(delta);
     }
 
     public void jump(float delta) {
         speedX -= delta * JUMP_FORCE * MathUtils.sinDeg(groundAngle);
-        speedY -= delta * JUMP_FORCE * MathUtils.cosDeg(groundAngle);
-
+        speedY += delta * JUMP_FORCE * MathUtils.cosDeg(groundAngle);
     }
 
     public void airMove(float delta) {
