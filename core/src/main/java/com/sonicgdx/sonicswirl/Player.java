@@ -5,6 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 
+/**
+ * This is the class that handles player movement, player collision with the ground as well as player collision
+ * with other objects.
+ */
 public class Player extends Entity {
     private boolean debugMode = false, isGrounded, isJumping;
     private final float ACCELERATION = 168.75F, AIR_ACCELERATION = 337.5F, SLOPE_FACTOR = 7.5F, GRAVITY_FORCE = -787.5F;
@@ -13,7 +17,6 @@ public class Player extends Entity {
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6, SLOPE_FACTOR = 0.125, AIR_ACCELERATION = 0.09375F, GRAVITY_FORCE = 0.21875F;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
-    private Texture img;
     private final FloorSensor sensorA, sensorB;
     Player(Texture image, int width, int height) {
         super(image, width, height);
@@ -28,7 +31,7 @@ public class Player extends Entity {
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
         {
-            setDebugMode();
+            toggleDebugMode();
         }
         if (debugMode) {
             debugMove(delta);
@@ -89,9 +92,11 @@ public class Player extends Entity {
     }
 
     public void jump(float delta) {
+        //TODO bug when jumping while moving downhill on a slope
         speedX -= JUMP_FORCE * MathUtils.sinDeg(groundAngle);
         speedY += JUMP_FORCE * MathUtils.cosDeg(groundAngle);
         isGrounded = false; isJumping = true;
+        //TODO if time is available, jump buffering and coyote time
     }
 
     public void airMove(float delta) {
@@ -211,7 +216,7 @@ public class Player extends Entity {
         sensorB.setPosition(rSensorX,yPos);
     }
 
-    private void setDebugMode() {
+    private void toggleDebugMode() {
         debugMode = !debugMode;
         groundSpeed = 0;
         speedX = 0;
