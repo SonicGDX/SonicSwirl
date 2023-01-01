@@ -68,7 +68,7 @@ public enum TileMap {
     private final Tile[][] testtileChunk = Collections.nCopies(8,Collections.nCopies(8,testtile).toArray(new Tile[0])).toArray(new Tile[0][0]);
 
     private final Tile[][] borderedChunk = {
-            {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
+            {ftile,ftile,ftile,ftile,ftile,testtile,testtile,testtile},
             {ftile,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,ftile},
             {ftile,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,ftile},
             {ftile,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,ftile},
@@ -96,7 +96,7 @@ public enum TileMap {
 
     private final Tile[][][][] sMap = Collections.nCopies(8,Collections.nCopies(8,sChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
     private final Tile[][][][] rvMap = Collections.nCopies(8,Collections.nCopies(8,rvChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
-    private final Tile[][][][] testtileMap = Collections.nCopies(8,Collections.nCopies(8,testtileChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
+    private final Tile[][][][] testtileMap = Collections.nCopies(8,Collections.nCopies(8,borderedChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
     private final Tile[][][][] testMap =
             {
                     {sChunk,eChunk,eChunk,eChunk},
