@@ -154,6 +154,7 @@ public class Player extends Entity {
 
                 if(sensorA.getDistance() > sensorB.getDistance() && sensorA.getActive()) groundCollision(sensorA);
                 else if(sensorB.getActive()) groundCollision(sensorB);
+                else isGrounded = false;
                 break;
             case(1):
                 sensorA.process();
