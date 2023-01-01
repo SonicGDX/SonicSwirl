@@ -174,7 +174,7 @@ public class Player extends Entity {
         yPos += sensor.getDistance();
 
         if (groundAngle == 360) {
-            groundAngle = snapToNearest90(groundAngle);
+            groundAngle = snapToNearest(groundAngle,90);
         }
         else groundAngle = sensor.getTile().angle; //TODO possibly apply this to enemies?
         if (!isGrounded) {
