@@ -130,13 +130,13 @@ public class Player extends Entity {
      * Limits of -16<=x<=16 are not used as those distances are likely too far away from the player to matter.
      * Uses angle for rotation and speed of the player and for player slope physics.
      * Applies unique calculation to find minimum value, from Sonic 2 depending on the player's speed.
-     * @param sensorsChecked used to determine which sensors to process - 0 = both, 1 = sensorA only & 2 = sensorB only
+     * @param sensors used to determine which sensors to process - 0 = both, 1 = sensorA only & 2 = sensorB only
      */
-    public void floorSensors(int sensorsChecked)
+    public void floorSensors(int sensors)
     {
         calculateSensorPositions();
 
-        switch (sensorsChecked) {
+        switch (sensors) {
             case(0):
                 sensorA.process();
                 sensorB.process();
@@ -145,7 +145,7 @@ public class Player extends Entity {
                 sensorB.setActive(Math.max(-Math.abs(speedX) - 4, -14) < sensorB.getDistance() && sensorB.getDistance() < 14);
 
                 if(sensorA.getDistance() > sensorB.getDistance() && sensorA.getActive()) groundCollision(sensorA);
-                else if(sensorB.getActive()) groundCollision(sensorB);
+                else if(sensorB.getActive() && sensorA.getDistance() <= sensorB.getDistance()) groundCollision(sensorB);
                 else isGrounded = false;
                 break;
             case(1):
