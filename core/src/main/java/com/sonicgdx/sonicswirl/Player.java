@@ -17,7 +17,7 @@ public class Player extends Entity {
     private final FloorSensor sensorA, sensorB;
     Player(Texture image, int width, int height) {
         super(image, width, height);
-        xPos = 600; yPos = 200; // Player starts at (600,200);
+        xPos = 200; yPos = 200; // Player starts at (600,200);
         sensorA = new FloorSensor(xPos,yPos);
         sensorB = new FloorSensor(xPos + (sprite.getWidth() - 1),yPos);
     }
@@ -65,7 +65,7 @@ public class Player extends Entity {
     }
 
     private void groundMove(float delta) {
-        if (groundSpeed != 0) groundSpeed -= delta * SLOPE_FACTOR * MathUtils.sinDeg(groundAngle); //TODO this only happens when the player is not in ceiling mode.
+        //if (groundSpeed != 0) groundSpeed -= delta * SLOPE_FACTOR * MathUtils.sinDeg(groundAngle); //TODO this only happens when the player is not in ceiling mode.
 
         if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
         {
