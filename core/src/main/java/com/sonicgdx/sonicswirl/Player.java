@@ -183,8 +183,22 @@ public class Player extends Entity {
         }
         else groundAngle = sensor.getTile().angle; //TODO possibly apply this to enemies?
         if (!isGrounded) {
-            if (groundAngle >= 0 && groundAngle <= 23) groundSpeed = speedX;
-            //TODO else... https://info.sonicretro.org/SPG:Slope_Physics#When_Falling_Downward
+            if (0 <= groundAngle && groundAngle <= 23) groundSpeed = speedX;
+            //TODO when mirrored... https://info.sonicretro.org/SPG:Slope_Physics#When_Falling_Downward
+            else if (24 <= groundAngle && groundAngle <= 45) {
+                if (Math.abs(speedX) >= Math.abs(speedY)) {
+                    groundSpeed = speedX;
+                } else {
+                    groundSpeed = speedY * 0.5F * -MathUtils.sinDeg(groundAngle);
+                }
+            }
+            else if (46 <= groundAngle && groundAngle <= 90) {
+                if (Math.abs(speedX) >= Math.abs(speedY)) {
+                    groundSpeed = speedX;
+                } else {
+                    groundSpeed = speedY * -MathUtils.sinDeg(groundAngle);
+                }
+            }
             isGrounded = true;
             if (isJumping) isJumping = false;
         }
