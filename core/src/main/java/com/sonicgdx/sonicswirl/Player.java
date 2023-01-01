@@ -117,8 +117,8 @@ public class Player extends Entity {
     {
         calculateSensorPositions();
 
-        SensorReturn leftSensorTile = downSensorCheck(lSensorX, yPos);
-        SensorReturn rightSensorTile = downSensorCheck(rSensorX, yPos);
+        ReturnTile leftSensorTile = downSensorCheck(lSensorX, yPos);
+        ReturnTile rightSensorTile = downSensorCheck(rSensorX, yPos);
 
         if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
             if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.returnDistance && leftSensorTile.returnDistance < 14)
@@ -133,7 +133,7 @@ public class Player extends Entity {
         else isGrounded = false;
     }
 
-    public void groundCollision(SensorReturn returnTile)
+    public void groundCollision(ReturnTile returnTile)
     {
         yPos += returnTile.returnDistance;
         groundAngle = returnTile.returnTile.angle; //TODO possibly apply this to enemies?

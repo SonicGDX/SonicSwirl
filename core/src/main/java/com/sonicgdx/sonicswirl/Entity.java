@@ -21,8 +21,8 @@ public abstract class Entity {
     {
         calculateSensorPositions();
 
-        SensorReturn leftSensorTile = downSensorCheck(xPos, yPos);
-        SensorReturn rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
+        ReturnTile leftSensorTile = downSensorCheck(xPos, yPos);
+        ReturnTile rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
         //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
 
         if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
@@ -59,11 +59,11 @@ public abstract class Entity {
      * @param xPosition the x-axis of the sensor that is being checked - this can be either the leftmost part of the object's sprite or the rightmost part; however if the sprite is rotated 90, 180, or 270 degrees the sensor's position will be adjusted accordingly.
      * @param yPosition the y-axis position of the sensor that is being checked - this will be the bottom of the Entity's sprite; however if the sprite is rotated 90, 180, or 270 degrees the sensor's position will be adjusted accordingly.
      * @return The Tile type of the nearest floor that has been located as well as the distance on the y-axis between the sensor and that Tile.
-     * @see SensorReturn
+     * @see ReturnTile
      */
-    public SensorReturn downSensorCheck(float xPosition, float yPosition) //TODO improve naming and add comment explanation
+    public ReturnTile downSensorCheck(float xPosition, float yPosition) //TODO improve naming and add comment explanation
     {
-        if (xPosition < 0 || yPosition < 0) return new SensorReturn(TileMap.getEmpty(),-16);
+        if (xPosition < 0 || yPosition < 0) return new ReturnTile(TileMap.getEmpty(),-16);
         //TODO prevent catch block in getTile() from being used.
 
         int tileX = Math.floorMod(MathUtils.round(xPosition), 128) / 16;
@@ -123,7 +123,7 @@ public abstract class Entity {
             if (height == 0) distance -= 16;
             else distance -= (16-height);
         }
-        return new SensorReturn(TileMap.getTile(chunkX,chunkY,tileX,tileY),distance);
+        return new ReturnTile(TileMap.getTile(chunkX,chunkY,tileX,tileY),distance);
     }
 
     /*
