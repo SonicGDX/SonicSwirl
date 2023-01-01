@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.MathUtils;
  * The base class all objects extend from, including the Player.
  */
 public abstract class Entity {
-    float xPos, yPos;
-    float lSensorX, rSensorX, centreY, topY;
+    protected float xPos, yPos;
+    protected float lSensorX, rSensorX, centreY, topY;
 
     //TODO reconsider usage of local variables as well as sprite.getx/y
     Sprite sprite;

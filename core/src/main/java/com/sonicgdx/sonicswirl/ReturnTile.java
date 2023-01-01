@@ -4,7 +4,7 @@ package com.sonicgdx.sonicswirl;
  * This class is instantiated by Entity sensor methods - e.g. downSensorCheck() - to return multiple values to the movement methods.
  */
 public class ReturnTile {
-    private final Tile tile; //TODO consider making public and using getters and setters
+    private final Tile tile;
     private final float distance;
 
     /**
