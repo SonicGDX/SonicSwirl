@@ -125,14 +125,22 @@ public class Player extends Entity {
             {
                 yPos += leftSensorTile.returnDistance;
                 groundAngle = leftSensorTile.returnTile.angle;
-                isGrounded = true;
+                if (!isGrounded) {
+                    groundSpeed = speedX;
+                    isGrounded = true;
+                }
+
             }
         }
         else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14)
         {
             yPos += rightSensorTile.returnDistance;
             groundAngle = rightSensorTile.returnTile.angle; //TODO possibly apply this to enemies?
-            isGrounded = true;
+            if (!isGrounded) {
+                if (groundAngle >= 0 && groundAngle <= 23) groundSpeed = speedX;
+                //TODO else... https://info.sonicretro.org/SPG:Slope_Physics#When_Falling_Downward
+                isGrounded = true;
+            }
         }
         else isGrounded = false;
     }
