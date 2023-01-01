@@ -2,14 +2,7 @@ package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.math.MathUtils;
 
-public class FloorSensor implements Sensor{
-
-    private boolean isActive;
-    private float xPosition, yPosition;
-
-    private Tile tile;
-    private float distance;
-
+public class FloorSensor extends Sensor{
     public FloorSensor(float xPos, float yPos) {
         this.xPosition = xPos;
         this.yPosition = yPos;
@@ -88,17 +81,6 @@ public class FloorSensor implements Sensor{
         tile = TileMap.getEmpty(); distance = -50;
     }
 
-    public void setPosition(float x, float y) {
-        xPosition = x; yPosition = y;
-    }
-    public float getDistance() {
-        return distance;
-    }
-    public Tile getTile() {
-        return tile;
-    }
-    public boolean getActive() {
-        return isActive;
-    }
+
 
 }
