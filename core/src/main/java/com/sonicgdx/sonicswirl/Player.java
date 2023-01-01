@@ -120,13 +120,13 @@ public class Player extends Entity {
         ReturnTile leftSensorTile = downSensorCheck(lSensorX, yPos);
         ReturnTile rightSensorTile = downSensorCheck(rSensorX, yPos);
 
-        if (leftSensorTile.returnDistance > rightSensorTile.returnDistance) {
-            if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.returnDistance && leftSensorTile.returnDistance < 14)
+        if (leftSensorTile.distance > rightSensorTile.distance) {
+            if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.distance && leftSensorTile.distance < 14)
             {
                 groundCollision(leftSensorTile);
             }
         }
-        else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.returnDistance && rightSensorTile.returnDistance < 14)
+        else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.distance && rightSensorTile.distance < 14)
         {
             groundCollision(rightSensorTile);
         }
@@ -135,8 +135,8 @@ public class Player extends Entity {
 
     public void groundCollision(ReturnTile returnTile)
     {
-        yPos += returnTile.returnDistance;
-        groundAngle = returnTile.returnTile.angle; //TODO possibly apply this to enemies?
+        yPos += returnTile.distance;
+        groundAngle = returnTile.tile.angle; //TODO possibly apply this to enemies?
         if (!isGrounded) {
             if (groundAngle >= 0 && groundAngle <= 23) groundSpeed = speedX;
             //TODO else... https://info.sonicretro.org/SPG:Slope_Physics#When_Falling_Downward
