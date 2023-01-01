@@ -17,6 +17,7 @@ public class FloorSensor extends Sensor{
     public void process() {
         if (xPosition < 0 || yPosition < 0) {
             tile = TileMap.getEmpty(); distance = -50;
+            return;
         }
         //TODO prevent catch block in getTile() from being used.
 
@@ -29,14 +30,14 @@ public class FloorSensor extends Sensor{
         int block = Math.floorMod(MathUtils.round(xPosition),16); //Different behaviour for negative numbers compared to using %. For
         // example, -129 % 16 would return -1 which would cause an ArrayIndexOutOfBoundsException. Math.floorMod() would return a positive index in these cases.
 
-        float distance = 0;
+        float checkDistance = 0;
         byte height;
 
         int tempTileY, tempChunkY;
 
         height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(block);
 
-        distance = ((chunkY * 128) + (tileY * 16) + height) - yPosition;
+        checkDistance = ((chunkY * 128) + (tileY * 16) + height) - yPosition;
 
         if (height == 16)
         {
@@ -58,7 +59,7 @@ public class FloorSensor extends Sensor{
                 chunkY = tempChunkY;
                 tileY = tempTileY;
 
-                distance += height;
+                checkDistance += height;
             }
         }
 
@@ -74,10 +75,11 @@ public class FloorSensor extends Sensor{
 
             height = TileMap.getTile(chunkX,chunkY,tileX,tileY).getHeight(block);
 
-            if (height == 0) distance -= 16;
-            else distance -= (16-height);
+            if (height == 0) checkDistance -= 16;
+            else checkDistance -= (16-height);
         }
-        tile = TileMap.getEmpty(); distance = -50;
+
+        tile = TileMap.getTile(chunkX,chunkY,tileX,tileY); distance = checkDistance;
     }
 
 
