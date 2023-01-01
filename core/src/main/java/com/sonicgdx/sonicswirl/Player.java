@@ -8,13 +8,13 @@ import com.badlogic.gdx.math.MathUtils;
 public class Player extends Entity {
     private boolean debugMode = false, isGrounded;
     private final float ACCELERATION = 168.75F, AIR_ACCELERATION = 337.5F, SLOPE_FACTOR = 7.5F, GRAVITY_FORCE = -787.5F;
-    private final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 390;
+    private final int DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 390;
     // An FPS of 60 was used to obtain the adjusted values
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6, SLOPE_FACTOR = 0.125, AIR_ACCELERATION = 0.09375F, GRAVITY_FORCE = 0.21875F;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
     private Texture img;
-    private FloorSensor sensorA, sensorB;
+    private final FloorSensor sensorA, sensorB;
     Player(Texture image, int width, int height) {
         super(image, width, height);
         xPos = 600; yPos = 200; // Player starts at (600,200);
@@ -28,18 +28,10 @@ public class Player extends Entity {
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
         {
-            debugMode = !debugMode;
-            groundSpeed = 0; speedX = 0; speedY = 0;
-            groundAngle = 0;
-            //Gdx.app.debug("debugMode",String.valueOf(debugMode));
-            //TODO acceleration in debug mode
+            setDebugMode();
         }
         if (debugMode) {
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) xPos += (DEBUG_SPEED * delta);
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) xPos -= (DEBUG_SPEED * delta);
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) yPos += (DEBUG_SPEED * delta);
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) yPos -= (DEBUG_SPEED * delta);
-            //Gdx.app.debug("deltaTime",String.valueOf(delta));
+            debugMove(delta);
         }
         else {
             //TODO Right now, right movement is prioritised if both directions are pressed at the same time. Consider cancelling them out.
@@ -193,5 +185,24 @@ public class Player extends Entity {
         super.calculateSensorPositions();
         sensorA.setPosition(lSensorX,yPos); //TODO possibly remove these variables
         sensorB.setPosition(rSensorX,yPos);
+    }
+
+    private void setDebugMode() {
+        debugMode = !debugMode;
+        groundSpeed = 0;
+        speedX = 0;
+        speedY = 0;
+        groundAngle = 0;
+        //Gdx.app.debug("debugMode",String.valueOf(debugMode));
+        //TODO acceleration in debug mode
+    }
+
+    private void debugMove(float delta) {
+        final int DEBUG_SPEED = 90;
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) xPos += (DEBUG_SPEED * delta);
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) xPos -= (DEBUG_SPEED * delta);
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) yPos += (DEBUG_SPEED * delta);
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) yPos -= (DEBUG_SPEED * delta);
+        //Gdx.app.debug("deltaTime",String.valueOf(delta));
     }
 }
