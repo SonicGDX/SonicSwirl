@@ -65,6 +65,7 @@ public enum TileMap {
 
 
     private final Tile[][] eChunk = Collections.nCopies(8,Collections.nCopies(8,EMPTY).toArray(new Tile[0])).toArray(new Tile[0][0]);
+    private final Tile[][] testtileChunk = Collections.nCopies(8,Collections.nCopies(8,testtile).toArray(new Tile[0])).toArray(new Tile[0][0]);
 
     private final Tile[][] borderedChunk = {
             {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
@@ -78,12 +79,9 @@ public enum TileMap {
 
     };
 
-    private final Tile[][][][] fMap =
-            Collections.nCopies(8,Collections.nCopies(8,fChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
+    private final Tile[][][][] fMap = Collections.nCopies(8,Collections.nCopies(8,fChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
 
-    private final Tile[][][][] eMap =
-
-            Collections.nCopies(8,Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
+    private final Tile[][][][] eMap = Collections.nCopies(8,Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
             /*{ OLD
                     Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0]),
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
@@ -98,7 +96,7 @@ public enum TileMap {
 
     private final Tile[][][][] sMap = Collections.nCopies(8,Collections.nCopies(8,sChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
     private final Tile[][][][] rvMap = Collections.nCopies(8,Collections.nCopies(8,rvChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
-    private final Tile[][][][] testtileMap = Collections.nCopies(8,Collections.nCopies(8,testtile).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
+    private final Tile[][][][] testtileMap = Collections.nCopies(8,Collections.nCopies(8,testtileChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
     private final Tile[][][][] testMap =
             {
                     {sChunk,eChunk,eChunk,eChunk},
