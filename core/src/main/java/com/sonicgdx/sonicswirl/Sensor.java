@@ -26,5 +26,8 @@ public abstract class Sensor {
     public boolean getActive() {
         return isActive;
     }
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
 }

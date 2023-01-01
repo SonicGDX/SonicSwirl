@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Player extends Entity {
-    private boolean sensorA,sensorB,sensorC,sensorD,sensorE,sensorF; //when grounded, sensor A and B are active. TODO
     private boolean debugMode = false, isGrounded;
     private final float ACCELERATION = 168.75F, AIR_ACCELERATION = 337.5F, SLOPE_FACTOR = 7.5F, GRAVITY_FORCE = -787.5F;
     private final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 390;
@@ -15,6 +14,7 @@ public class Player extends Entity {
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
     private Texture img;
+    private FloorSensor sensorA, sensorB;
     Player(Texture image, int width, int height) {
         super(image, width, height);
         xPos = 600; yPos = 200; // Player starts at (600,200);
@@ -114,12 +114,10 @@ public class Player extends Entity {
     public void airSensors(){
         if (Math.abs(speedX) >= Math.abs(speedY)) {
             if (speedX > 0) {
-                sensorA = true; sensorB = true;
-                floorSensors(); //going mostly right
+                floorSensors(0); //going mostly right
             }
             else {
-                sensorA = true; sensorB = true;
-                floorSensors(); //going mostly left
+                floorSensors(0); //going mostly left
             }
         }
         else {
@@ -127,7 +125,7 @@ public class Player extends Entity {
                 //going mostly up
             }
             else {
-                floorSensors(); //going mostly down
+                floorSensors(0); //going mostly down
             }
         }
     }
@@ -150,46 +148,53 @@ public class Player extends Entity {
 
         switch (sensors) {
             case(0):
-                leftSensorTile = downSensorCheck(lSensorX, yPos);
-                rightSensorTile = downSensorCheck(rSensorX, yPos);
+                sensorA.process();
+                sensorB.process();
 
-                if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.getDistance() && leftSensorTile.getDistance() < 14) sensorA = true;
-                else sensorA = false;
-                if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.getDistance() && rightSensorTile.getDistance() < 14) sensorB = true;
-                else sensorB = false;
+                if (Math.max(-Math.abs(speedX) - 4,-14) < sensorA.getDistance() && sensorA.getDistance() < 14) sensorA.setActive(true);
+                else sensorA.setActive(false);
+                if (Math.max(-Math.abs(speedX) - 4, -14) < sensorB.getDistance() && sensorB.getDistance() < 14) sensorB.setActive(true);
+                else sensorB.setActive(false);
 
-                if(leftSensorTile.getDistance() < rightSensorTile.getDistance() && sensorA) groundCollision(leftSensorTile);
-                else if(sensorB) groundCollision(rightSensorTile);
+                if(sensorA.getDistance() < sensorB.getDistance() && sensorA.getActive()) groundCollision(sensorA);
+                else if(sensorB.getActive()) groundCollision(sensorA);
                 break;
             case(1):
-                leftSensorTile = downSensorCheck(lSensorX, yPos);
-                if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.getDistance() && leftSensorTile.getDistance() < 14)
+                sensorA.process();
+                if (Math.max(-Math.abs(speedX) - 4,-14) < sensorA.getDistance() && sensorA.getDistance() < 14)
                 {
-                    groundCollision(leftSensorTile);
-                    sensorA = true;
+                    groundCollision(sensorA);
+                    sensorA.setActive(false);
                 }
-                else sensorA = false;
+                else sensorA.setActive(false);
                 break;
             case(2):
-                rightSensorTile = downSensorCheck(rSensorX, yPos);
-                if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.getDistance() && rightSensorTile.getDistance() < 14)
+                sensorB.process();
+                if (Math.max(-Math.abs(speedX) - 4, -14) < sensorB.getDistance() && sensorB.getDistance() < 14)
                 {
-                    groundCollision(rightSensorTile);
-                    sensorB = true;
+                    groundCollision(sensorB);
+                    sensorB.setActive(true);
                 }
-                else sensorB = false;
+                else sensorB.setActive(false);
                 break;
         }
     }
 
-    public void groundCollision(ReturnTile returnTile)
+    public void groundCollision(FloorSensor sensor)
     {
-        yPos += returnTile.getDistance();
-        groundAngle = returnTile.getTile().angle; //TODO possibly apply this to enemies?
+        yPos += sensor.getDistance();
+        groundAngle = sensor.getTile().angle; //TODO possibly apply this to enemies?
         if (!isGrounded) {
             if (groundAngle >= 0 && groundAngle <= 23) groundSpeed = speedX;
             //TODO else... https://info.sonicretro.org/SPG:Slope_Physics#When_Falling_Downward
             isGrounded = true;
         }
+    }
+
+    @Override
+    public void calculateSensorPositions() {
+        super.calculateSensorPositions();
+        sensorA.setPosition(lSensorX,yPos);
+        sensorB.setPosition(rSensorX,yPos);
     }
 }
