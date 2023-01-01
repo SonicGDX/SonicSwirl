@@ -40,22 +40,24 @@ public class Player extends Entity {
             //Gdx.app.debug("deltaTime",String.valueOf(delta));
         }
         else {
-
-            if(!isGrounded) airMove(delta);
-
-            //TODO possibly extract more parts into methods
-
             //TODO Right now, right movement is prioritised if both directions are pressed at the same time. Consider cancelling them out.
+
+            if (!isGrounded) {
+                airMove(delta);
+                airSensors();
+            }
+
+
             else {
                 groundMove(delta);
-
+                floorSensors();
             }
 
             xPos += speedX * delta;
             yPos += speedY * delta;
 
             //TODO perhaps add a check if the player is stationary before calculating collision
-            floorSensors();
+
 
 
         }
@@ -108,6 +110,26 @@ public class Player extends Entity {
         }
         speedY += GRAVITY_FORCE * delta;
     }
+
+    public void airSensors(){
+        if (Math.abs(speedX) >= Math.abs(speedY)) {
+            if (speedX > 0) {
+                floorSensors(); //going mostly right
+            }
+            else {
+                floorSensors(); //going mostly left
+            }
+        }
+        else {
+            if (speedY > 0) {
+                //going mostly up
+            }
+            else {
+                floorSensors(); //going mostly down
+            }
+        }
+    }
+
 
     /**
      *Collides with the nearest floor within a certain limit by adjusting the player's yPos appropriately.
