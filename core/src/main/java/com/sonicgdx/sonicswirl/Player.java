@@ -141,38 +141,39 @@ public class Player extends Entity {
      *Applies unique calculation to find minimum value, from Sonic 2 depending on player's speed
      */
     @Override
-    public void floorSensors()
+    public void floorSensors(int sensors)
     {
         calculateSensorPositions();
-        if (sensorA && sensorB) {
-            ReturnTile leftSensorTile = downSensorCheck(lSensorX, yPos);
-            ReturnTile rightSensorTile = downSensorCheck(rSensorX, yPos);
 
-            if (leftSensorTile.getDistance() > rightSensorTile.getDistance()) {
+        switch (sensors) {
+            case(0):
+                ReturnTile leftSensorTile = downSensorCheck(lSensorX, yPos);
+                ReturnTile rightSensorTile = downSensorCheck(rSensorX, yPos);
+
+                if (leftSensorTile.getDistance() > rightSensorTile.getDistance()) {
+                    if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.getDistance() && leftSensorTile.getDistance() < 14)
+                    {
+                        groundCollision(leftSensorTile);
+                    }
+                }
+                else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.getDistance() && rightSensorTile.getDistance() < 14)
+                {
+                    groundCollision(rightSensorTile);
+                }
+                else isGrounded = false;
+            case(1):
+                ReturnTile leftSensorTile = downSensorCheck(lSensorX, yPos);
                 if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.getDistance() && leftSensorTile.getDistance() < 14)
                 {
                     groundCollision(leftSensorTile);
                 }
-            }
-            else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.getDistance() && rightSensorTile.getDistance() < 14)
-            {
-                groundCollision(rightSensorTile);
-            }
-            else isGrounded = false;
-        } else if (sensorA) {
-            ReturnTile leftSensorTile = downSensorCheck(lSensorX, yPos);
-            if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.getDistance() && leftSensorTile.getDistance() < 14)
-            {
-                groundCollision(leftSensorTile);
-            }
-        } else if (sensorB) {
-            ReturnTile rightSensorTile = downSensorCheck(rSensorX, yPos);
-            if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.getDistance() && rightSensorTile.getDistance() < 14)
-            {
-                groundCollision(rightSensorTile);
-            }
+            case(2):
+                ReturnTile rightSensorTile = downSensorCheck(rSensorX, yPos);
+                if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.getDistance() && rightSensorTile.getDistance() < 14)
+                {
+                    groundCollision(rightSensorTile);
+                }
         }
-
     }
 
     public void groundCollision(ReturnTile returnTile)
