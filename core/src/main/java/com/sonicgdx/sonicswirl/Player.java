@@ -95,6 +95,8 @@ public class Player extends Entity {
     }
 
     public void airMove(float delta) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.SPACE) && speedY > 4) speedY = 4;
+
         if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
         {
             if (speedX < MAX_SPEED) speedX += AIR_ACCELERATION * delta;
