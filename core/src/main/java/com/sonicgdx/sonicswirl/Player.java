@@ -133,17 +133,18 @@ public class Player extends Entity {
 
 
     /**
-     *Collides with the nearest floor within a certain limit by adjusting the player's yPos appropriately.
-     *The positive limit is always 14, but the negative limit only becomes more lenient as the player's speed increases.
-     *Limits of -16<=x<=16 are not used as those distances are likely too far away from the player to matter.
-     *Uses angle for rotation and speed of player only and for player slope physics.
-     *Applies unique calculation to find minimum value, from Sonic 2 depending on player's speed
+     * Collides with the nearest floor within a certain limit by adjusting the player's yPos appropriately.
+     * The positive limit is always 14, but the negative limit only becomes more lenient as the player's speed increases.
+     * Limits of -16<=x<=16 are not used as those distances are likely too far away from the player to matter.
+     * Uses angle for rotation and speed of the player and for player slope physics.
+     * Applies unique calculation to find minimum value, from Sonic 2 depending on the player's speed.
+     * @param sensorsChecked used to determine which sensors to process - 0 = both, 1 = sensorA only & 2 = sensorB only
      */
-    public void floorSensors(int sensors)
+    public void floorSensors(int sensorsChecked)
     {
         calculateSensorPositions();
 
-        switch (sensors) {
+        switch (sensorsChecked) {
             case(0):
                 sensorA.process();
                 sensorB.process();
@@ -189,7 +190,7 @@ public class Player extends Entity {
     @Override
     public void calculateSensorPositions() {
         super.calculateSensorPositions();
-        sensorA.setPosition(lSensorX,yPos);
+        sensorA.setPosition(lSensorX,yPos); //TODO possibly remove these variables
         sensorB.setPosition(rSensorX,yPos);
     }
 }
