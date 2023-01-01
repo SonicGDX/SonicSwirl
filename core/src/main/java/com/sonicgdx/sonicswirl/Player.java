@@ -145,7 +145,8 @@ public class Player extends Entity {
                 sensorB.setActive(Math.max(-Math.abs(speedX) - 4, -14) < sensorB.getDistance() && sensorB.getDistance() < 14);
 
                 if(sensorA.getDistance() > sensorB.getDistance() && sensorA.getActive()) groundCollision(sensorA);
-                else if(sensorB.getActive() && sensorA.getDistance() <= sensorB.getDistance()) groundCollision(sensorB);
+                else if(sensorB.getActive() && sensorA.getDistance() < sensorB.getDistance()) groundCollision(sensorB);
+                else if(sensorA.getActive() && sensorB.getActive() && sensorA.getDistance() == sensorB.getDistance() && sensorA.getTile().equals(sensorB.getTile())) groundCollision(sensorA); //TODO comment out this line first if there are physics bugs.
                 else isGrounded = false;
                 break;
             case(1):
