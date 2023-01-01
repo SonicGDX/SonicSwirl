@@ -25,14 +25,14 @@ public abstract class Entity {
         ReturnTile rightSensorTile = downSensorCheck(xPos + sprite.getWidth(), yPos);
         //Gdx.app.debug("Right Ground Sensor distance", String.valueOf(rightSensorTile.returnDistance));
 
-        if (leftSensorTile.distance > rightSensorTile.distance) {
-            if (-14 < leftSensorTile.distance && leftSensorTile.distance < 14)
+        if (leftSensorTile.getDistance() > rightSensorTile.getDistance()) {
+            if (-14 < leftSensorTile.getDistance() && leftSensorTile.getDistance() < 14)
             {
-                yPos += leftSensorTile.distance;
+                yPos += leftSensorTile.getDistance();
             }
         }
-        else if (-14 < rightSensorTile.distance && rightSensorTile.distance < 14) {
-            yPos += rightSensorTile.distance;
+        else if (-14 < rightSensorTile.getDistance() && rightSensorTile.getDistance() < 14) {
+            yPos += rightSensorTile.getDistance();
         }
     }
 
