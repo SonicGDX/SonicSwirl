@@ -52,7 +52,7 @@ public class Player extends Entity {
 
             else {
                 groundMove(delta);
-                floorSensors();
+                floorSensors(0);
             }
 
             xPos += speedX * delta;
@@ -140,13 +140,9 @@ public class Player extends Entity {
      *Uses angle for rotation and speed of player only and for player slope physics.
      *Applies unique calculation to find minimum value, from Sonic 2 depending on player's speed
      */
-    //@Override
     public void floorSensors(int sensors)
     {
         calculateSensorPositions();
-
-        ReturnTile leftSensorTile; //TODO make sensor class and put returntile attributes in it.
-        ReturnTile rightSensorTile;
 
         switch (sensors) {
             case(0):
