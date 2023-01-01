@@ -99,21 +99,20 @@ public enum TileMap {
     private final Tile[][][][] testtileMap = Collections.nCopies(8,Collections.nCopies(8,testtileChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
     private final Tile[][][][] testMap =
             {
-                    {fChunk,sChunk,eChunk,eChunk,eChunk},
-                    {fChunk,fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,hChunk,eChunk,eChunk,eChunk},
-                    {fChunk,hChunk,eChunk,eChunk,eChunk},
-                    {fChunk,hChunk,eChunk,eChunk,eChunk},
-                    {fChunk,fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,fChunk,eChunk,eChunk,eChunk},
-                    {fChunk,rvChunk,eChunk,eChunk,eChunk},
-                    {fChunk,eChunk,eChunk,eChunk,eChunk}
+                    {sChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {hChunk,eChunk,eChunk,eChunk},
+                    {hChunk,eChunk,eChunk,eChunk},
+                    {hChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {rvChunk,eChunk,eChunk,eChunk}
 
             };
 
