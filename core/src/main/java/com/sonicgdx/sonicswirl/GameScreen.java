@@ -13,11 +13,12 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class GameScreen implements Screen {
 
-    final Init Init;
-    ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
-    final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
-    OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero; ExtendViewport gameViewport;
-    final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
+    private final Init Init;
+    private final Texture img, playerImg;
+    private final FPSLogger frameLog; private final ShapeRenderer dr;
+    private final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
+    private final OrthographicCamera camera; private Vector2 cameraOffset = Vector2.Zero; private final ExtendViewport gameViewport;
+    private final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
 
 
     Player player;
@@ -40,8 +41,6 @@ public class GameScreen implements Screen {
         // So for example, one screen won't be in the bottom left corner in 1080p
         // but would take up the entire view
 
-        dr = new ShapeRenderer();
-
         //TODO AssetManager
         img = new Texture(Gdx.files.internal("1x1-ffffffff.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
         player = new Player(playerImg,PLAYER_WIDTH,PLAYER_HEIGHT);
@@ -49,6 +48,7 @@ public class GameScreen implements Screen {
         cameraOffset.x = camera.position.x - player.xPos;
         cameraOffset.y = camera.position.y - player.yPos;
 
+        dr = new ShapeRenderer();
         frameLog = new FPSLogger();
 
     }
@@ -118,11 +118,6 @@ public class GameScreen implements Screen {
                     else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
                     Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
 
-					/*if ((int) x == (chunkX*128 + tileX*16+block))
-					{
-						if (TileMap.map[chunkX][chunkY][tileX][tileY].solidity == 0);
-					}*/
-
                     //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
 
                 }
@@ -155,11 +150,6 @@ public class GameScreen implements Screen {
                     if (block==0) dr.setColor(new Color(0,0,0,1));
                     else dr.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
                     dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
-
-					/*if ((int) x == (chunkX*128 + tileX*16+block))
-					{
-						if (TileMap.map[chunkX][chunkY][tileX][tileY].solidity == 0);
-					}*/
 
                     //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
 
