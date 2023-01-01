@@ -49,7 +49,6 @@ public class Player extends Entity {
                 airSensors();
             }
 
-
             else {
                 groundMove(delta);
                 floorSensors(0);
@@ -149,13 +148,11 @@ public class Player extends Entity {
                 sensorA.process();
                 sensorB.process();
 
-                if (Math.max(-Math.abs(speedX) - 4,-14) < sensorA.getDistance() && sensorA.getDistance() < 14) sensorA.setActive(true);
-                else sensorA.setActive(false);
-                if (Math.max(-Math.abs(speedX) - 4, -14) < sensorB.getDistance() && sensorB.getDistance() < 14) sensorB.setActive(true);
-                else sensorB.setActive(false);
+                sensorA.setActive(Math.max(-Math.abs(speedX) - 4, -14) < sensorA.getDistance() && sensorA.getDistance() < 14);
+                sensorB.setActive(Math.max(-Math.abs(speedX) - 4, -14) < sensorB.getDistance() && sensorB.getDistance() < 14);
 
-                if(sensorA.getDistance() < sensorB.getDistance() && sensorA.getActive()) groundCollision(sensorA);
-                else if(sensorB.getActive()) groundCollision(sensorA);
+                if(sensorA.getDistance() > sensorB.getDistance() && sensorA.getActive()) groundCollision(sensorA);
+                else if(sensorB.getActive()) groundCollision(sensorB);
                 break;
             case(1):
                 sensorA.process();
