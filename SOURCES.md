@@ -125,3 +125,5 @@ https://www.petrikainulainen.net/programming/testing/junit-5-tutorial-running-un
 https://info.sonicretro.org/SPG:Slope_Physics \
 https://info.sonicretro.org/SPG:Main_Game_Loop \
 https://info.sonicretro.org/SPG:Air_State \
+https://info.sonicretro.org/SPG:Slope_Collision \
+https://info.sonicretro.org/SPG:Solid_Tiles#Sensors \

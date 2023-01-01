@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Player extends Entity {
-    private boolean fSensors,cSensors,wSensors; //when grounded, fsensors are active. TODO
+    private boolean sensorA,sensorB,sensorC,sensorD,sensorE,sensorF; //when grounded, sensor A and B are active. TODO
     private boolean debugMode = false, isGrounded;
     private final float ACCELERATION = 168.75F, AIR_ACCELERATION = 337.5F, SLOPE_FACTOR = 7.5F, GRAVITY_FORCE = -787.5F;
     private final int DEBUG_SPEED = 90, DECELERATION = 1800, MAX_SPEED = 360, JUMP_FORCE = 390;
@@ -114,9 +114,11 @@ public class Player extends Entity {
     public void airSensors(){
         if (Math.abs(speedX) >= Math.abs(speedY)) {
             if (speedX > 0) {
+                sensorA = true; sensorB = true;
                 floorSensors(); //going mostly right
             }
             else {
+                sensorA = true; sensorB = true;
                 floorSensors(); //going mostly left
             }
         }
@@ -142,21 +144,35 @@ public class Player extends Entity {
     public void floorSensors()
     {
         calculateSensorPositions();
+        if (sensorA && sensorB) {
+            ReturnTile leftSensorTile = downSensorCheck(lSensorX, yPos);
+            ReturnTile rightSensorTile = downSensorCheck(rSensorX, yPos);
 
-        ReturnTile leftSensorTile = downSensorCheck(lSensorX, yPos);
-        ReturnTile rightSensorTile = downSensorCheck(rSensorX, yPos);
-
-        if (leftSensorTile.getDistance() > rightSensorTile.getDistance()) {
+            if (leftSensorTile.getDistance() > rightSensorTile.getDistance()) {
+                if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.getDistance() && leftSensorTile.getDistance() < 14)
+                {
+                    groundCollision(leftSensorTile);
+                }
+            }
+            else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.getDistance() && rightSensorTile.getDistance() < 14)
+            {
+                groundCollision(rightSensorTile);
+            }
+            else isGrounded = false;
+        } else if (sensorA) {
+            ReturnTile leftSensorTile = downSensorCheck(lSensorX, yPos);
             if (Math.max(-Math.abs(speedX) - 4,-14) < leftSensorTile.getDistance() && leftSensorTile.getDistance() < 14)
             {
                 groundCollision(leftSensorTile);
             }
+        } else if (sensorB) {
+            ReturnTile rightSensorTile = downSensorCheck(rSensorX, yPos);
+            if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.getDistance() && rightSensorTile.getDistance() < 14)
+            {
+                groundCollision(rightSensorTile);
+            }
         }
-        else if (Math.max(-Math.abs(speedX) - 4, -14) < rightSensorTile.getDistance() && rightSensorTile.getDistance() < 14)
-        {
-            groundCollision(rightSensorTile);
-        }
-        else isGrounded = false;
+
     }
 
     public void groundCollision(ReturnTile returnTile)
