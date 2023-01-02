@@ -131,11 +131,11 @@ public class Player extends Entity {
         if (Math.abs(speedX) >= Math.abs(speedY)) {
             if (speedX > 0) { //going mostly right
                 FloorSensor winningSensor = floorSensors();
-                if (winningSensor != null) if (winningSensor.getDistance() <= 0 && speedY <= 0) groundCollision(winningSensor);
+                if (winningSensor != null) if (winningSensor.getDistance() >= 0 && speedY <= 0) groundCollision(winningSensor);
             }
             else { //going mostly left
                 FloorSensor winningSensor = floorSensors();
-                if (winningSensor != null) if (winningSensor.getDistance() <= 0 && speedY <= 0) groundCollision(winningSensor);
+                if (winningSensor != null) if (winningSensor.getDistance() >= 0 && speedY <= 0) groundCollision(winningSensor);
             }
         }
         else {
@@ -144,7 +144,7 @@ public class Player extends Entity {
             }
             else { //going mostly down
                 FloorSensor winningSensor = floorSensors();
-                if (winningSensor != null) if (winningSensor.getDistance() >= 0 && (sensorA.getDistance() >= speedY + 8 || sensorB.getDistance() >= speedY + 8)) groundCollision(winningSensor);
+                if (winningSensor != null) if (winningSensor.getDistance() >= 0 && (sensorA.getDistance() <= -(speedY + 8) || sensorB.getDistance() >= -(speedY + 8))) groundCollision(winningSensor);
             }
         }
     }
