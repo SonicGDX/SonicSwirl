@@ -144,7 +144,7 @@ public class Player extends Entity {
             }
             else { //going mostly down
                 FloorSensor winningSensor = floorSensors();
-                if (winningSensor != null) if (winningSensor.getDistance() <= 0 && (sensorA.getDistance() <= -speedY - 8 || sensorB.getDistance() <= -speedY - 8)) groundCollision(winningSensor);
+                if (winningSensor != null) if (winningSensor.getDistance() >= 0 && (sensorA.getDistance() >= speedY + 8 || sensorB.getDistance() >= speedY + 8)) groundCollision(winningSensor);
             }
         }
     }
