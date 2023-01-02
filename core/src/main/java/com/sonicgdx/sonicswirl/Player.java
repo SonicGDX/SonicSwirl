@@ -130,12 +130,12 @@ public class Player extends Entity {
     public void airSensors(){
         if (Math.abs(speedX) >= Math.abs(speedY)) {
             if (speedX > 0) { //going mostly right
-                Optional<FloorSensor> winningSensor = floorSensors();
-                if (winningSensor.map(FloorSensor::getDistance).orElse(50F) <= 0 && speedY <= 0) groundCollision(winningSensor.get());
+                FloorSensor winningSensor = floorSensors();
+                if (winningSensor != null) if (winningSensor.getDistance() <= 0 && speedY <= 0) groundCollision(winningSensor);
             }
             else { //going mostly left
-                Optional<FloorSensor> winningSensor = floorSensors();
-                if (winningSensor.map(FloorSensor::getDistance).orElse(50F) <= 0 && speedY <= 0) groundCollision(winningSensor.get());
+                FloorSensor winningSensor = floorSensors();
+                if (winningSensor != null) if (winningSensor.getDistance() <= 0 && speedY <= 0) groundCollision(winningSensor);
             }
         }
         else {
@@ -143,8 +143,8 @@ public class Player extends Entity {
 
             }
             else { //going mostly down
-                Optional<FloorSensor> winningSensorOptional = floorSensors();
-                if (winningSensorOptional.map(FloorSensor::getDistance).orElse(50F) <= 0 && sensorA.getDistance() <= -(speedY + 8) && sensorB.getDistance() <= -(speedY + 8)) groundCollision(winningSensorOptional.get());
+                FloorSensor winningSensor = floorSensors();
+                if (winningSensor != null) if (winningSensor.getDistance() <= 0 && (sensorA.getDistance() <= -speedY - 8 || sensorB.getDistance() <= -speedY - 8)) groundCollision(winningSensor);
             }
         }
     }
@@ -154,21 +154,21 @@ public class Player extends Entity {
      * Collides with the nearest floor within a certain limit by adjusting the player's yPos appropriately.
      * The positive limit is always 14, but the negative limit only becomes more lenient as the player's speed increases.
      * Limits of -16<=x<=16 are not used as those distances are likely too far away from the player to matter.
-     * Uses angle for rotation and speed of the player and for player slope physics.
+     * Uses angle for rotation and speed of the player and for player slope physics. TODO
      * Applies unique calculation to find minimum value, from Sonic 2 depending on the player's speed.
-     * @return "Winning Distance"
+     * @return "Winning Distance" sensor which could be null in the condition that the sensor distances are equal but their respective returnTiles are different.
      */
-    public Optional<FloorSensor> floorSensors()
+    public FloorSensor floorSensors()
     {
         calculateSensorPositions();
 
         sensorA.process();
         sensorB.process();
 
-        if(sensorA.getDistance() > sensorB.getDistance()) return Optional.of(sensorA);
-        else if (sensorB.getDistance() > sensorA.getDistance()) return Optional.of(sensorB);
-        else if (sensorA.getTile() == sensorB.getTile()) return Optional.of(sensorA);
-        else return Optional.empty();
+        if(sensorA.getDistance() > sensorB.getDistance()) return sensorA;
+        else if (sensorB.getDistance() > sensorA.getDistance()) return sensorB;
+        else if (sensorA.getTile() == sensorB.getTile()) return sensorA;
+        else return null;
 
     }
 
