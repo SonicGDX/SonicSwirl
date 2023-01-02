@@ -55,6 +55,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
 
         //frameLog.log();
+        delta = 0.016666668f;
 
         ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
