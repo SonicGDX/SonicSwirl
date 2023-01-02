@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 
+import java.util.Optional;
+
 /**
  * This is the class that handles player movement, player collision with the ground as well as player collision
  * with other objects.
@@ -127,22 +129,22 @@ public class Player extends Entity {
 
     public void airSensors(){
         if (Math.abs(speedX) >= Math.abs(speedY)) {
-            FloorSensor winningSensor;
             if (speedX > 0) { //going mostly right
-
+                Optional<FloorSensor> winningSensor = floorSensors();
+                if (winningSensor.map(FloorSensor::getDistance).orElse(50F) <= 0 && speedY <= 0) groundCollision(winningSensor.get());
             }
             else { //going mostly left
-                FloorSensor winningSensor = floorSensors(0);
-                if (winningSensor.getDistance() <= 0 && speedY <= 0) groundCollision(winningSensor);
+                Optional<FloorSensor> winningSensor = floorSensors();
+                if (winningSensor.map(FloorSensor::getDistance).orElse(50F) <= 0 && speedY <= 0) groundCollision(winningSensor.get());
             }
         }
         else {
-            if (speedY > 0) {
-                //going mostly up
+            if (speedY > 0) { //going mostly up
+
             }
-            else {
-                FloorSensor winningSensor = floorSensors(0); //going mostly down
-                if (winningSensor.getDistance() <= 0 && sensorA.getDistance() <= -(speedY + 8) && sensorB.getDistance() <= -(speedY + 8)) groundCollision(winningSensor);
+            else { //going mostly down
+                Optional<FloorSensor> winningSensorOptional = floorSensors();
+                if (winningSensorOptional.map(FloorSensor::getDistance).orElse(50F) <= 0 && sensorA.getDistance() <= -(speedY + 8) && sensorB.getDistance() <= -(speedY + 8)) groundCollision(winningSensorOptional.get());
             }
         }
     }
@@ -154,33 +156,20 @@ public class Player extends Entity {
      * Limits of -16<=x<=16 are not used as those distances are likely too far away from the player to matter.
      * Uses angle for rotation and speed of the player and for player slope physics.
      * Applies unique calculation to find minimum value, from Sonic 2 depending on the player's speed.
-     * @param sensors used to determine which sensors to process - 0 = both, 1 = sensorA only & 2 = sensorB only
      * @return "Winning Distance"
      */
-    public FloorSensor floorSensors(int sensors)
+    public Optional<FloorSensor> floorSensors()
     {
         calculateSensorPositions();
 
-        switch (sensors) {
-            case(0):
-                sensorA.process();
-                sensorB.process();
+        sensorA.process();
+        sensorB.process();
 
-                if(sensorA.getDistance() > sensorB.getDistance()) return sensorA;
-                else if (sensorB.getDistance() > sensorA.getDistance()) return sensorB;
-                else if (sensorA.getTile() == sensorB.getTile()) return sensorA;
-            case(1):
-                sensorA.process();
-                sensorB.process();
+        if(sensorA.getDistance() > sensorB.getDistance()) return Optional.of(sensorA);
+        else if (sensorB.getDistance() > sensorA.getDistance()) return Optional.of(sensorB);
+        else if (sensorA.getTile() == sensorB.getTile()) return Optional.of(sensorA);
+        else return Optional.empty();
 
-                if(sensorA.getDistance() > sensorB.getDistance()) winningSensor = sensorA;
-                else if (sensorB.getDistance() > sensorA.getDistance()) winningSensor = sensorB;
-                else if (sensorA.getTile() == sensorB.getTile()) winningSensor = sensorA;
-                else break;
-                if (winningSensor.getDistance() <= 0 && speedY <= 0) groundCollision(winningSensor);
-        }
-
-        return null;
     }
 
     public void groundCollision(FloorSensor sensor)
