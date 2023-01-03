@@ -128,15 +128,19 @@ public final class Player extends Entity {
         speedY += GRAVITY_FORCE * delta;
     }
 
+    /**
+     * && operator uses short-circuit evaluation (as opposed to &) so will only evaluate the left hand side of the boolean expression is true. This means that
+     * if the returned value is null it won't check its distance so won't throw a NullPointerException.
+     */
     public void airSensors(){
         if (Math.abs(speedX) >= Math.abs(speedY)) {
             if (speedX > 0) { //going mostly right
                 FloorSensor winningSensor = floorSensors();
-                if (winningSensor != null) if (winningSensor.getDistance() >= 0 && speedY <= 0) groundCollision(winningSensor);
+                if (winningSensor != null && winningSensor.getDistance() >= 0 && speedY <= 0) groundCollision(winningSensor);
             }
             else { //going mostly left
                 FloorSensor winningSensor = floorSensors();
-                if (winningSensor != null) if (winningSensor.getDistance() >= 0 && speedY <= 0) groundCollision(winningSensor);
+                if (winningSensor != null && winningSensor.getDistance() >= 0 && speedY <= 0) groundCollision(winningSensor);
             }
         }
         else {
@@ -145,7 +149,7 @@ public final class Player extends Entity {
             }
             else { //going mostly down
                 FloorSensor winningSensor = floorSensors();
-                if (winningSensor != null) if (winningSensor.getDistance() >= 0 && (sensorA.getDistance() <= -(speedY + 8) || sensorB.getDistance() >= -(speedY + 8))) groundCollision(winningSensor);
+                if (winningSensor != null && winningSensor.getDistance() >= 0 && (sensorA.getDistance() <= -(speedY + 8) || sensorB.getDistance() >= -(speedY + 8))) groundCollision(winningSensor);
             }
         }
     }
