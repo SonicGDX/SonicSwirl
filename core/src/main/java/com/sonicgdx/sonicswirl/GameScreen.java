@@ -79,9 +79,10 @@ public class GameScreen implements Screen {
         }
         player.sprite.draw(Init.batch);
         // DEBUG
-        Init.batch.draw(whiteSquare,player.leftEdgeX,player.sprite.getY()); Init.batch.draw(whiteSquare,player.rightEdgeX,player.sprite.getY());
+        Init.batch.draw(whiteSquare,player.leftEdgeX,player.yPos); Init.batch.draw(whiteSquare,player.rightEdgeX,player.yPos);
         Init.batch.draw(whiteSquare,player.leftEdgeX,player.bottomEdgeY); Init.batch.draw(whiteSquare,player.rightEdgeX,player.bottomEdgeY);
         Init.batch.draw(whiteSquare,player.leftEdgeX,player.topEdgeY); Init.batch.draw(whiteSquare,player.rightEdgeX,player.topEdgeY);
+        Init.batch.draw(whiteSquare,player.xPos,player.yPos);
         Init.batch.end();
     }
 
