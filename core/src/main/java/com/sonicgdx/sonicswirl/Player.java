@@ -107,6 +107,7 @@ public final class Player extends Entity {
             sprite.setOrigin((sprite.getWidth()+1)/2F,sprite.getHeight());
         }
 
+        //FIXME rotation
         sprite.setRotation(groundAngle);
 
     }
