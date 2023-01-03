@@ -33,7 +33,7 @@ public final class Player extends Entity {
 
     /**
      * @param delta time since last frame. Used to make physics similar to how they would be at 60FPS
-     * at different frame rates.
+     * even with higher, lower or varying frame rates.
      * @see GameScreen#render(float)
      */
     public void move(float delta)
@@ -50,6 +50,7 @@ public final class Player extends Entity {
             //TODO Right now, right movement is prioritised if both directions are pressed at the same time. Consider cancelling them out.
 
             if (!isGrounded) {
+                //air state
                 airMove(delta);
                 airSensors();
             }
@@ -57,6 +58,7 @@ public final class Player extends Entity {
             else {
                 groundMove(delta);
                 if (isGrounded){
+                    //checks sensor distances returned to validate the nearby tile to decide if it moves there.
                     sensorA.process();
                     sensorB.process();
 
@@ -115,7 +117,7 @@ public final class Player extends Entity {
 
     /**
      * @param delta time since last frame. Used to make physics similar to how they would be at 60FPS
-     * at different frame rates.
+     * even with higher, lower or varying frame rates.
      */
     public void jump(float delta) {
         //TODO bug when jumping while moving downhill on a slope
@@ -233,6 +235,10 @@ public final class Player extends Entity {
         sensorB.setPosition(rSensorX,yPos);
     }
 
+    /**
+     * Resets movement variables and toggles "debug mode"
+     * @see #debugMove(float)
+     */
     private void toggleDebugMode() {
         debugMode = !debugMode;
         groundSpeed = 0;
@@ -243,6 +249,11 @@ public final class Player extends Entity {
         //TODO acceleration in debug mode
     }
 
+    /**
+     * Allows the Player to move in all directions free from collision or gravity.
+     * @param delta time since last frame. Used to make physics similar to how they would be at 60FPS
+     * even with higher, lower or varying frame rates.
+     */
     private void debugMove(float delta) {
         final int DEBUG_SPEED = 90;
         if (Gdx.input.isKeyPressed(Input.Keys.D)) xPos += (DEBUG_SPEED * delta);
