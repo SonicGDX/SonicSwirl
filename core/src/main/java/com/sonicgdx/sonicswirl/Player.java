@@ -99,6 +99,7 @@ public final class Player extends Entity {
 
         sprite.setRegion(spriteRegion);
         sprite.setBounds((leftEdgeX * MathUtils.cosDeg(groundAngle) - bottomEdgeY * MathUtils.sinDeg(groundAngle)), (leftEdgeX * MathUtils.cosDeg(groundAngle) + bottomEdgeY * MathUtils.sinDeg(groundAngle)),spriteRegion.getRegionWidth(),spriteRegion.getRegionHeight());
+        sprite.setOrigin(xPos,yPos);
         sprite.setRotation(groundAngle);
 
     }
