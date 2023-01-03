@@ -29,6 +29,13 @@ public final class Player extends Entity {
     }
 
     //TODO Tommy Ettinger's digital extension could be used for faster operations on GWT
+
+
+    /**
+     * @param delta time since last frame. Used to make physics similar to how they would be at 60FPS
+     * at different frame rates.
+     * @see GameScreen#render(float)
+     */
     public void move(float delta)
     {
         //TODO Would be better to implement an InputProcessor. This makes more sense as an interrupt rather than constant polling.
@@ -106,6 +113,10 @@ public final class Player extends Entity {
 
     }
 
+    /**
+     * @param delta time since last frame. Used to make physics similar to how they would be at 60FPS
+     * at different frame rates.
+     */
     public void jump(float delta) {
         //TODO bug when jumping while moving downhill on a slope
         speedX -= JUMP_FORCE * MathUtils.sinDeg(groundAngle);
@@ -130,7 +141,7 @@ public final class Player extends Entity {
         //Air drag
         if (0 < speedY && speedY < 4)
         {
-            speedX -= (MathUtils.floor(speedX / 0.125F) / 256F * 60F * delta);
+            speedX -= (MathUtils.floor(speedX / 0.125F) / 256F * 60F * delta); //TODO Maybe use 60 * delta in all calculations instead of applying it to variable. For readability
         }
         //Gravity
         speedY += GRAVITY_FORCE * delta;
