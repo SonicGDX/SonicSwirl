@@ -3,6 +3,7 @@ package com.sonicgdx.sonicswirl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 
 import java.util.Optional;
@@ -21,11 +22,13 @@ public final class Player extends Entity {
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
     private final FloorSensor sensorA, sensorB;
+    private TextureAtlas atlas;
     Player(Texture image, int width, int height) {
         super(image, width, height);
         xPos = 200; yPos = 200; // Player starts at (600,200);
         sensorA = new FloorSensor(xPos,yPos);
         sensorB = new FloorSensor(xPos + (sprite.getWidth() - 1),yPos);
+        atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
     }
 
     //TODO Tommy Ettinger's digital extension could be used for faster operations on GWT
@@ -85,6 +88,8 @@ public final class Player extends Entity {
         enforceBoundaries();
 
         calculateSensorPositions();
+
+        if (speedX == 0 && speedY == 0 && isGrounded) sprite.setRegion(atlas.findRegion("sonic-idle-1"));
 
         sprite.setPosition(xPos, yPos);
         sprite.setRotation(groundAngle);
