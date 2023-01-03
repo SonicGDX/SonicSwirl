@@ -96,6 +96,7 @@ public final class Player extends Entity {
         if (speedX == 0 && speedY == 0 && isGrounded) spriteRegion = atlas.findRegion("sonic-idle-1");
 
         sprite.setRegion(spriteRegion);
+        sprite.setOrigin(xPos,yPos);
         sprite.setBounds((xPos - (spriteRegion.getRegionWidth() / 2F)), yPos - (spriteRegion.getRegionHeight() / 2F),spriteRegion.getRegionWidth(),spriteRegion.getRegionHeight());
         sprite.setRotation(groundAngle);
 
