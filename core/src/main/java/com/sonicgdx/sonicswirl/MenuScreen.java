@@ -48,7 +48,7 @@ public class MenuScreen implements Screen {
 		Init.batch.end();
 
 		if (Gdx.input.isTouched()) {
-            Init.batch.disableBlending(); //Blending is responsible for translucency using the alpha value but decreases performance.
+            //Init.batch.disableBlending(); //Blending is responsible for translucency using the alpha value but decreases performance.
 			Init.setScreen(Init.gameScreen);
 			dispose();
 		}

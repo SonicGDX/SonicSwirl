@@ -89,7 +89,11 @@ public final class Player extends Entity {
 
         calculateSensorPositions();
 
-        if (speedX == 0 && speedY == 0 && isGrounded) sprite.setRegion(atlas.findRegion("sonic-idle-1"));
+        if (speedX == 0 && speedY == 0 && isGrounded){
+            sprite.setRegion(atlas.findRegion("sonic-idle-1"));
+            sprite.setSize(48,48);
+        }
+
 
         sprite.setPosition(xPos, yPos);
         sprite.setRotation(groundAngle);
