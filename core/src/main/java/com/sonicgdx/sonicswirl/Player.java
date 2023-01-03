@@ -28,8 +28,9 @@ public final class Player extends Entity {
 
     final int WIDTH = 20, HEIGHT = 40;
     Player() {
+        super();
         atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
-        Sprite sprite = new Sprite(atlas.findRegion("sonic-idle-1"));
+        sprite.setRegion(atlas.findRegion("sonic-idle-1"));
         xPos = 200; yPos = 200; // Player starts at (600,200);
         sprite.setPosition(xPos,yPos);
         sensorA = new FloorSensor(xPos,yPos);

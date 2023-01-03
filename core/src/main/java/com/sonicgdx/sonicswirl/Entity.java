@@ -15,7 +15,7 @@ public abstract class Entity {
     //TODO reconsider usage of local variables as well as sprite.getx/y
     Sprite sprite;
     Entity() {
-
+        sprite = new Sprite();
     }
 
     public void enforceBoundaries()
