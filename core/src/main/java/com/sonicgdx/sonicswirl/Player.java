@@ -30,7 +30,7 @@ public final class Player extends Entity {
     Player() {
         super();
         atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
-        spriteRegion = atlas.findRegion("sonic-idle",1);
+        spriteRegion = atlas.findRegion("sonic-walk",1);
         xPos = 600; yPos = 200; // Player starts at (600,200);
         sensorA = new FloorSensor();
         sensorB = new FloorSensor();
@@ -98,17 +98,12 @@ public final class Player extends Entity {
         if (speedX == 0 && speedY == 0 && isGrounded) spriteRegion = atlas.findRegion("sonic-idle",1);
 
         sprite.setRegion(spriteRegion);
-        if (groundAngle > 0) {
-            sprite.setBounds(leftEdgeX,bottomEdgeY, spriteRegion.getRegionWidth(), spriteRegion.getRegionHeight());
-            sprite.setOriginCenter();
-        } else {
-
-            sprite.setBounds(leftEdgeX,bottomEdgeY, spriteRegion.getRegionWidth(), spriteRegion.getRegionHeight());
-            sprite.setOrigin((sprite.getWidth()+1)/2F,sprite.getHeight());
-        }
 
         //FIXME rotation
+        sprite.setOriginCenter();
         sprite.setRotation(groundAngle);
+        sprite.setBounds(xPos - ((spriteRegion.getRegionWidth() + 1) / 2F),yPos - ((spriteRegion.getRegionHeight() + 1)/ 2F), spriteRegion.getRegionWidth(), spriteRegion.getRegionHeight());
+
 
     }
 
