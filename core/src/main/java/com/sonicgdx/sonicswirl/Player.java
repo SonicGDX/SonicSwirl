@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
 import java.util.Optional;
@@ -90,8 +91,9 @@ public final class Player extends Entity {
         calculateSensorPositions();
 
         if (speedX == 0 && speedY == 0 && isGrounded){
-            sprite.setRegion(atlas.findRegion("sonic-idle-1"));
-            sprite.setSize(48,48);
+            TextureRegion idleRegion = atlas.findRegion("sonic-idle-1");
+            sprite.setRegion(idleRegion);
+            sprite.setSize(idleRegion.getRegionWidth(),idleRegion.getRegionHeight());
         }
 
 
