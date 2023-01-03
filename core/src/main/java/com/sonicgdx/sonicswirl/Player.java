@@ -100,7 +100,7 @@ public final class Player extends Entity {
             TextureRegion idleRegion = atlas.findRegion("sonic-idle-1");
             sprite.setRegion(idleRegion);
             sprite.setSize(idleRegion.getRegionWidth(),idleRegion.getRegionHeight());
-            sprite.setOriginCenter();
+            sprite.setOrigin((sprite.getWidth()+1)/2F,sprite.getHeight());
             Gdx.app.debug("width",String.valueOf(sprite.getWidth()));
             Gdx.app.debug("height",String.valueOf(sprite.getHeight()));
 
