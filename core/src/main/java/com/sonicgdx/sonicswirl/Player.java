@@ -2,13 +2,9 @@ package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-
-import java.util.Optional;
 
 /**
  * This is the class that handles player movement, player collision with the ground as well as player collision
@@ -24,15 +20,16 @@ public final class Player extends Entity {
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
     private final FloorSensor sensorA, sensorB;
-    private TextureAtlas atlas;
+    private final TextureAtlas atlas;
 
-    final int WIDTH = 19, HEIGHT = 39;
+    private TextureRegion spriteRegion;
+
+    final int WIDTHRADIUS = 9, HEIGHTRADIUS = 19;
     Player() {
         super();
         atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
-        sprite.setRegion(atlas.findRegion("sonic-idle-1"));
+        spriteRegion = atlas.findRegion("sonic-idle-1");
         xPos = 200; yPos = 200; // Player starts at (600,200);
-        sprite.setPosition(xPos,yPos);
         sensorA = new FloorSensor();
         sensorB = new FloorSensor();
 
@@ -94,20 +91,12 @@ public final class Player extends Entity {
 
         enforceBoundaries();
 
-        calculateSensorPositions(WIDTH,HEIGHT);
+        calculateSensorPositions(WIDTHRADIUS,HEIGHTRADIUS);
 
-        if (speedX == 0 && speedY == 0 && isGrounded){
-            TextureRegion idleRegion = atlas.findRegion("sonic-idle-1");
-            sprite.setRegion(idleRegion);
-            sprite.setSize(idleRegion.getRegionWidth(),idleRegion.getRegionHeight());
-            sprite.setOriginCenter();
-            Gdx.app.debug("width",String.valueOf(sprite.getWidth()));
-            Gdx.app.debug("height",String.valueOf(sprite.getHeight()));
+        if (speedX == 0 && speedY == 0 && isGrounded) spriteRegion = atlas.findRegion("sonic-idle-1");
 
-        }
-
-
-        sprite.setPosition((xPos - (Sprite.getWidth() + 1 / 2)), yPos);
+        sprite.setRegion(spriteRegion);
+        sprite.setBounds((xPos - (spriteRegion.getRegionWidth() + 1 / 2F)), yPos - (spriteRegion.getRegionHeight() + 1 / 2F),spriteRegion.getRegionWidth(),spriteRegion.getRegionHeight());
         sprite.setRotation(groundAngle);
 
     }
@@ -207,7 +196,7 @@ public final class Player extends Entity {
      */
     public FloorSensor floorSensors()
     {
-        calculateSensorPositions(WIDTH,HEIGHT);
+        calculateSensorPositions(WIDTHRADIUS,HEIGHTRADIUS);
 
         sensorA.process();
         sensorB.process();
@@ -250,10 +239,10 @@ public final class Player extends Entity {
     }
 
     @Override
-    public void calculateSensorPositions(float width, float height) {
-        super.calculateSensorPositions(width,height);
-        sensorA.setPosition(lSensorX,yPos); //TODO possibly remove these variables
-        sensorB.setPosition(rSensorX,yPos);
+    public void calculateSensorPositions(float widthRadius, float heightRadius) {
+        super.calculateSensorPositions(widthRadius, heightRadius);
+        sensorA.setPosition(leftEdgeX,bottomEdgeY); //TODO possibly remove these variables
+        sensorB.setPosition(rightEdgeX,bottomEdgeY);
     }
 
     /**

@@ -1,8 +1,6 @@
 package com.sonicgdx.sonicswirl;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
 /**
@@ -10,7 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
  */
 public abstract class Entity {
     protected float xPos, yPos;
-    protected float lSensorX, rSensorX, centreY, topY;
+    protected float leftEdgeX, rightEdgeX, bottomEdgeY, topEdgeY;
 
     //TODO reconsider usage of local variables as well as sprite.getx/y
     Sprite sprite;
@@ -27,12 +25,12 @@ public abstract class Entity {
         //yPos = Math.max(yPos,0);
     }
 
-    public void calculateSensorPositions(float width, float height)
+    public void calculateSensorPositions(float widthRadius, float heightRadius)
     {
-        lSensorX = xPos;
-        rSensorX = lSensorX + (width - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
-        centreY = yPos + ((height - 1) / 2);
-        topY = yPos + (height - 1);
+        topEdgeY = yPos + heightRadius;
+        bottomEdgeY = yPos - heightRadius;
+        leftEdgeX = xPos - widthRadius;
+        rightEdgeX = xPos + widthRadius;
     }
     public float snapToNearest (float angle, float snapTo) {
         return MathUtils.round(angle/snapTo) * snapTo;
