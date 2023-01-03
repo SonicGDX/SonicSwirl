@@ -19,7 +19,7 @@ public final class Player extends Entity {
     // An FPS of 60 was used to obtain the adjusted values
     // Original: ACCELERATION = 0.046875F, DECELERATION = 0.5F, DEBUG_SPEED = 1.5F, MAX_SPEED = 6, SLOPE_FACTOR = 0.125, AIR_ACCELERATION = 0.09375F, GRAVITY_FORCE = 0.21875F;
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
-    float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
+    private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
     private final FloorSensor sensorA, sensorB;
     private final TextureAtlas atlas;
 
@@ -99,8 +99,8 @@ public final class Player extends Entity {
 
         sprite.setRegion(spriteRegion);
         if (groundAngle > 0) {
-            sprite.setBounds(xPos,yPos , spriteRegion.getRegionWidth(), spriteRegion.getRegionHeight());
-            sprite.setOrigin((xPos * MathUtils.cosDeg(groundAngle) - bottomEdgeY * MathUtils.sinDeg(groundAngle)),(yPos * MathUtils.cosDeg(groundAngle) + bottomEdgeY * MathUtils.sinDeg(groundAngle)));
+            sprite.setBounds((leftEdgeX * MathUtils.cosDeg(groundAngle) - bottomEdgeY * MathUtils.sinDeg(groundAngle)), (leftEdgeX * MathUtils.cosDeg(groundAngle) + bottomEdgeY * MathUtils.sinDeg(groundAngle)), spriteRegion.getRegionWidth(), spriteRegion.getRegionHeight());
+            sprite.setOrigin(xPos, yPos);
         } else {
 
             sprite.setBounds(leftEdgeX,bottomEdgeY, spriteRegion.getRegionWidth(), spriteRegion.getRegionHeight());

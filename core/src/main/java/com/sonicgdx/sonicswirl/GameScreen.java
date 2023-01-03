@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -79,18 +78,11 @@ public class GameScreen implements Screen {
             }
         }
         player.sprite.draw(Init.batch);
-
-        Sprite testSprite = new Sprite(blackSquare);
-        testSprite.setBounds(player.leftEdgeX,player.bottomEdgeY,19,39);
-        testSprite.setRotation(player.groundAngle);
-
         // DEBUG
         Init.batch.draw(whiteSquare,player.leftEdgeX,player.yPos); Init.batch.draw(whiteSquare,player.rightEdgeX,player.yPos);
         Init.batch.draw(whiteSquare,player.leftEdgeX,player.bottomEdgeY); Init.batch.draw(whiteSquare,player.rightEdgeX,player.bottomEdgeY);
         Init.batch.draw(whiteSquare,player.leftEdgeX,player.topEdgeY); Init.batch.draw(whiteSquare,player.rightEdgeX,player.topEdgeY);
         Init.batch.draw(whiteSquare,player.xPos,player.yPos);
-        testSprite.draw(Init.batch);
-
         Init.batch.end();
     }
 
