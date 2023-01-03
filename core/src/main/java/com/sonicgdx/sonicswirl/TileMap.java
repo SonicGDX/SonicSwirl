@@ -11,7 +11,7 @@ public enum TileMap {
     //TODO reconsider usage of TileMap class
     //TODO possible GUI chunk editor
 
-    public static final Tile[][][][] map = TILE_MAP.testtileMap;
+    public static final Tile[][][][] map = TILE_MAP.testMap;
 
     //TODO test class - check if all these are 16 in length
 
