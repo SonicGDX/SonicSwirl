@@ -26,15 +26,15 @@ public final class Player extends Entity {
     private final FloorSensor sensorA, sensorB;
     private TextureAtlas atlas;
 
-    final int WIDTH = 20, HEIGHT = 40;
+    final int WIDTH = 19, HEIGHT = 39;
     Player() {
         super();
         atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
         sprite.setRegion(atlas.findRegion("sonic-idle-1"));
         xPos = 200; yPos = 200; // Player starts at (600,200);
         sprite.setPosition(xPos,yPos);
-        sensorA = new FloorSensor(xPos,yPos);
-        sensorB = new FloorSensor(xPos + (WIDTH - 1),yPos);
+        sensorA = new FloorSensor();
+        sensorB = new FloorSensor();
 
     }
 
@@ -100,14 +100,14 @@ public final class Player extends Entity {
             TextureRegion idleRegion = atlas.findRegion("sonic-idle-1");
             sprite.setRegion(idleRegion);
             sprite.setSize(idleRegion.getRegionWidth(),idleRegion.getRegionHeight());
-            sprite.setOrigin((sprite.getWidth()+1)/2F,sprite.getHeight());
+            sprite.setOriginCenter();
             Gdx.app.debug("width",String.valueOf(sprite.getWidth()));
             Gdx.app.debug("height",String.valueOf(sprite.getHeight()));
 
         }
 
 
-        sprite.setPosition(xPos, yPos);
+        sprite.setPosition((xPos - (Sprite.getWidth() + 1 / 2)), yPos);
         sprite.setRotation(groundAngle);
 
     }

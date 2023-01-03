@@ -30,7 +30,7 @@ public abstract class Entity {
     public void calculateSensorPositions(float width, float height)
     {
         lSensorX = xPos;
-        rSensorX = xPos + (width - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
+        rSensorX = lSensorX + (width - 1); // xPos + (srcWidth - 1) - using srcWidth places it one pixel right of the square
         centreY = yPos + ((height - 1) / 2);
         topY = yPos + (height - 1);
     }
