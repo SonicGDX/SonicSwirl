@@ -141,3 +141,5 @@ https://libgdx.com/wiki/tools/texture-packer#textureatlas
 https://libgdx.com/wiki/graphics/2d/spritebatch-textureregions-and-sprites
 https://www.spriters-resource.com/custom_edited/sonicthehedgehogcustoms/sheet/160249/
 https://www.youtube.com/watch?v=BhdDQwRYMCI
+https://askubuntu.com/a/351772
+https://graphicdesign.stackexchange.com/a/138968
