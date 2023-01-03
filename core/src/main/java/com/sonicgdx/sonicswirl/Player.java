@@ -25,6 +25,8 @@ public final class Player extends Entity {
     private TextureRegion spriteRegion;
 
     final int WIDTHRADIUS = 9, HEIGHTRADIUS = 19;
+
+    int animationTest;
     Player() {
         super();
         atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
@@ -32,6 +34,7 @@ public final class Player extends Entity {
         xPos = 200; yPos = 200; // Player starts at (600,200);
         sensorA = new FloorSensor();
         sensorB = new FloorSensor();
+        animationTest = 0;
 
     }
 
@@ -95,9 +98,14 @@ public final class Player extends Entity {
 
         if (speedX == 0 && speedY == 0 && isGrounded) spriteRegion = atlas.findRegion("sonic-idle-1");
 
+
+        animationTest+=  1;
+        spriteRegion = atlas.findRegion("sonic-dash",animationTest);
+        if (animationTest == 3) animationTest = 0;
+
         sprite.setRegion(spriteRegion);
-        sprite.setOrigin(xPos,yPos);
         sprite.setBounds((xPos - (spriteRegion.getRegionWidth() / 2F)), yPos - (spriteRegion.getRegionHeight() / 2F),spriteRegion.getRegionWidth(),spriteRegion.getRegionHeight());
+
         sprite.setRotation(groundAngle);
 
     }
@@ -271,6 +279,7 @@ public final class Player extends Entity {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) xPos -= (DEBUG_SPEED * delta);
         if (Gdx.input.isKeyPressed(Input.Keys.W)) yPos += (DEBUG_SPEED * delta);
         if (Gdx.input.isKeyPressed(Input.Keys.S)) yPos -= (DEBUG_SPEED * delta);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) groundAngle += 45;
         //Gdx.app.debug("deltaTime",String.valueOf(delta));
     }
 }
