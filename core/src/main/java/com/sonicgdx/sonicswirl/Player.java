@@ -125,6 +125,10 @@ public final class Player extends Entity {
         {
             if (speedX > -MAX_SPEED) speedX -= AIR_ACCELERATION * delta;
         }
+        if (0 < speedY && speedY < 4)
+        {
+            speedX -= (MathUtils.floor(speedX / 0.125F) / 256F);
+        }
         speedY += GRAVITY_FORCE * delta;
     }
 
