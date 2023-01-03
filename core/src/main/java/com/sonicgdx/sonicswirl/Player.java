@@ -24,9 +24,12 @@ public final class Player extends Entity {
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
     private final FloorSensor sensorA, sensorB;
     private TextureAtlas atlas;
-    Player(Texture image, int width, int height) {
-        super(image, width, height);
+
+    final int WIDTH = 20, HEIGHT = 40;
+    Player() {
+        super();
         xPos = 200; yPos = 200; // Player starts at (600,200);
+        sprite.setBounds(xPos,yPos,WIDTH,HEIGHT);
         sensorA = new FloorSensor(xPos,yPos);
         sensorB = new FloorSensor(xPos + (sprite.getWidth() - 1),yPos);
         atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
