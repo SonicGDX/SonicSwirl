@@ -26,7 +26,7 @@ public final class Player extends Entity {
 
     final int WIDTHRADIUS = 9, HEIGHTRADIUS = 19;
 
-    int animationTest;
+    float animationTest;
     Player() {
         super();
         atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
@@ -99,8 +99,8 @@ public final class Player extends Entity {
         if (speedX == 0 && speedY == 0 && isGrounded) spriteRegion = atlas.findRegion("sonic-idle-1");
 
 
-        animationTest+=  1;
-        spriteRegion = atlas.findRegion("sonic-dash",animationTest);
+        animationTest+= 0.125;
+        spriteRegion = atlas.findRegion("sonic-run",MathUtils.floor(animationTest));
         if (animationTest == 3) animationTest = 0;
 
         sprite.setRegion(spriteRegion);
