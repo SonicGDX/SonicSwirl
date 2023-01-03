@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * This is the class that handles player movement, player collision with the ground as well as player collision
@@ -29,7 +30,7 @@ public final class Player extends Entity {
     Player() {
         super();
         atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
-        spriteRegion = atlas.findRegion("sonic-idle-1");
+        spriteRegion = atlas.findRegion("sonic-idle",1);
         xPos = 200; yPos = 200; // Player starts at (600,200);
         sensorA = new FloorSensor();
         sensorB = new FloorSensor();
@@ -94,11 +95,10 @@ public final class Player extends Entity {
 
         calculateSensorPositions(WIDTHRADIUS,HEIGHTRADIUS);
 
-        if (speedX == 0 && speedY == 0 && isGrounded) spriteRegion = atlas.findRegion("sonic-idle-1");
+        if (speedX == 0 && speedY == 0 && isGrounded) spriteRegion = atlas.findRegion("sonic-idle",1);
 
         sprite.setRegion(spriteRegion);
-        sprite.setBounds((xPos - (spriteRegion.getRegionWidth() / 2F)), yPos - (spriteRegion.getRegionHeight() / 2F),spriteRegion.getRegionWidth(),spriteRegion.getRegionHeight());
-
+        sprite.setBounds((leftEdgeX * MathUtils.cosDeg(groundAngle) - bottomEdgeY * MathUtils.sinDeg(groundAngle)), (leftEdgeX * MathUtils.cosDeg(groundAngle) + bottomEdgeY * MathUtils.sinDeg(groundAngle)),spriteRegion.getRegionWidth(),spriteRegion.getRegionHeight());
         sprite.setRotation(groundAngle);
 
     }
