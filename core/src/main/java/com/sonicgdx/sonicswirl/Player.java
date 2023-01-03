@@ -100,9 +100,11 @@ public final class Player extends Entity {
         sprite.setRegion(spriteRegion);
 
         //FIXME rotation
-        sprite.setOriginCenter();
+
+        //Rotates the sprite first, and THEN changes its co-ordinates (is translated).
         sprite.setRotation(groundAngle);
         sprite.setBounds(xPos - ((spriteRegion.getRegionWidth() + 1) / 2F),yPos - ((spriteRegion.getRegionHeight() + 1)/ 2F), spriteRegion.getRegionWidth(), spriteRegion.getRegionHeight());
+        //Since the xPos and yPos are the centre, you can just subtract the difference between the first pixel and the middle pixel to get the sprite co-ordinates.
         sprite.setOriginCenter();
 
     }
