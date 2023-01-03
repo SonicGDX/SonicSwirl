@@ -26,7 +26,6 @@ public final class Player extends Entity {
 
     final int WIDTHRADIUS = 9, HEIGHTRADIUS = 19;
 
-    float animationTest;
     Player() {
         super();
         atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
@@ -34,7 +33,6 @@ public final class Player extends Entity {
         xPos = 200; yPos = 200; // Player starts at (600,200);
         sensorA = new FloorSensor();
         sensorB = new FloorSensor();
-        animationTest = 0;
 
     }
 
@@ -97,11 +95,6 @@ public final class Player extends Entity {
         calculateSensorPositions(WIDTHRADIUS,HEIGHTRADIUS);
 
         if (speedX == 0 && speedY == 0 && isGrounded) spriteRegion = atlas.findRegion("sonic-idle-1");
-
-
-        animationTest+= 0.125;
-        spriteRegion = atlas.findRegion("sonic-run",MathUtils.floor(animationTest));
-        if (animationTest == 3) animationTest = 0;
 
         sprite.setRegion(spriteRegion);
         sprite.setBounds((xPos - (spriteRegion.getRegionWidth() / 2F)), yPos - (spriteRegion.getRegionHeight() / 2F),spriteRegion.getRegionWidth(),spriteRegion.getRegionHeight());
