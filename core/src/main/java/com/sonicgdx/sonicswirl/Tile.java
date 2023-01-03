@@ -11,9 +11,9 @@ public class Tile {
         this.empty = false;
 
         if (heightArray.length == 16) this.heightArray = heightArray;
-        else throw new RuntimeException("heightArray Length = " + String.valueOf(heightArray.length));
+        else throw new RuntimeException("heightArray Length = " + heightArray.length);
         if (widthArray.length == 16) this.widthArray = widthArray;
-        else throw new RuntimeException("widthArray Length = " + String.valueOf(widthArray.length));
+        else throw new RuntimeException("widthArray Length = " + widthArray.length);
 
         this.angle = angle;
         this.isFlipped = flipped;

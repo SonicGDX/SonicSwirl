@@ -19,15 +19,16 @@ public enum TileMap {
     private final byte[] zero = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private final byte[] slope = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
     private final byte[] full = {16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16};
-    private final byte[] halfh = {8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}; private final byte[] halfw = {16,16,16,16,16,16,16,16,0,0,0,0,0,0,0,0};
+    private final byte[] halfh = {8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}; private final byte[] halfw = {0,0,0,0,0,0,0,0,16,16,16,16,16,16,16,16};
     private final byte[] rvSlope = {16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
     private final byte[] tall1 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-
+    private final byte[] testh = {0,0,1,2,2,3,4,5,5,6,6,7,8,9,9,9}, testw = {0,0,0,0,0,0,0,3,4,5,7,9,10,11,13,14};
     private final Tile EMPTY = new Tile();
     private final Tile ftile = new Tile(full,full,0,(byte) 4,false);
-    private final Tile stile = new Tile(slope,slope,45,(byte) 1,false);
+    private final Tile stile = new Tile(slope, slope,45,(byte) 1,false);
     private final Tile rvtile = new Tile(rvSlope, rvSlope,-45,(byte) 1,false);
     private final Tile htile = new Tile(halfh,halfw,0,(byte) 1,false);
+    private final Tile testtile = new Tile(testh,testw,33.75F,(byte) 1,false);
 
     private final Tile[][] fChunk = Collections.nCopies(8,Collections.nCopies(8,ftile).toArray(new Tile[0])).toArray(new Tile[0][0]);
 
@@ -64,6 +65,7 @@ public enum TileMap {
 
 
     private final Tile[][] eChunk = Collections.nCopies(8,Collections.nCopies(8,EMPTY).toArray(new Tile[0])).toArray(new Tile[0][0]);
+    private final Tile[][] testtileChunk = Collections.nCopies(8,Collections.nCopies(8,testtile).toArray(new Tile[0])).toArray(new Tile[0][0]);
 
     private final Tile[][] borderedChunk = {
             {ftile,ftile,ftile,ftile,ftile,ftile,ftile,ftile},
@@ -77,12 +79,9 @@ public enum TileMap {
 
     };
 
-    private final Tile[][][][] fMap =
-            Collections.nCopies(8,Collections.nCopies(8,fChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
+    private final Tile[][][][] fMap = Collections.nCopies(8,Collections.nCopies(8,fChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
 
-    private final Tile[][][][] eMap =
-
-            Collections.nCopies(8,Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
+    private final Tile[][][][] eMap = Collections.nCopies(8,Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
             /*{ OLD
                     Collections.nCopies(8,eChunk).toArray(new Tile[0][0][0]),
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk},
@@ -94,22 +93,26 @@ public enum TileMap {
                     {eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk,eChunk}
 
             };*/
+
+    private final Tile[][][][] sMap = Collections.nCopies(8,Collections.nCopies(8,sChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
+    private final Tile[][][][] rvMap = Collections.nCopies(8,Collections.nCopies(8,rvChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
+    private final Tile[][][][] testtileMap = Collections.nCopies(8,Collections.nCopies(8,testtileChunk).toArray(new Tile[0][0][0])).toArray(new Tile[0][0][0][0]);
     private final Tile[][][][] testMap =
             {
-                    {eChunk,sChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,hChunk,eChunk,eChunk,eChunk},
-                    {eChunk,hChunk,eChunk,eChunk,eChunk},
-                    {eChunk,hChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,fChunk,eChunk,eChunk,eChunk},
-                    {eChunk,rvChunk,eChunk,eChunk,eChunk}
+                    {sChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {eChunk,eChunk,eChunk,eChunk},
+                    {eChunk,eChunk,eChunk,eChunk},
+                    {eChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {fChunk,eChunk,eChunk,eChunk},
+                    {rvChunk,eChunk,eChunk,eChunk}
 
             };
 

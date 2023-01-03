@@ -13,12 +13,11 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class GameScreen implements Screen {
 
-    final Init Init;
-    ShapeRenderer dr; Texture img; Texture playerImg; FPSLogger frameLog;
-    final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
-    OrthographicCamera camera; Vector2 cameraOffset = Vector2.Zero; ExtendViewport gameViewport;
-    final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
-
+    private final Init Init;
+    private final Texture img, playerImg;
+    //private final FPSLogger frameLog;
+    private final OrthographicCamera camera; private final Vector2 cameraOffset = Vector2.Zero; private final ExtendViewport gameViewport;
+    private final int TILE_SIZE = 16, CHUNK_SIZE = 128, TILES_PER_CHUNK = CHUNK_SIZE / TILE_SIZE;
 
     Player player;
 
@@ -40,23 +39,23 @@ public class GameScreen implements Screen {
         // So for example, one screen won't be in the bottom left corner in 1080p
         // but would take up the entire view
 
-        dr = new ShapeRenderer();
-
         //TODO AssetManager
         img = new Texture(Gdx.files.internal("1x1-ffffffff.png")); playerImg = new Texture(Gdx.files.internal("1x1-000000ff.png"));
-        player = new Player(playerImg,PLAYER_WIDTH,PLAYER_HEIGHT);
+        final int PLAYER_WIDTH = 20, PLAYER_HEIGHT = 40;
+        player = new Player(playerImg, PLAYER_WIDTH,PLAYER_HEIGHT);
 
         cameraOffset.x = camera.position.x - player.xPos;
         cameraOffset.y = camera.position.y - player.yPos;
 
-        frameLog = new FPSLogger();
+        //frameLog = new FPSLogger();
 
     }
 
     @Override
     public void render(float delta) {
-
+        //UNCOMMENT For debug
         //frameLog.log();
+        //delta = 0.016666668f;
 
         ScreenUtils.clear(Color.DARK_GRAY); // clears the screen and sets the background to a certain colour
 
@@ -67,10 +66,6 @@ public class GameScreen implements Screen {
         camera.position.set(player.xPos + cameraOffset.x,player.yPos + cameraOffset.y,camera.position.z); camera.update(); // recompute matrix for orthographical projection so that the change is responded to in the view
 
         //TODO Add collision logic
-
-        /*dr.setProjectionMatrix(camera.combined);
-        dr.begin(ShapeRenderer.ShapeType.Filled);
-        dr.end();*/
 
         // tells the SpriteBatch to render in the coordinate system specified by the camera
         //viewport.apply();
@@ -106,22 +101,12 @@ public class GameScreen implements Screen {
         {
             for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
             {
-                if (TileMap.map[chunkX][chunkY][tileX][tileY].empty){
-                    continue;
-                }
+                if (TileMap.map[chunkX][chunkY][tileX][tileY].empty) continue;
                 for (int block = 0; block < TILE_SIZE; block++)
                 {
-                    if (TileMap.map[chunkX][chunkY][tileX][tileY].empty){
-                        break;
-                    }
                     if (block==0) Init.batch.setColor(new Color(0,0,0,1));
                     else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
                     Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
-
-					/*if ((int) x == (chunkX*128 + tileX*16+block))
-					{
-						if (TileMap.map[chunkX][chunkY][tileX][tileY].solidity == 0);
-					}*/
 
                     //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
 
@@ -139,9 +124,9 @@ public class GameScreen implements Screen {
      * @deprecated Superseded by drawChunkBatch as ShapeRenderer uses its own mesh compared to the SpriteBatch and therefore conflicts in the rendering method making it cumbersome to use.
      */
     @Deprecated
-    public void drawChunkDR(int chunkX, int chunkY) {
+    public void drawChunkShapeRenderer(int chunkX, int chunkY) {
 
-        //TODO Foreach loop?
+        /*//TODO Foreach loop?
         for (int tileX = 0; tileX < TILES_PER_CHUNK; tileX++)
         {
             for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
@@ -152,27 +137,21 @@ public class GameScreen implements Screen {
                 for (int block = 0; block < TILE_SIZE; block++)
                 {
 
-                    if (block==0) dr.setColor(new Color(0,0,0,1));
-                    else dr.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
-                    dr.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
-
-					/*if ((int) x == (chunkX*128 + tileX*16+block))
-					{
-						if (TileMap.map[chunkX][chunkY][tileX][tileY].solidity == 0);
-					}*/
+                    if (block==0) shapeRenderer.setColor(new Color(0,0,0,1));
+                    else shapeRenderer.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
+                    shapeRenderer.rect( block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1,TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
 
                     //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
 
                 }
             }
-        }
+        }*/
     }
 
     @Override
     public void dispose () {
         img.dispose();
         playerImg.dispose();
-        dr.dispose();
     }
     @Override
     public void resize(int width, int height) {
