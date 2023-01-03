@@ -3,6 +3,7 @@ package com.sonicgdx.sonicswirl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -27,12 +28,13 @@ public final class Player extends Entity {
 
     final int WIDTH = 20, HEIGHT = 40;
     Player() {
-        super();
-        xPos = 200; yPos = 200; // Player starts at (600,200);
-        sprite.setBounds(xPos,yPos,WIDTH,HEIGHT);
-        sensorA = new FloorSensor(xPos,yPos);
-        sensorB = new FloorSensor(xPos + (sprite.getWidth() - 1),yPos);
         atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
+        Sprite sprite = new Sprite(atlas.findRegion("sonic-idle-1"));
+        xPos = 200; yPos = 200; // Player starts at (600,200);
+        sprite.setPosition(xPos,yPos);
+        sensorA = new FloorSensor(xPos,yPos);
+        sensorB = new FloorSensor(xPos + (WIDTH - 1),yPos);
+
     }
 
     //TODO Tommy Ettinger's digital extension could be used for faster operations on GWT
@@ -91,12 +93,15 @@ public final class Player extends Entity {
 
         enforceBoundaries();
 
-        calculateSensorPositions();
+        calculateSensorPositions(WIDTH,HEIGHT);
 
         if (speedX == 0 && speedY == 0 && isGrounded){
             TextureRegion idleRegion = atlas.findRegion("sonic-idle-1");
             sprite.setRegion(idleRegion);
             sprite.setSize(idleRegion.getRegionWidth(),idleRegion.getRegionHeight());
+            Gdx.app.debug("width",String.valueOf(sprite.getWidth()));
+            Gdx.app.debug("height",String.valueOf(sprite.getHeight()));
+
         }
 
 
@@ -200,7 +205,7 @@ public final class Player extends Entity {
      */
     public FloorSensor floorSensors()
     {
-        calculateSensorPositions();
+        calculateSensorPositions(WIDTH,HEIGHT);
 
         sensorA.process();
         sensorB.process();
@@ -243,8 +248,8 @@ public final class Player extends Entity {
     }
 
     @Override
-    public void calculateSensorPositions() {
-        super.calculateSensorPositions();
+    public void calculateSensorPositions(float width, float height) {
+        super.calculateSensorPositions(width,height);
         sensorA.setPosition(lSensorX,yPos); //TODO possibly remove these variables
         sensorB.setPosition(rSensorX,yPos);
     }
