@@ -1,7 +1,7 @@
 Credit to:
 [@raeleus](https://github.com/raeleus) for the original Particle Pack UI skin
 [@tommyettinger](https://github.com/tommyettinger) for the gdx-setup tool that was used to generate the project, as well as the adapted UI skin.
-
+[@louplayer] (https://github.com/louplayer) for the edited Sonic sprites (https://www.spriters-resource.com/custom_edited/sonicthehedgehogcustoms/sheet/160249/)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
