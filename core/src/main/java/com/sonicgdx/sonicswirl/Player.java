@@ -115,8 +115,10 @@ public final class Player extends Entity {
     }
 
     public void airMove(float delta) {
+        //Reduce height jumped if player releases jump button early
         if (!Gdx.input.isKeyPressed(Input.Keys.SPACE) && speedY > 4 && isJumping) speedY = 4;
 
+        //Air acceleration
         if (Gdx.input.isKeyPressed(Input.Keys.D) || (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) // if moving right
         {
             if (speedX < MAX_SPEED) speedX += AIR_ACCELERATION * delta;
@@ -125,10 +127,12 @@ public final class Player extends Entity {
         {
             if (speedX > -MAX_SPEED) speedX -= AIR_ACCELERATION * delta;
         }
+        //Air drag
         if (0 < speedY && speedY < 4)
         {
-            speedX -= (MathUtils.floor(speedX / 0.125F) / 256F);
+            speedX -= (MathUtils.floor(speedX / 0.125F) / 256F * 60F * delta);
         }
+        //Gravity
         speedY += GRAVITY_FORCE * delta;
     }
 
