@@ -107,6 +107,8 @@ public final class Player extends Entity {
         //Since the xPos and yPos are the centre, you can just subtract the difference between the first pixel and the middle pixel to get the sprite co-ordinates.
         sprite.setOriginCenter();
 
+        //FIXME possible approach https://www.reddit.com/r/libgdx/comments/i0plt4/comment/fzrlqqt
+
     }
 
     private void groundMove(float delta) {
