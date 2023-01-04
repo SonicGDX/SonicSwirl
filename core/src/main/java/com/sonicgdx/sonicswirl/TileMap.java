@@ -104,7 +104,7 @@ public enum TileMap {
                     {fChunk,eChunk,eChunk,eChunk},
                     {fChunk,eChunk,eChunk,eChunk},
                     {eChunk,eChunk,eChunk,eChunk},
-                    {eChunk,eChunk,eChunk,eChunk},
+                    {hChunk,eChunk,eChunk,eChunk},
                     {eChunk,eChunk,eChunk,eChunk},
                     {fChunk,eChunk,eChunk,eChunk},
                     {fChunk,eChunk,eChunk,eChunk},
