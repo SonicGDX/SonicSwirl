@@ -2,11 +2,9 @@ package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -95,7 +93,7 @@ public class GameScreen implements Screen {
      * @param chunkX the chunk number on the x-axis - not the same as its co-ordinate
      * @param chunkY the chunk number on the y-axis - not the same as its co-ordinate
      */
-    public void drawChunkBatch(int chunkX, int chunkY) {
+    public void drawTileHeightBatch(int chunkX, int chunkY) {
 
         for (int tileX = 0; tileX < TILES_PER_CHUNK; tileX++)
         {
@@ -151,7 +149,7 @@ public class GameScreen implements Screen {
      * @deprecated Superseded by drawChunkBatch as ShapeRenderer uses its own mesh compared to the SpriteBatch and therefore conflicts in the rendering method making it cumbersome to use.
      */
     @Deprecated
-    public void drawChunkShapeRenderer(int chunkX, int chunkY) {
+    public void drawTileHeightShapeRenderer(int chunkX, int chunkY) {
 
         /*//TODO Foreach loop?
         for (int tileX = 0; tileX < TILES_PER_CHUNK; tileX++)
