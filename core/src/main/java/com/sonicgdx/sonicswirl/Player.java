@@ -21,11 +21,14 @@ public final class Player extends Entity {
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
     private final FloorSensor sensorA, sensorB;
+    private final WallSensor sensorE,sensorF;
     Player(Texture image, int width, int height) {
         super(image, width, height);
         xPos = 200; yPos = 200; // Player starts at (600,200);
         sensorA = new FloorSensor(xPos,yPos);
         sensorB = new FloorSensor(xPos + (sprite.getWidth() - 1),yPos);
+        sensorE = new WallSensor(xPos,yPos + (sprite.getHeight() - 1));
+        sensorF = new WallSensor(xPos + (sprite.getWidth() - 1),yPos + (sprite.getHeight() - 1));
     }
 
     //TODO Tommy Ettinger's digital extension could be used for faster operations on GWT
@@ -67,6 +70,9 @@ public final class Player extends Entity {
                     else if(sensorB.getActive() && sensorA.getDistance() < sensorB.getDistance()) groundCollision(sensorB);
                     else if(sensorA.getActive() && sensorB.getActive() && sensorA.getDistance() == sensorB.getDistance() && sensorA.getTile() == sensorB.getTile()) groundCollision(sensorA); //TODO comment out this line first if there are physics bugs.
                     else isGrounded = false;
+
+                    sensorE.process();
+                    sensorF.process();
                 }
 
             }
