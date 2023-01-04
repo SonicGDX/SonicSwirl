@@ -77,7 +77,7 @@ public class GameScreen implements Screen {
         {
             for (int chunkY = 0; chunkY<TileMap.map[chunkX].length; chunkY++)
             {
-                drawChunkBatch(chunkX,chunkY);
+                drawTileWidthBatch(chunkX,chunkY);
             }
         }
         player.sprite.draw(Init.batch);
@@ -107,6 +107,33 @@ public class GameScreen implements Screen {
                     if (block==0) Init.batch.setColor(new Color(0,0,0,1));
                     else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
                     Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, TileMap.map[chunkX][chunkY][tileX][tileY].getHeight(block));
+
+                    //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
+
+                }
+            }
+        }
+        Init.batch.setColor(Color.WHITE); //Resets batch colour
+
+    }
+
+    /**
+     * Draws each Tile using a gradient - for debugging purposes only
+     * @param chunkX the chunk number on the x-axis - not the same as its co-ordinate
+     * @param chunkY the chunk number on the y-axis - not the same as its co-ordinate
+     */
+    public void drawTileWidthBatch(int chunkX, int chunkY) {
+
+        for (int tileX = 0; tileX < TILES_PER_CHUNK; tileX++)
+        {
+            for (int tileY = 0; tileY < TILES_PER_CHUNK; tileY++)
+            {
+                if (TileMap.map[chunkX][chunkY][tileX][tileY].empty) continue;
+                for (int block = TILE_SIZE - 1 ; block >= 0; block--)
+                {
+                    if (block==0) Init.batch.setColor(new Color(0,0,0,1));
+                    else Init.batch.setColor(new Color((1F/TILES_PER_CHUNK) * tileY,0,block,1));
+                    Init.batch.draw(img, block + (tileX*TILE_SIZE)+(chunkX*CHUNK_SIZE),(tileY*TILE_SIZE)+(chunkY*CHUNK_SIZE),1, TileMap.map[chunkX][chunkY][tileX][tileY].getWidth(block));
 
                     //TODO reversed search order for flipped tiles. e.g. Collections.reverse() or ArrayUtils.reverse(byte[] array)
 
