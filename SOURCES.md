@@ -153,3 +153,5 @@ https://uxwing.com/sonic-icon/
 https://icon.kitchen
 https://www.appicon.co/
 https://developer.android.com/develop/ui/views/launch/icon_design_adaptive
+https://favicon.io/favicon-converter/
+https://cloudconvert.com/png-to-icns
