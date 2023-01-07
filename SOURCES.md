@@ -155,3 +155,4 @@ https://www.appicon.co/
 https://developer.android.com/develop/ui/views/launch/icon_design_adaptive
 https://favicon.io/favicon-converter/
 https://cloudconvert.com/png-to-icns
+https://github.com/tommyettinger/gdx-liftoff/blob/master/Guide.md
