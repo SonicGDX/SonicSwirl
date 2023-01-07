@@ -3,6 +3,7 @@
 * SEGA for creating Sonic and his games.
 * [@raeleus](https://github.com/raeleus) for the original Particle Pack UI skin.
 * [@tommyettinger](https://github.com/tommyettinger) for the gdx-setup tool that was used to generate the project, as well as the adapted UI skin.
+* [@crashinvaders](https://github.com/crashinvaders) for the gdx-texture-packer GUI that was used to easily pack sprites into atlases.
 
 
 Licensed under the Apache License, Version 2.0 (the "License");
