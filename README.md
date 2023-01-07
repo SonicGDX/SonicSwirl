@@ -1,10 +1,8 @@
-Credit to:
-The [Sonic Physics Guide](https://info.sonicretro.org/Sonic_Physics_Guide) for the amazing research that was adapted for the game's physics.
-SEGA for creating Sonic and his games.
-[@raeleus](https://github.com/raeleus) for the original Particle Pack UI skin
-[@tommyettinger](https://github.com/tommyettinger) for the gdx-setup tool that was used to generate the project, as well as the adapted UI skin.
-
-
+# Credit to:
+* The [Sonic Physics Guide](https://info.sonicretro.org/Sonic_Physics_Guide) for the amazing research that was adapted for the game's physics.
+* SEGA for creating Sonic and his games.
+* [@raeleus](https://github.com/raeleus) for the original Particle Pack UI skin.
+* [@tommyettinger](https://github.com/tommyettinger) for the gdx-setup tool that was used to generate the project, as well as the adapted UI skin.
 
 
 Licensed under the Apache License, Version 2.0 (the "License");
