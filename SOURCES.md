@@ -147,3 +147,9 @@ https://graphicdesign.stackexchange.com/a/138968
 ## Rotation (didn't use)
 https://stackoverflow.com/a/2285945
 https://gamedev.stackexchange.com/a/86784
+
+## Icons
+https://uxwing.com/sonic-icon/
+https://icon.kitchen
+https://www.appicon.co/
+https://developer.android.com/develop/ui/views/launch/icon_design_adaptive
