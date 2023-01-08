@@ -2,10 +2,10 @@ package com.sonicgdx.sonicswirl;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-
-import java.util.Optional;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * This is the class that handles player movement, player collision with the ground as well as player collision
@@ -21,11 +21,20 @@ public final class Player extends Entity {
     // Original values were designed to occur 60 times every second so by multiplying it by 60 you get the amount of pixels moved per second.
     private float speedX = 0, speedY = 0, groundSpeed = 0, groundAngle = 0;
     private final FloorSensor sensorA, sensorB;
-    Player(Texture image, int width, int height) {
-        super(image, width, height);
-        xPos = 200; yPos = 200; // Player starts at (600,200);
-        sensorA = new FloorSensor(xPos,yPos);
-        sensorB = new FloorSensor(xPos + (sprite.getWidth() - 1),yPos);
+    private final TextureAtlas atlas;
+
+    private TextureRegion spriteRegion;
+
+    final int WIDTHRADIUS = 9, HEIGHTRADIUS = 19;
+
+    Player() {
+        super();
+        atlas = new TextureAtlas(Gdx.files.internal("sprites/SonicGDX.atlas"));
+        spriteRegion = atlas.findRegion("sonic-dash",1);
+        xPos = 600; yPos = 200; // Player starts at (600,200);
+        sensorA = new FloorSensor();
+        sensorB = new FloorSensor();
+
     }
 
     //TODO Tommy Ettinger's digital extension could be used for faster operations on GWT
@@ -33,7 +42,7 @@ public final class Player extends Entity {
 
     /**
      * @param delta time since last frame. Used to make physics similar to how they would be at 60FPS
-     * at different frame rates.
+     * even with higher, lower or varying frame rates.
      * @see GameScreen#render(float)
      */
     public void move(float delta)
@@ -50,6 +59,7 @@ public final class Player extends Entity {
             //TODO Right now, right movement is prioritised if both directions are pressed at the same time. Consider cancelling them out.
 
             if (!isGrounded) {
+                //air state
                 airMove(delta);
                 airSensors();
             }
@@ -57,6 +67,7 @@ public final class Player extends Entity {
             else {
                 groundMove(delta);
                 if (isGrounded){
+                    //checks sensor distances returned to validate the nearby tile to decide if it moves there.
                     sensorA.process();
                     sensorB.process();
 
@@ -82,10 +93,21 @@ public final class Player extends Entity {
 
         enforceBoundaries();
 
-        calculateSensorPositions();
+        calculateSensorPositions(WIDTHRADIUS,HEIGHTRADIUS);
 
-        sprite.setPosition(xPos, yPos);
+        //if (speedX == 0 && speedY == 0 && isGrounded) spriteRegion = atlas.findRegion("sonic-idle",0);
+
+        sprite.setRegion(spriteRegion);
+
+        //FIXME rotation
+
+        //Rotates the sprite first, and THEN changes its co-ordinates (is translated).
         sprite.setRotation(groundAngle);
+        sprite.setBounds(xPos - ((spriteRegion.getRegionWidth() + 1) / 2F),yPos - ((spriteRegion.getRegionHeight() + 1) / 2F), spriteRegion.getRegionWidth(), spriteRegion.getRegionHeight());
+        //Since the xPos and yPos are the centre, you can just subtract the difference between the first pixel and the middle pixel to get the sprite co-ordinates.
+        sprite.setOriginCenter();
+
+        //FIXME possible approach https://www.reddit.com/r/libgdx/comments/i0plt4/comment/fzrlqqt
 
     }
 
@@ -115,7 +137,7 @@ public final class Player extends Entity {
 
     /**
      * @param delta time since last frame. Used to make physics similar to how they would be at 60FPS
-     * at different frame rates.
+     * even with higher, lower or varying frame rates.
      */
     public void jump(float delta) {
         //TODO bug when jumping while moving downhill on a slope
@@ -184,7 +206,7 @@ public final class Player extends Entity {
      */
     public FloorSensor floorSensors()
     {
-        calculateSensorPositions();
+        calculateSensorPositions(WIDTHRADIUS,HEIGHTRADIUS);
 
         sensorA.process();
         sensorB.process();
@@ -227,12 +249,16 @@ public final class Player extends Entity {
     }
 
     @Override
-    public void calculateSensorPositions() {
-        super.calculateSensorPositions();
-        sensorA.setPosition(lSensorX,yPos); //TODO possibly remove these variables
-        sensorB.setPosition(rSensorX,yPos);
+    public void calculateSensorPositions(float widthRadius, float heightRadius) {
+        super.calculateSensorPositions(widthRadius, heightRadius);
+        sensorA.setPosition(leftEdgeX,bottomEdgeY); //TODO possibly remove these variables
+        sensorB.setPosition(rightEdgeX,bottomEdgeY);
     }
 
+    /**
+     * Resets movement variables and toggles "debug mode"
+     * @see #debugMove(float)
+     */
     private void toggleDebugMode() {
         debugMode = !debugMode;
         groundSpeed = 0;
@@ -243,12 +269,18 @@ public final class Player extends Entity {
         //TODO acceleration in debug mode
     }
 
+    /**
+     * Allows the Player to move in all directions free from collision or gravity.
+     * @param delta time since last frame. Used to make physics similar to how they would be at 60FPS
+     * even with higher, lower or varying frame rates.
+     */
     private void debugMove(float delta) {
         final int DEBUG_SPEED = 90;
         if (Gdx.input.isKeyPressed(Input.Keys.D)) xPos += (DEBUG_SPEED * delta);
         if (Gdx.input.isKeyPressed(Input.Keys.A)) xPos -= (DEBUG_SPEED * delta);
         if (Gdx.input.isKeyPressed(Input.Keys.W)) yPos += (DEBUG_SPEED * delta);
         if (Gdx.input.isKeyPressed(Input.Keys.S)) yPos -= (DEBUG_SPEED * delta);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) groundAngle += 45;
         //Gdx.app.debug("deltaTime",String.valueOf(delta));
     }
 }
